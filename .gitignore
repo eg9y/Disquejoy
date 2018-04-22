@@ -8,3 +8,5 @@ uploads/*
 .sass-cache
 .sass-cache/*
 
+/controllers/.env
+

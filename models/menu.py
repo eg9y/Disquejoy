@@ -80,22 +80,6 @@ def _():
             (T('About'), False, URL(
                 'admin', 'default', 'about/' + app)),
         ]),
-        ('web2py.com', False, '#', [
-            (T('Download'), False,
-             'http://www.web2py.com/examples/default/download'),
-            (T('Support'), False,
-             'http://www.web2py.com/examples/default/support'),
-            (T('Demo'), False, 'http://web2py.com/demo_admin'),
-            (T('Quick Examples'), False,
-             'http://web2py.com/examples/default/examples'),
-            (T('FAQ'), False, 'http://web2py.com/AlterEgo'),
-            (T('Videos'), False,
-             'http://www.web2py.com/examples/default/videos/'),
-            (T('Free Applications'),
-             False, 'http://web2py.com/appliances'),
-            (T('Plugins'), False, 'http://web2py.com/plugins'),
-            (T('Recipes'), False, 'http://web2pyslices.com/'),
-        ]),
         (T('Documentation'), False, '#', [
             (T('Online book'), False, 'http://www.web2py.com/book'),
             LI(_class="divider"),
@@ -140,6 +124,10 @@ def _():
             (T('Twitter'), False, 'http://twitter.com/web2py'),
             (T('Live Chat'), False,
              'http://webchat.freenode.net/?channels=web2py'),
+        ]),
+        (T('Tracks'), False, None, [
+            (T('link'), False,
+             'http://127.0.0.1:3000/disquejoy/api'),
         ]),
     ]
 
