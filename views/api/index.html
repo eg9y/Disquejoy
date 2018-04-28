@@ -7,12 +7,16 @@
 <div class="main_content">
     <div id="vue-div" class="display:none">
         access token: {{=access_token}}
-        <br>
-        {{if results:}}
-        results: {{=results["display_name"]}}
+        <br> {{if results:}} results: {{=results["display_name"]}}
         <a class="btn rounded" href='{{=URL("disquejoy","api","get_playlists", args=[results["id"]])}}'>
             saved tracks
-          </a>
+        </a>
+        <a class="btn rounded" href='{{=URL("disquejoy","api","upload")}}'>
+            Upload
+        </a>
+        <a class="btn rounded" href='{{=URL("disquejoy","api","logout")}}'>
+            Log out
+        </a>
         {{else: }}
         <a href="{{=auth_url}}">Login to Spotify</a>
         {{pass}}

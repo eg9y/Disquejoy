@@ -10,6 +10,30 @@
         <!-- Your code goes here.  Remember to call $("#vue-div").show() once you get the data for the first time. -->
     </div>
 
+    {{if tracks is not None: }}
+    <ul>
+        {{for track in tracks: }}
+        <li>
+            <h3>
+                Title: {{=track.title}}
+            </h3>
+            <h3>
+                Artist: {{=track.artist}}
+            </h3>
+            <h3>
+                URL: {{=track.spotify_url}}
+            </h3>
+            <h3>
+                Updated on: {{=track.updated_on}}
+            </h3>
+        </li>
+        <a class="btn rounded red" href="{{=URL('disquejoy','default','delete', args=[track.id], user_signature=True)}}">
+            <i class="fa fa-trash fa-lg"></i>
+        </a>
+        -------------------------------------------------------------------------------- {{pass}}
+    </ul>
+    {{else: }} NO {{pass}}
+
 </div>
 
 <script src="{{=URL('static', 'js/default_index.js')}}"></script>

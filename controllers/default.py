@@ -17,8 +17,15 @@ def index():
     if you need a simple wiki simply replace the two lines below with:
     return auth.wiki()
     """
-    response.flash = T("Hello World")
-    return dict(message=T('Welcome to web2py!'))
+    tracks = db(db.track.spotify_url != None).select()
+    return dict(tracks=tracks)
+
+
+def delete():
+    if request.args(0) is not None:
+        q = ((db.track.id == request.args(0)))
+        db(q).delete()
+    redirect(URL('default', 'index'))
 
 
 def user():
@@ -57,5 +64,3 @@ def call():
     supports xml, json, xmlrpc, jsonrpc, amfrpc, rss, csv
     """
     return service()
-
-
