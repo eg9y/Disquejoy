@@ -13,12 +13,14 @@ db.define_table('track',
                 Field('spotify_url'),
                 Field('title'),
                 Field('artist', 'text'),
+                Field('popularity'),
                 Field('updated_on', 'datetime',
                       update=datetime.datetime.utcnow()),
                 )
 
 db.track.title.writable = db.track.title.readable = False
 db.track.artist.writable = db.track.artist.readable = False
+db.track.popularity.writable = db.track.popularity.readable = False
 db.track.updated_on.writable = db.track.updated_on.readable = False
 
 db.define_table('spotify_user',

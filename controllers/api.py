@@ -85,10 +85,11 @@ def upload():
         sp = spotipy.Spotify(access_token)
         realURL = re.search(r'[0-9][^?]+', form.vars.spotify_url).group(0)
         track = sp.track(realURL)
+        # track_details = sp.audio_features([realURL])
         q = (db.track.spotify_url == form.vars.spotify_url)
         track_row = db(q).select().first()
         track_row.update_record(
-            artist=track["album"]["artists"][0]["name"], title=track["album"]["name"])
+            artist=track["album"]["artists"][0]["name"], title=track["album"]["name"], popularity=track["popularity"])
         redirect(URL('default', 'index'))
     elif form.errors:
         session.flash = T('Please enter correct values.')

@@ -25,7 +25,7 @@
         <tr>
           <td>{{=track.artist}}</td>
           <td>{{=track.title}}</td>
-          <td>{{=track.updated_on}}</td>
+          <td>{{=track.popularity}}</td>
           <td></td>
           <td></td>
           <td>
@@ -39,6 +39,9 @@
       {{pass}}
     </table>
 
-</div>
+    {{for track in tracks: }}
+    {{=track}}
+    {{pass}}
+    </div>
 
 <script src="{{=URL('static', 'js/default_index.js')}}"></script>
