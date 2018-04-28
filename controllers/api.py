@@ -51,6 +51,7 @@ def index():
                 db.spotify_user.insert(
                     username=results["id"], email=None)
         else:
+            session.flash = "Exists"
         return dict(auth_url=None, results=results, access_token=access_token)
     else:
         auth_url = sp_oauth.get_authorize_url(show_dialog=True)
