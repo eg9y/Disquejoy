@@ -10,6 +10,18 @@
         <!-- Your code goes here.  Remember to call $("#vue-div").show() once you get the data for the first time. -->
     </div>
 
+
+    <table width = "100%">
+      <tr>
+        <th>Artist</th>
+        <th>Song</th>
+        <th>Genre</th>
+        <th>Play/Pause</th>
+        <th>Upvotes</th>
+      </tr>
+      
+    </table>
+
     {{if tracks is not None: }}
     <ul>
         {{for track in tracks: }}
