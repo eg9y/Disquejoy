@@ -1,0 +1,40 @@
+#songs {
+  float:right;
+  margin-top: 15px;
+  margin-right: 10px;;
+  border:1px solid #000;
+  align-content: right;
+  width:82%;
+}
+
+.header {
+    display:block;
+}
+
+#trash {
+  border-right: 1px solid #000;
+}
+
+#artist {
+  border-left: 1px solid #000;
+}
+
+#songs td, #songs th {
+    font-size: 12pt;
+    padding: 8px;
+}
+
+#header {
+  background-color: grey;
+  color: white;
+  font-family: Arial;
+  font-size: 35pt;
+  width: auto;
+  border:45px grey;
+}
+
+#buttonContainer {
+  float: left;
+  margin-left: 1430px;
+  margin-top: 490px;
+}

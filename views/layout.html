@@ -10,6 +10,8 @@
     <link href="{{=URL('static','css/web2py.css')}}" rel="stylesheet" type="text/css"/>
     <link href="{{=URL('static','css/myapp.css')}}" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="{{=URL('static', 'font-awesome-4.6.3/css/font-awesome.min.css')}}">
+    <link href="{{=URL('static','css/main.css')}}" rel="stylesheet" type="text/css"/>
+
     {{include "web2py_ajax.html"}}
   </head>
   <body class="black">
@@ -34,6 +36,15 @@
         </div>
       </div>
     </header>
+    <div class="sidenav">
+      <div id = "profileWelcome">
+        <h5>Welcome!</h5>
+      </div>
+      <div class = "link"><a href="#">Profile</a></div>
+      <div class = "link"><a href="#">Songs</a></div>
+      <div class = "link"><a href="#">Discussion</a></div>
+      <div class = "link"><a href="#">Contact</a></div>
+  </div>
     <main class="white">
       {{include}}
     </main>

@@ -3,7 +3,11 @@
 <script>
     var my_url = "{{=URL('api', 'my_method')}}";
 </script> {{end}}
-
+<html>
+<head>
+    <link href="{{=URL('static','css/tableStyling.css')}}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
 <div class="main_content">
 
     <div id="vue-div" class="display:none">
@@ -11,37 +15,59 @@
     </div>
 
 
-    <table width = "100%">
-      <tr>
-        <th>Artist</th>
-        <th>Song</th>
-        <th>Time Published</th>
-        <th>Play/Pause</th>
-        <th>Upvotes</th>
-        <th>Delete</th>
+    <table id = "songs" frame="box">
+      <tr id = "header">
+        <th>
+          <div class = "header">
+            Artist
+          </div>
+        </th>
+        <th>
+          <div class = "header">
+            Song
+          </div>
+        </th>
+        <th>
+          <div class = "header">
+            Rating
+          </div>
+          </th>
+        <th>
+          <div class = "header">
+            Play/Pause
+          </div>
+        </th>
+        <th>
+          <div class = "header">
+            Upvotes
+
+          </div>
+        </th>
+        <th id = "del">Delete</th>
       </tr>
       {{if tracks is not None: }}
         {{for track in tracks: }}
         <tr>
-          <td>{{=track.artist}}</td>
+          <td id = "artist">{{=track.artist}}</td>
           <td>{{=track.title}}</td>
           <td>{{=track.popularity}}</td>
           <td></td>
           <td></td>
-          <td>
+          <td id = "trash">
             <a class="btn rounded red" href="{{=URL('disquejoy','default','delete', args=[track.id], user_signature=True)}}">
                 <i class="fa fa-trash fa-lg"></i>
             </a>
           </td>
       </tr>
-
         {{pass}}
       {{pass}}
     </table>
-
-    {{for track in tracks: }}
-    {{=track}}
-    {{pass}}
+    <div id = "buttonContainer">
+     <button class="buttonAdd w3-button w3-xlarge w3-circle w3-teal">+</button>
     </div>
 
+</div>
+
+
 <script src="{{=URL('static', 'js/default_index.js')}}"></script>
+</html>

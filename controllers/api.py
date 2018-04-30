@@ -54,7 +54,7 @@ def index():
             session.flash = "Exists"
         return dict(auth_url=None, results=results, access_token=access_token)
     else:
-        auth_url = sp_oauth.get_authorize_url(show_dialog=True)
+        auth_url = sp_oauth.get_authorize_url()
         htmlLoginButton = "<a href='" + auth_url + "'>Login to Spotify</a>"
         return dict(auth_url=auth_url, results=None, access_token=None)
 
@@ -102,6 +102,7 @@ def get_playlists():
     sp = spotipy.Spotify(access_token)
     username = request.args(0)
     playlists = sp.user_playlists(username)
+    every_tracks = []
     for playlist in playlists['items']:
         if playlist['owner']['id'] == username:
             results = sp.user_playlist(username, playlist['id'],
