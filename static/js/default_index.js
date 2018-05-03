@@ -13,14 +13,15 @@ var app = function() {
         }
     };
 
-
     // Complete as needed.
     self.vue = new Vue({
-        el: "#vue-div",
+        el: "#vue-div22",
         delimiters: ['${', '}'],
         unsafeDelimiters: ['!{', '}'],
+        props: ['artist_name'],['artist_title'], ['popularity'], ['']
         data: {
-            has_more: false
+            has_more: false,
+            columns: ['name', 'age']
         },
         methods: {
             get_more: self.get_more

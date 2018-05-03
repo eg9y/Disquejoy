@@ -14,13 +14,13 @@
 
     {{include "web2py_ajax.html"}}
   </head>
-  <body class="black">
+  <body class="white">
     {{if response.flash:}}
     <div class="w2p_flash">
       {{=response.flash}}
     </div>
     {{pass}}
-    <header class="black padded">
+    <header class="hidden black padded">
       <div class="container middle max900">
         <div class="fill middle">
           <label class="ham padded fa fa-bars" for="menu"></label>
@@ -41,22 +41,21 @@
       <div id = "profileWelcome">
         <h5>Welcome!</h5>
       </div>
-
       <div class = "link"><a href="#">Profile</a></div>
       <div class = "link"><a href="#">Songs</a></div>
       <div class = "link"><a href="#">Discussion</a></div>
       <div class = "link"><a href="#">Contact</a></div>
   </div>
-    <main class="white">
+    <main class="white"  style = "width:100%;height:100%;background-color:#2A3136">>
       {{include}}
     </main>
-    <footer class="black">
+    <footer class="hidden black">
       <div class="silver center padded social">
         <a class="fa fa-facebook" href="https://www.facebook.com/sharer/sharer.php?u={url}"></a>
         <a class="fa fa-twitter" href="https://twitter.com/home?status={url}"></a>
         <a class="fa fa-google" href="https://plus.google.com/share?url={url}"></a>
       </div>
-      <div class="container padded max900">
+      <div class="hidden container padded max900">
         <div class="fill">
           Copyright @ 2016
         </div>

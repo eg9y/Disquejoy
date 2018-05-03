@@ -1,38 +1,124 @@
+@import url(https://fonts.googleapis.com/css?family=Lato|Raleway&subset=latin,latin-ext);
+
 #songs {
   float:right;
-  margin-top: 15px;
+  margin-top: 95px;
   margin-right: 10px;;
-  border:1px solid #000;
+  border-collapse: separate !important;
   align-content: right;
   width:82%;
+
 }
 
 .header {
     display:block;
 }
 
+.infoHead {
+  background-color: red;
+}
 #trash {
   border-right: 1px solid #000;
 }
 
-#artist {
+#header1 {
   border-left: 1px solid #000;
+  border-top-left-radius: 5px;
 }
 
 #songs td, #songs th {
-    font-size: 12pt;
+    background-color: #363E45;
+    font-size: 17pt;
     padding: 8px;
+    color:white;
+    text-align: right;
 }
 
+#songs tr {
+  color: #0000;
+}
+
+h1 {
+  font-family: 'Raleway';
+  color: #fff;
+  text-transform: uppercase;
+  margin-left: 350px !important;
+  margin-top: 60px !important;
+  font-weight: 700 !important;
+  font-size: 4.2em !important;
+  line-height: 1.2em !important;
+
+
+}
+#songs th {
+
+    padding-top: 35px;
+    padding-bottom: 5px;
+    text-align: right;
+    background-color: #2A3136;
+    border:  2px solid  #00E4AC;
+    color: white;
+}
+
+.greyRow {
+  color: #0000;
+}
+
+thead tr:first-child th:first-child {
+  border: 2px solid  #00E4AC;
+  border-top-left-radius: 25px;
+
+}
+
+#songs thead tr:hover th:hover{
+    background-color: #00E4AC;
+}
+
+thead tr:last-child th:last-child {
+  border: 2px solid  #00E4AC;
+  border-top-right-radius: 25px;
+
+}
+
+/*https://bethsoderberg.com/blog/making-responsive-rectangles-and-squares-with-css/*/
+.flex-rectangle {
+    width: 55%;
+    background:#808080;
+    margin-left: 350px;
+    height: 15%;
+    position:relative;
+}
+.flex-rectangle:before {
+    content: "";
+    /*display: block;
+    padding-top: 25%;*/
+}
+
+.flex-square{
+    position:absolute;
+    width: 17%;
+    margin-top: 8px;
+    margin-left: 10px;
+    margin-bottom: 8px;
+    background: #2A3136;
+}
+.flex-square:before{
+    content: "";
+    display: block;
+    padding-top: 100%;
+}
+
+/*end*/
+
 #header {
-  background-color: grey;
+  background-color: red;
   color: white;
-  font-family: Arial;
+  font-family: 'Raleway';
   font-size: 35pt;
   width: auto;
   border:45px grey;
 }
-
+/*Not Responsive*/
 #buttonContainer {
   float: left;
   margin-left: 1430px;
