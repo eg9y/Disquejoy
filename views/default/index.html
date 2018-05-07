@@ -1,72 +1,204 @@
 {{extend 'layout.html'}} {{block head}}
 <script src="{{=URL('static', 'js/vue.js')}}"></script>
 <script>
-    var my_url = "{{=URL('api', 'my_method')}}";
+var my_url = "{{=URL('api', 'my_method')}}";
 </script> {{end}}
 <html>
 <head>
-    <link href="{{=URL('static','css/tableStyling.css')}}" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel = "stylesheet" href = "https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
+  <script type = "text/javascript" src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+  <script type = "text/javascript" src = "https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+  <script type = "text/javascript" src = "paging.js"></script>
+  <link href="{{=URL('static','css/tableStyling.css')}}" rel="stylesheet" type="text/css"/>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway" />
+
+  <script type='text/javascript'>
+  <!-- http://www.dotnetcurry.com/jquery/1157/jquery-sort-pagination-table-data -->
+  $(function() {
+    var tRows = $("#songs tbody tr");
+    var firstPage = true;
+    var lastPage = false;
+    function initializer() {
+      $("#songs tbody").attr("data-pageSize", 5);
+      $("#songs tbody").attr("data-firstRecord", 0);
+      displayPrevAndNextProperly(tRows);
+      paginate(parseInt($("#songs tbody").attr("data-firstRecord"), 10),
+      parseInt($("#songs tbody").attr("data-pageSize"), 10));
+    }
+
+    var displayPrevAndNextProperly = function(rows) {
+      if(firstPage) {
+        if (rows.eq(0).is(":visible")) {
+          $("#previous").hide();
+          $("#next").show();
+          firstPage = false;
+          lastPage = rows.eq(rows.length - 1).is(":visible");
+          return;
+        }
+      }
+      else if(lastPage)  {
+        if (rows.eq(rows.length - 1).is(":visible")) {
+          $("#previous").show();
+          $("#next").hide();
+          firstPage = rows.eq(0).is(":visible");
+          lastPage = false;
+          return;
+        }
+      }
+      else {
+        if (rows.eq(0).is(":visible")){
+          $('#previous').hide();
+          $('#next').show();
+          firstPage = false;
+          lastPage = rows.eq(rows.length - 1).is(":visible");
+          return;
+        }
+        if (rows.eq(rows.length - 1).is(":visible")) {
+          $('#next').hide();
+          $("#previous").show();
+          firstPage = rows.eq(0).is(":visible");
+          lastPage = false;
+          return;
+        }
+        else{
+          firstPage = false;
+          lastPage = false;
+          return;
+        }
+      }
+    }
+
+    var paginate = function (start, size) {
+      var end = start + size;
+      tRows.hide();
+      tRows.slice(start, end).show();
+      if(start != 0)  $(".paginate").show();
+      displayPrevAndNextProperly(tRows);
+    }
+
+    $("a.paginate").click(function (e) {
+      e.preventDefault();
+      var tmpRec = parseInt($("#songs tBody").attr("data-firstRecord"), 10);
+      var pageSize = parseInt($("#songs tBody").attr("data-pageSize"), 10);
+      if ($(this).attr("id") == "next") {
+        tmpRec += pageSize;
+      } else {
+        tmpRec -= pageSize;
+      }
+      if (tmpRec < 0 || tmpRec > tRows.length) return
+      $("#songs tBody").attr("data-firstRecord", tmpRec);
+      paginate(tmpRec, pageSize);
+    });
+    initializer();
+  });
+  </script>
+
+  <script>
+  <!-- http://www.dotnetcurry.com/jquery/1157/jquery-sort-pagination-table-data -->
+  $(function() {
+  	var order = "increasing";
+  	function initialize() {
+  		$("#songs th").eq(0).addClass("ascending");
+  		sort($("#songs"), 0, order)
+  	}
+
+  	initialize();
+
+  	function sort(grid, col, AscOrDesc) {
+  		var isAscending = AscOrDesc === "increasing";
+  		grid.find("tbody").find("tr").sort(function (a,b) {
+  			if(isAscending)
+          return $('td:eq(' + col + ')', a).text().localeCompare($('td:eq(' + col + ')', b).text());
+        else
+        return $('td:eq(' + col + ')', b).text().localeCompare($('td:eq(' + col + ')', a).text());
+  		}).appendTo($("#songs tBody"));
+  	}
+
+  	$("#songs th").click(function () {
+  		$("#songs th").not($(this)).removeClass("ascending descending");
+  		if ($(this).hasClass("ascending") || $(this).hasClass("descending")) {
+  			$(this).toggleClass("ascending descending");
+  		} else {
+  			$(this).addClass("ascending");
+  		}
+  		sort($("#songs"), $(this).index(), $(this).hasClass("ascending") ? "increasing" : "decreasing");
+  });
+  });
+  </script>
+
+
+
 </head>
 <div class="main_content">
-    <h1>Welcome to the Leaderboard!</h1>
-    <div id="vue-div22">
-        <!-- Your code goes here.  Remember to call $("#vue-div").show() once you get the data for the first time. -->
-    <table id = "songs" box = "frame">
-      <thead>
-        <tr id = "header" bgcolor="red">
-          <th id = "Artist">
-            <div>
-              Artist
-            </div>
-          </th>
-          <th>
-            <div class = "header2">
-              Song
-            </div>
-          </th>
-          <th>
-            <div class = "header2">
-              Rating
-            </div>
-            </th>
-          <th>
-            <div class = "header2">
-              Play/Pause
-            </div>
-          </th>
-          <th>
-            <div class = "header2">
-              Upvotes
-            </div>
-          </th>
-          <th id = "del">Delete</th>
-        </tr>
-    </thead>
-      {{if tracks is not None: }}
-        {{for track in tracks: }}
+  <!-- Your code goes here.  Remember to call $("#vue-div").show() once you get the data for the first time. -->
 
-        <tr>
-          <td class = "greyRow" >{{=track.artist}}</td>
-          <td class = "greyRow">{{=track.title}}</td>
-          <td class = "greyRow">{{=track.popularity}}</td>
-          <td class = "greyRow"></td>
-          <td class = "greyRow"></td>
-          <td id = "trash">
-            <a class="btn rounded red" href="{{=URL('disquejoy','default','delete', args=[track.id], user_signature=True)}}">
-                <i class="fa fa-trash fa-lg"></i>
-            </a>
-          </td>
+  <table id = "songs" class = "table table-hover" box = "frame">
+    <thead>
+      <tr id = "header" bgcolor="red">
+        <th id = "Artist">
+          <div>
+            Artist
+          </div>
+        </th>
+        <th>
+          <div class = "header2">
+            Song
+          </div>
+        </th>
+        <th>
+          <div class = "header2">
+            Rating
+          </div>
+        </th>
+
+        <th>
+          <div class = "header2">
+            Play/Pause
+          </div>
+        </th>
+        <th>
+          <div class = "header2">
+            Upvotes
+          </div>
+        </th>
+        <th id = "del">Delete</th>
       </tr>
-        {{pass}}
-      {{pass}}
-    </table>
-    <div id = "buttonContainer">
-     <button class="buttonAdd w3-button w3-xlarge w3-circle w3-teal"><a href='{{=URL("disquejoy","api","upload")}}'>+</a></button>
-    </div>
+    </thead>
+    {{if tracks is not None: }}
+    {{for track in tracks: }}
+
+    <tr>
+      <td class = "greyRow" >{{=track.artist}}</td>
+      <td class = "greyRow">{{=track.title}}</td>
+      <td class = "greyRow">{{=track.popularity}}</td>
+
+      <td class = "greyRow"></td>
+      <td class = "greyRow"><div contenteditable="true">{{=track.upvotes}}</div></td>
+      <td id = "trash">
+        <a class="btn rounded red" href="{{=URL('disquejoy','default','delete', args=[track.id], user_signature=True)}}">
+          <i class="fa fa-trash fa-lg"></i>
+        </a>
+      </td>
+    </tr>
+    {{pass}}
+    {{pass}}
+
+  </table>
+  <div id = "buttonContainer" style="width:100%;text-align:center;display:inline-block;">
+
+    <a href="#" class="paginate" id="previous">Previous</a> |
+    <a href="#" class="paginate" id="next">Next</a>
+    <button class="buttonAdd w3-button w3-xlarge w3-circle w3-teal" style = "right: 0;
+    margin-left: auto;
+    bottom: 0;
+    z-index: 100;
+    position: fixed;"><a href='{{=URL("disquejoy","api","upload")}}'>+</a></button>
+  </div>
+</div>
 
 </div>
-</div>
+
 
 <script src="{{=URL('static', 'js/default_index.js')}}"></script>
 </html>
