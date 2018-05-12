@@ -20,6 +20,17 @@ def index():
     tracks = db(db.track.spotify_url != None).select()
     return dict(tracks=tracks)
 
+def index2():
+    """
+    example action using the internationalization operator T and flash
+    rendered by views/default/index.html or views/generic.html
+
+    if you need a simple wiki simply replace the two lines below with:
+    return auth.wiki()
+    """
+    tracks = db(db.track.spotify_url != None).select()
+    return response.json(dict(tracks=tracks))
+
 
 def delete():
     if request.args(0) is not None:

@@ -1,9 +1,9 @@
 // This is the js for the default/index.html view.
 
 var app = function() {
-
+    var url = "{{=URL('default', 'index')}}";
     var self = {};
-
+    var musicArray = [];
     Vue.config.silent = false; // show all warnings
 
     // Extends an array
@@ -13,23 +13,53 @@ var app = function() {
         }
     };
 
+    self.getTracks= function() {
+
+      $.post(urrl,{}, function(data) {
+          self.vue.musicAr = data.tracks;
+        console.log(self.vue.musicAr);
+        console.log("worked!")
+      });
+    };
+
+    //const cols = ['Artist', 'Song', 'Rating', 'Play/Pause', 'Upvotes', 'Delete'];
     // Complete as needed.
     self.vue = new Vue({
-        el: "#vue-div22",
+        el: "#songs",
         delimiters: ['${', '}'],
         unsafeDelimiters: ['!{', '}'],
-        props: ['artist_name'],['artist_title'], ['popularity'], ['']
         data: {
+            musicAr: [],
+            sortKey: 'Artist',
+            reverse: false,
+            search: '',
             has_more: false,
-            columns: ['name', 'age']
+            columns: ['Artist', 'Song', 'Rating', 'Play/Pause', 'Upvotes', 'Delete']
         },
         methods: {
-            get_more: self.get_more
-        }
+          sortTable: function sortTable(col) {
+              if (this.sortColumn === col) {
+                  this.ascending = !this.ascending;
+              } else {
+                this.ascending = true;
+                this.sortColumn = col;
+              }
+              var ascending = this.ascending;
+              this.rows.sort(function(a, b) { //replace with checklists array
+                if (a[col] > b[col]) {
+                  return ascending ? 1 : -1
+                } else if (a[col] < b[col]) {
+                  return ascending ? -1 : 1
+                }
+                return 0;
+              })
+            },
+
+    },
 
     });
-
-
+    self.getTracks();
+    $("#songs").show();
     return self;
 };
 
