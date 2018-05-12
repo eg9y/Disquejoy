@@ -51,7 +51,7 @@ var app = function() {
         this.sortColumn = col;
       }
       var ascending = this.ascending;
-      this.rows.sort(function (a, b) { //replace with checklists array
+      self.vue.checklists.sort(function (a, b) { //replace with checklists array
         if (a[col] > b[col]) {
           return ascending ? 1 : -1
         } else if (a[col] < b[col]) {
@@ -59,6 +59,19 @@ var app = function() {
         }
         return 0;
       })
+    }
+
+    self.increment = function(id) {
+      var u = getIndex(id);
+      console.log(u);
+      $.post(upvoteUrl, {
+        incrementedVote: parseInt(self.vue.musicAr[u].upvotes) + 1,
+        id:id
+      }, function(data){
+
+        self.vue.musicAr[u].upvotes = data.row.upvotes;
+      }
+      )
     }
     //const cols = ['Artist', 'Song', 'Rating', 'Play/Pause', 'Upvotes', 'Delete'];
     // Complete as needed.
@@ -76,7 +89,24 @@ var app = function() {
         },
         methods: {
           delete_track: self.delete_track,
-          sortTable: self.sortTable,
+          sortTable:function sortTable(col) {
+              if (this.sortColumn === col) {
+                  this.ascending = !this.ascending;
+              } else {
+                  this.ascending = true;
+                  this.sortColumn = col;
+              }
+              var ascending = this.ascending;
+              self.vue.musicAr.sort(function(a, b) {
+                  if (a[col] > b[col]) {
+                    return ascending ? 1 : -1
+                  } else if (a[col] < b[col]) {
+                    return ascending ? -1 : 1
+                  }
+                  return 0;
+                })
+          },
+          increment:self.increment
 
     },
 

@@ -5,6 +5,7 @@
 var my_url = "{{=URL('api', 'my_method')}}";
 var urrl = "{{=URL('default', 'index2')}}";
 var del_memo_url = "{{=URL('default', 'delete')}}";
+var upvoteUrl = "{{=URL('default', 'updateUpvote')}}"
 </script> {{end}}
 <html>
 <head>
@@ -25,7 +26,7 @@ var del_memo_url = "{{=URL('default', 'delete')}}";
   </div>
   <table id = "songs" class = "table table-hover" box = "frame">
     <thead>
-      <tr id = "header" bgcolor="red">        
+      <tr id = "header" bgcolor="red">
         <th v-for="col in columns" v-on:click="sortTable(col)">
             ${col}
         </th>
@@ -37,8 +38,8 @@ var del_memo_url = "{{=URL('default', 'delete')}}";
       <td class="greyRow">${track.title}</td>
       <td class="greyRow">${track.popularity}</td>
       <td class="greyRow"></td>
-      <td class="greyRow">
-        <div contenteditable="true">${track.upvotes}</div>
+      <td class="greyRow" @click = "increment(track.id)">
+        ${track.upvotes}
       </td>
       <td id="trash">
         <a class="btn rounded red" @click="delete_track(track.id)">

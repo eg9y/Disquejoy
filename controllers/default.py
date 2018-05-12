@@ -38,6 +38,10 @@ def delete():
         db(q).delete()
     redirect(URL('default', 'index'))
 
+def updateUpvote():
+    row = db(db.track.id == request.vars.id).select().first()
+    row.update_record(upvotes = request.vars.incrementedVote)
+    return response.json(dict(row=row))
 
 def user():
     """
