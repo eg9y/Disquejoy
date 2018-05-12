@@ -4,6 +4,7 @@
 <script>
 var my_url = "{{=URL('api', 'my_method')}}";
 var urrl = "{{=URL('default', 'index2')}}";
+var del_memo_url = "{{=URL('default', 'delete')}}";
 </script> {{end}}
 <html>
 <head>
@@ -19,36 +20,33 @@ var urrl = "{{=URL('default', 'index2')}}";
   </script>
 </head>
 <div class="main_content">
-  <!-- Your code goes here.  Remember to call $("#vue-div").show() once you get the data for the first time. -->
   <div v-if = "reverse">
     Hello!!
   </div>
   <table id = "songs" class = "table table-hover" box = "frame">
     <thead>
-      <tr id = "header" bgcolor="red">
+      <tr id = "header" bgcolor="red">        
         <th v-for="col in columns" v-on:click="sortTable(col)">
             ${col}
         </th>
       </tr>
     </thead>
-  <!--  {{if tracks is not None: }}
-    {{for track in tracks: }} -->
     <div v-if = "tracks is not None">
-    <tr v-for = "track in musicAr">
-      <td class = "greyRow" >{{=track.artist}}</td>
-      <td class = "greyRow">{{=track.title}}</td>
-      <td class = "greyRow">{{=track.popularity}}</td>
-      <td class = "greyRow"></td>
-      <td class = "greyRow"><div contenteditable="true">{{=track.upvotes}}</div></td>
-      <td id = "trash">
-        <a class="btn rounded red" href="{{=URL('disquejoy','default','delete', args=[track.id], user_signature=True)}}">
+    <tr v-for = "(track, i) in musicAr">
+      <td class="greyRow">${track.artist}</td>
+      <td class="greyRow">${track.title}</td>
+      <td class="greyRow">${track.popularity}</td>
+      <td class="greyRow"></td>
+      <td class="greyRow">
+        <div contenteditable="true">${track.upvotes}</div>
+      </td>
+      <td id="trash">
+        <a class="btn rounded red" @click="delete_track(track.id)">
           <i class="fa fa-trash fa-lg"></i>
         </a>
       </td>
     </tr>
   </div>
-<!--    {{pass}}
-    {{pass}} -->
 
   </table>
   <div id = "buttonContainer" style="width:100%;text-align:center;display:inline-block;">

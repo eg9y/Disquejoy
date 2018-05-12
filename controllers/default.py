@@ -34,7 +34,7 @@ def index2():
 
 def delete():
     if request.args(0) is not None:
-        q = ((db.track.id == request.args(0)))
+        q = ((db.track.id == request.vars.id))
         db(q).delete()
     redirect(URL('default', 'index'))
 
