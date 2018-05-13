@@ -76,9 +76,7 @@ def show_tracks(results):
         })
     return all_songs
 
-# TODO: Avoid uploading same track 
 # TODO: Avoid track by popular artist
-# TODO: Avoid popular tracks
 def upload():
     form = SQLFORM(db.track, deletable=True)
     if form.process().accepted:
@@ -99,6 +97,13 @@ def upload():
                 track["album"]["name"] + \
                     '"-'+ track["album"]["artists"][0]["name"]+ " has a popularity of " + str(track["popularity"])
             db(q).delete()
+            return dict(form=form, error=error)
+        checkSame = (db.track.artist == track["album"]["artists"][0]["name"])
+        if db(checkSame).select().first() is not None:
+            logger.info("Tests")
+            error = '"'+track["album"]["name"] + \
+                '"-' + track["album"]["artists"][0]["name"] +' has already been uploaded.'
+            db(checkSame).delete()
             return dict(form=form, error=error)
         else:
             # track_details = sp.audio_features([realURL])
