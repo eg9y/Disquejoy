@@ -15,8 +15,12 @@
     {{include "web2py_ajax.html"}}
   </head>
   <body class="white">
-  
-    <header class="hidden black padded">
+    {{if response.flash:}}
+    <div class="w2p_flash">
+      {{=response.flash}}
+    </div>
+    {{pass}}
+    <header class="black padded">
       <div class="container middle max900">
         <div class="fill middle">
           <label class="ham padded fa fa-bars" for="menu"></label>
@@ -32,17 +36,16 @@
         </div>
       </div>
     </header>
-
-    <div class="sidenav">
-      <div id = "logo">
+    <div class="compressible sidenav">
+      <div id = "logo" class="compressible">
         <img src="../static/images/logo.jpg" alt="logo" width="200" height=auto>
       </div>
-      <div class = "link"><a href="{=URL('views','profile/index.html')}}"<Profile</a></div>
-      <div class = "link"><a href="{{=URL('disquejoy','default','index')}}">Songs</a></div>
-      <div class = "link"><a href="#">Discussion</a></div>
-      <div class = "link"><a href="#">Contact</a></div>
+      <div class = "compressible sidebtn"><a href="{=URL('views','profile/index.html')}}">Profile</a></div>
+      <div class = "compressible sidebtn"><a href="{{=URL('views','default/index.html')}}">Songs</a></div>
+      <div class = "compressible sidebtn"><a href="#">Discussion</a></div>
+      <div class = "compressible sidebtn"><a href="#">Contact</a></div>
   </div>
-    <main class="white"  style = "width:100%;height:100%;background-color:#2A3136">>
+    <main class="white"  style = "width:100%;height:100%;background-color:#181818">>
       {{include}}
     </main>
     <footer class="hidden black">

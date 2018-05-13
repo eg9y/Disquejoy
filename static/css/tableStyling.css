@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Lato|Raleway&subset=latin,latin-ext);
+@import url('https://fonts.googleapis.com/css?family=Varela+Round');
 
 #songs {
   float:right;
@@ -39,7 +39,7 @@
 }
 
 h1 {
-  font-family: 'Raleway';
+  font-family: 'Varela Round', sans-serif;
   color: #fff;
   text-transform: uppercase;
   margin-left: 350px !important;
@@ -51,7 +51,7 @@ h1 {
 
 }
 #songs th {
-
+    font-family: 'Varela Round', sans-serif;
     padding-top: 35px;
     padding-bottom: 5px;
     text-align: right;

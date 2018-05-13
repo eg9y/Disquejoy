@@ -9,15 +9,35 @@
 
 
 .sidenav a {
-    padding-top: 3px;
-    padding-right:8px;
-    padding-bottom: 6px;
-    padding-left: 16px;
-    font-size: 25px;
+    align-self: center;
     display: block;
+    background: #38C765;
+    border-radius: 10px;
+    text-align: center;
+    width: 75%;
+    margin: auto;
+
 }
 
 .sidenav a:hover{
-    background-color: #00E4AC !important;
-    color: #fff !important;
+    background-color: #32B35B !important;
+    font-weight: bold !important;
+    color: black !important;
+}
+
+.sidebtn a {
+    position: relative !important;
+    align-content: right !important;
+    text-align: center !important;
+    font-size: 2vw !important;
+    border-radius: 15px !important;
+    width: 50%  !important;
+    margin-top: 20% !important;
+}
+
+#logo img{
+    position: relative;
+    height: auto;
+    margin: auto;
+    width: 100%;
 }
