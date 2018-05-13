@@ -11,6 +11,7 @@
     <link href="{{=URL('static','css/myapp.css')}}" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="{{=URL('static', 'font-awesome-4.6.3/css/font-awesome.min.css')}}">
     <link href="{{=URL('static','css/main.css')}}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 
     {{include "web2py_ajax.html"}}
   </head>
@@ -37,14 +38,17 @@
       </div>
     </header>
 
-    <div class="sidenav">
-      <div id = "logo">
+    <div class="compressible sidenav" style="border: solid;">
+      <div id = "logo" class="compressible" style="border:solid;">
         <img src="../static/images/logo.jpg" alt="logo" width="200" height=auto>
       </div>
-      <div class = "link"><a href="#">Profile</a></div>
-      <div class = "link"><a href="#">Songs</a></div>
-      <div class = "link"><a href="#">Discussion</a></div>
-      <div class = "link"><a href="#">Contact</a></div>
+
+        <div class = "compressible sidebtn"> <a href="#">Feed</a> </div>
+        <div class = "compressible sidebtn"> <a button href="#">Profile</a button> </div>
+        <div class = "compressible sidebtn"> <a href="#">Songs</a></div>
+        <div class = "compressible sidebtn"> <a href="#">Discussion</a></div>
+        <div class = "compressible sidebtn"> <a href="#">Contact</a></div>
+
   </div>
     <main class="white"  style = "width:100%;height:100%;background-color:#2A3136">>
       {{include}}
