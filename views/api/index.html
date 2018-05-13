@@ -13,6 +13,12 @@
 
 <div class="main_content" style="width: 800px">
     <div>
+        <div  id="xx1" disabled style="margin-left: 10%;background-color: #00E4AC; color: #000000;">
+            <h5>Name: {{=results["display_name"]}}</h5>
+            <h5>Followers: {{=results["followers"]['total']}}</h5>
+            <h5>id: {{=results["id"]}}</h5>
+            {{=IMG(_src=results["images"][0]["url"],_alt='test')}}
+        </div>
         <!-- access token: {{=access_token}} -->
         <br> {{if results:}} <!-- results: {{=results["display_name"]}} -->
         <a class="btn rounded" id = "xx1" href='{{=URL("disquejoy","api","get_playlists", args=[results["id"]])}}' style="margin-left: 10%;background-color: #00E4AC; color: #000000;">

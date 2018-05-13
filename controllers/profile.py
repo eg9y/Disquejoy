@@ -1,2 +1,2 @@
 def index():
-    redirect(URL('profile', 'index'))
+    return dict()
