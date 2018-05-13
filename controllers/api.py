@@ -84,6 +84,7 @@ def upload():
         access_token = login(sp_oauth)
         sp = spotipy.Spotify(access_token)
         realURL = re.search(r'[0-9][^?]+', form.vars.spotify_url).group(0)
+        logger.info(realURL)
         track = sp.track(realURL)
         # track_details = sp.audio_features([realURL])
         q = (db.track.spotify_url == form.vars.spotify_url)

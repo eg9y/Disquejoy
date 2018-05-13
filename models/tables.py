@@ -9,6 +9,9 @@
 
 import datetime
 
+def get_user_email():
+    return auth.user.email if auth.user is not None else None
+
 db.define_table('track',
                 Field('spotify_url'),
                 Field('title'),

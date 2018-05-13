@@ -21,7 +21,7 @@
       {{=response.flash}}
     </div>
     {{pass}}
-    <header class="black padded">
+    <header class="hidden black padded">
       <div class="container middle max900">
         <div class="fill middle">
           <label class="ham padded fa fa-bars" for="menu"></label>
@@ -42,13 +42,10 @@
       <div id = "logo" class="compressible" style="border:solid;">
         <img src="../static/images/logo.jpg" alt="logo" width="200" height=auto>
       </div>
-
-        <div class = "compressible sidebtn"> <a href="#">Feed</a> </div>
-        <div class = "compressible sidebtn"> <a button href="#">Profile</a button> </div>
-        <div class = "compressible sidebtn"> <a href="#">Songs</a></div>
-        <div class = "compressible sidebtn"> <a href="#">Discussion</a></div>
-        <div class = "compressible sidebtn"> <a href="#">Contact</a></div>
-
+      <div class = "compressible sidebtn"><a href="{=URL('views','profile/index.html')}}"<Profile</a></div>
+      <div class = "compressible sidebtn"><a href="{{=URL('views','default/index.html')}}">Songs</a></div>
+      <div class = "compressible sidebtn"><a href="#">Discussion</a></div>
+      <div class = "compressible sidebtn"><a href="#">Contact</a></div>
   </div>
     <main class="white"  style = "width:100%;height:100%;background-color:#2A3136">>
       {{include}}
