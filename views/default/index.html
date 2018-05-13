@@ -54,11 +54,13 @@ var upvoteUrl = "{{=URL('default', 'updateUpvote')}}"
 
     <a href="#" class="paginate" id="previous">Previous</a> |
     <a href="#" class="paginate" id="next">Next</a>
-    <button class="buttonAdd w3-button w3-xlarge w3-circle w3-teal" style = "right: 0;
-    margin-left: auto;
-    bottom: 0;
-    z-index: 100;
-    position: fixed;"><a href='{{=URL("disquejoy","api","upload")}}'>+</a></button>
+    <a href='{{=URL("disquejoy","api","upload")}}'>
+      <button class="buttonAdd w3-button w3-xlarge w3-circle w3-teal" style="right: 0;
+          margin-left: auto;
+          bottom: 0;
+          z-index: 100;
+          position: fixed;">+</button>
+    </a>
   </div>
 </div>
 

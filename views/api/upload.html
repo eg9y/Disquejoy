@@ -12,6 +12,9 @@
     <div class = "form" style="margin-left: 260px;" >
       {{=form}}
     </form>
+     {{if error is not None: }} 
+        <h2>{{=error}}</h2>
+      {{pass}}
 </div>
 
 <script src="{{=URL('static', 'js/default_index.js')}}"></script>

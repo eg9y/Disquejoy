@@ -38,9 +38,9 @@ var app = function() {
         { id: id },
         function () {
           self.vue.musicAr.splice(index, 1);
+          disable = false;
         }
       )
-      setTimeout(function () { disable = false }, 1000);
     }
 
     self.sortTable = function sortTable(col) {
@@ -61,15 +61,23 @@ var app = function() {
       })
     }
 
+    var slowDown = true;
     self.increment = function(id) {
+      if(!slowDown){
+        return;
+      }
       var u = getIndex(id);
-      console.log(u);
+      var newVal = parseInt(self.vue.musicAr[u].upvotes) + 1;
+      if(!newVal){
+        newVal = 1;
+      }
+      slowDown = false;
       $.post(upvoteUrl, {
-        incrementedVote: parseInt(self.vue.musicAr[u].upvotes) + 1,
+        incrementedVote: newVal,
         id:id
       }, function(data){
-
         self.vue.musicAr[u].upvotes = data.row.upvotes;
+        slowDown = true;
       }
       )
     }

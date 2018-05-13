@@ -33,13 +33,14 @@ def index2():
 
 
 def delete():
-    if request.args(0) is not None:
+    if request.vars.id is not None:
         q = ((db.track.id == request.vars.id))
         db(q).delete()
     redirect(URL('default', 'index'))
 
 def updateUpvote():
     row = db(db.track.id == request.vars.id).select().first()
+    logger.info(request.vars.incrementedVote)
     row.update_record(upvotes = request.vars.incrementedVote)
     return response.json(dict(row=row))
 

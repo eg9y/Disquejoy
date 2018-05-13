@@ -15,11 +15,7 @@
     {{include "web2py_ajax.html"}}
   </head>
   <body class="white">
-    {{if response.flash:}}
-    <div class="w2p_flash">
-      {{=response.flash}}
-    </div>
-    {{pass}}
+  
     <header class="hidden black padded">
       <div class="container middle max900">
         <div class="fill middle">
@@ -42,7 +38,7 @@
         <img src="../static/images/logo.jpg" alt="logo" width="200" height=auto>
       </div>
       <div class = "link"><a href="{=URL('views','profile/index.html')}}"<Profile</a></div>
-      <div class = "link"><a href="{{=URL('views','default/index.html')}}">Songs</a></div>
+      <div class = "link"><a href="{{=URL('disquejoy','default','index')}}">Songs</a></div>
       <div class = "link"><a href="#">Discussion</a></div>
       <div class = "link"><a href="#">Contact</a></div>
   </div>

@@ -17,7 +17,7 @@ db.define_table('track',
                 Field('title'),
                 Field('artist', 'text'),
                 Field('popularity'),
-                Field('upvotes','integer'), #notice we are forcing age to be a int
+                Field('upvotes','integer', default=0), #notice we are forcing age to be a int
                 Field('updated_on', 'datetime',
                       update=datetime.datetime.utcnow()),
                 )

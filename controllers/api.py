@@ -76,26 +76,37 @@ def show_tracks(results):
         })
     return all_songs
 
-
+# TODO: Avoid uploading same track 
+# TODO: Avoid track by popular artist
+# TODO: Avoid popular tracks
 def upload():
     form = SQLFORM(db.track, deletable=True)
     if form.process().accepted:
+        error = None
         sp_oauth = getAuth()
         access_token = login(sp_oauth)
         sp = spotipy.Spotify(access_token)
-        realURL = re.search(r'[0-9][^?]+', form.vars.spotify_url).group(0)
-        logger.info(realURL)
-        track = sp.track(realURL)
-        # track_details = sp.audio_features([realURL])
-        q = (db.track.spotify_url == form.vars.spotify_url)
-        track_row = db(q).select().first()
-        track_row.update_record(
-            artist=track["album"]["artists"][0]["name"], title=track["album"]["name"], popularity=track["popularity"])
-        redirect(URL('default', 'index'))
-    elif form.errors:
-        session.flash = T('Please enter correct values.')
-    return dict(form=form)
-
+        q = (db.track.spotify_url == form.vars.spotify_url)        
+        try:
+            realURL = re.search(r'[0-9][^?]+', form.vars.spotify_url).group(0)
+            track = sp.track(realURL)
+        except:
+            error = 'Please enter correct URL'
+            db(q).delete()
+            return dict(form=form, error=error)
+        if track["popularity"] > 20:
+            error = 'This track is too popular (Higher than 20). "' + \
+                track["album"]["name"] + \
+                    '"-'+ track["album"]["artists"][0]["name"]+ " has a popularity of " + str(track["popularity"])
+            db(q).delete()
+            return dict(form=form, error=error)
+        else:
+            # track_details = sp.audio_features([realURL])
+            track_row = db(q).select().first()
+            track_row.update_record(
+                artist=track["album"]["artists"][0]["name"], title=track["album"]["name"], popularity=track["popularity"])
+            redirect(URL('default', 'index'))
+    return dict(form=form, error=None)
 
 def get_playlists():
     sp_oauth = getAuth()
