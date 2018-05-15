@@ -1,8 +1,80 @@
-
+{{extend 'layout.html'}} {{block head}}
 <html>
-  <head>
-  </head>
-  <body>
-    <div> HELo!!!!!!!!!!!!!!!!!!!!!!!!!</div>
-  </body>
+<head>
+<style>
+#parent{padding:10px;text-align:center;height:100%}
+#prof {
+	background: white;
+    width: 256px;
+    height: 256px;
+    border-radius: 128px;
+    border: 2px solid range;
+    margin-right: 32%;
+}
+
+#name {
+	margin-top:2%;
+}
+
+#buttonHeader {
+	/*margin-top: 6%;*/
+    /*background-color:green;*/
+    width:85% !important;
+    height:25% !important;
+    display: table-cell;
+    vertical-align: middle;
+    position:absolute;
+    right: 0;
+}
+
+#totLikes {
+    float:left;
+    width:30%;
+    height: 100%;
+    text-align: center;
+    /*background: #ff0000;*/
+    top:1;
+}
+
+#songsUploaded {
+    display: inline-block;
+    margin:0 auto;
+    width:30%;
+    height: 100%;
+    /*background: #00ff00;*/
+}
+
+#givenLikes {
+    float:right;
+    width:30%;
+    height: 100%;
+    /*background: #0000ff;*/
+
+}
+
+.child {height:auto;margin:auto}
+</style>
+</head>
+<body>
+
+<div id="parent">
+
+    <div id = "prof" class="child">
+    </div>
+    <div id = "name" class="child">Bar
+    </div>
+    <div id = "buttonHeader" class="child">
+    	<div id = "totLikes" style="position: relative; margin-top: 3%; font-size: 75; font-weight: 550; color: white;">
+          34
+        </div>
+        <div id = "songsUploaded" style="position: relative; margin-top: 3%; font-size: 75; font-weight: 550; color: white;">
+          23
+        </div>
+        <div id = "givenLikes" style="position: relative; margin-top: 3%; font-size: 75; font-weight: 550; color: white;">
+          33
+        </div>
+    </div>
+
+</div>
+</body>
 </html>
