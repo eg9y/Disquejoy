@@ -14,10 +14,14 @@
 <div class="main_content" style="width: 800px">
     <div>
         <div  id="xx1" disabled style="margin-left: 10%;background-color: #00E4AC; color: #000000;">
+            {{if results is not None:}}
             <h5>Name: {{=results["display_name"]}}</h5>
             <h5>Followers: {{=results["followers"]['total']}}</h5>
             <h5>id: {{=results["id"]}}</h5>
-            {{=IMG(_src=results["images"][0]["url"],_alt='test')}}
+
+            {{else:}}
+            <h5> You logged out!</h5>
+            {{pass}}
         </div>
         <!-- access token: {{=access_token}} -->
         <br> {{if results:}} <!-- results: {{=results["display_name"]}} -->
@@ -47,5 +51,5 @@
 <script src="{{=URL('static', 'js/default_index.js')}}"></script>
 
 
-<!-- { "country": "US", "display_name": "Egan Gumiwang Pratama Bisma", "email": "brickkace@gmail.com", "external_urls": { "spotify": "https://open.spotify.com/user/eganbisma" }, 
+<!-- { "country": "US", "display_name": "Egan Gumiwang Pratama Bisma", "email": "brickkace@gmail.com", "external_urls": { "spotify": "https://open.spotify.com/user/eganbisma" },
 "followers": { "href": null, "total": 8 }, "href": "https://api.spotify.com/v1/users/eganbisma", "id": "eganbisma", "images": [ { "height": null, "url": "https://scontent.xx.fbcdn.net/v/t1.0-1/c31.31.391.391/s200x200/181354_1563822744508_2030771_n.jpg?_nc_cat=0&oh=163e624b9722c55dee15254aebbf4abe&oe=5B5CF464", "width": null } ], "product": "premium", "type": "user", "uri": "spotify:user:eganbisma" }  -->

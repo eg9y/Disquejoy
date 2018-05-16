@@ -77,12 +77,15 @@ def show_tracks(results):
 # TODO: Avoid track by popular artist
 def upload():
     form = SQLFORM(db.track, deletable=True)
+    error = None
+    sp_oauth = getAuth()
+    access_token = login(sp_oauth)
+    if access_token is None:
+        redirect(URL('default', 'index'))
     if form.process().accepted:
-        error = None
-        sp_oauth = getAuth()
-        access_token = login(sp_oauth)
         sp = spotipy.Spotify(access_token)
-        q = (db.track.spotify_url == form.vars.spotify_url)        
+        results = sp.current_user()
+        q = (db.track.spotify_url == form.vars.spotify_url)
         try:
             realURL = re.search(r'[0-9][^?]+', form.vars.spotify_url).group(0)
             track = sp.track(realURL)
@@ -107,9 +110,11 @@ def upload():
             # track_details = sp.audio_features([realURL])
             track_row = db(q).select().first()
             track_row.update_record(
-                artist=track["album"]["artists"][0]["name"], title=track["album"]["name"], popularity=track["popularity"])
+                uploader = results["id"],artist=track["album"]["artists"][0]["name"], title=track["album"]["name"], popularity=track["popularity"])
             redirect(URL('default', 'index'))
     return dict(form=form, error=None)
+
+
 
 def get_playlists():
     sp_oauth = getAuth()
