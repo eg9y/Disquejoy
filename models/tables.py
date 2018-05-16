@@ -23,7 +23,11 @@ db.define_table('track',
                       update=datetime.datetime.utcnow()),
                 )
 
-
+db.define_table('upvotes',
+                Field('upvoter', 'text'),
+                Field('song', 'text'),
+                Field('uploaderOfSong', 'text'),
+                )
 
 db.track.uploader.writable = db.track.uploader.readable = False
 db.track.title.writable = db.track.title.readable = False

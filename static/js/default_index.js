@@ -73,9 +73,12 @@ var app = function() {
       }
       slowDown = false;
       $.post(upvoteUrl, {
+        title: self.vue.musicAr[u].title,
+        uploadUser: self.vue.musicAr[u].uploader,
         incrementedVote: newVal,
         id:id
       }, function(data){
+        console.log(data);
         self.vue.musicAr[u].upvotes = data.row.upvotes;
         slowDown = true;
       }
