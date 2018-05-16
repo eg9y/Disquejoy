@@ -72,7 +72,7 @@ def delete():
         q = ((db.track.id == request.vars.id))
         db(q).delete()
     redirect(URL('default', 'index'))
-
+    
 def updateUpvote():
     row = db(db.track.id == request.vars.id).select().first()
     sp_oauth = getAuth()
@@ -82,15 +82,14 @@ def updateUpvote():
         results = sp.current_user()
         q = (db.spotify_user.username == results["id"])
         spotify_user = db(q).select().first()
-        q2 = ((db.upvotes.upvoter == spotify_user.username) and (db.upvotes.song == request.vars.title) and (db.upvotes.uploaderOfSong == request.vars.uploadUser))
+        q2 = ((db.upvotes.upvoter == spotify_user.username) and (db.upvotes.song == request.vars.id))
         hasUserUpvoted = db(q2).select().first()
         if hasUserUpvoted is not None:
             return response.json(dict(row = row))
         else:
-            db.upvotes.insert(upvoter = spotify_user.username, song = request.vars.id, uploaderOfSong = z)
+            db.upvotes.insert(upvoter = spotify_user.username, song = request.vars.id, uploaderOfSong = row.uploader)
             row.update_record(upvotes = request.vars.incrementedVote)
             return response.json(dict(row = row))
-
 
 def user():
     """
