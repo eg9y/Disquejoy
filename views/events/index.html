@@ -1,0 +1,22 @@
+{{extend 'layout.html'}} {{block head}}
+<script src="{{=URL('static', 'js/vue.js')}}"></script>
+
+{{end}}
+
+<link href="{{=URL('static','css/events.css')}}" rel="stylesheet" type="text/css"/>
+
+<div id="vue-div" >
+	<div  id="XXX">
+		<div id = "event1"> Event 1
+			<button class="btn btn-primary btn-sm post-edit-button" id= "eventButton"> + </button>
+		</div>
+
+		<div id = "event1"> Event 2
+			<button class="btn btn-primary btn-sm post-edit-button" id= "eventButton"> + </button>
+
+		</div>
+	</div>
+</div>
+
+<script src="{{=URL('static', 'js/events_index.js')}}"></script>
+
