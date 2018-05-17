@@ -5,6 +5,15 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+
+var totLikes = "{{=URL('profile', 'retrieveTotalLikes')}}";
+var songsUploaded = 0;
+var givenLikes = "{{=URL('profile', 'retrieveTotalLikesGiven')}}";
+var receivedLikes = "{{=URL('profile', 'retrieveTotalLikesReceived')}}";
+var discoverData = "{{=URL('profile', 'discoverData')}}";
+</script>
+
 <style>
 
 #parent {
@@ -155,31 +164,45 @@
 </div>
 
 <div id="Received_Likes" class="tabcontent">
-  <h3>Received Likes</h3>
-  <p>London is the capital city of England.</p>
+  <div class = "likes" v-for = "data in ReceivedUserLikes">
+    <div style = "float:right;color:white;width:80%;border: 1px solid grey;">
+      <div class = "text" style = "float:left;margin-top:4%;margin-bottom:4%;">
+        ${data.upvoter} upvoted track id: ${data.song}
+    </div>
+  </div>
+</div>
 </div>
 
 <div id="Songs_Uploaded" class="tabcontent">
-  <h3>Songs Uploaded</h3>
-  <p>Paris is the capital of France.</p>
+  <div v-for = "track in tracksUserUploaded">
+    <div style = "float:right;color:white;width:80%;border: 1px solid grey;">
+      <div class = "text" style = "float:left;margin-top:4%;margin-bottom:4%;">
+        ${track.artist} - ${track.title}
+    </div>
+  </div>
+</div>
 </div>
 
 <div id="Likes_Given" class="tabcontent">
-  <h3>Likes Given</h3>
-  <p>Tokyo is the capital of Japan.</p>
+    <div v-for = "track in countLikesOfUserUploaded">
+    <div style = "float:right;color:white;width:80%;border: 1px solid grey;">
+      <div class = "text" style = "float:left;margin-top:4%;margin-bottom:4%;">
+        This user liked song id: ${track.song}
+    </div>
+  </div>
 </div>
-
-
-
-
-
-
-
 </div>
+<style>
+#Received_Likes {
+  overflow:hidden;
+  height:200px;
+}
 
+.likes {
 
-
-
+  overflow:auto;
+}
+</style>
 <script>
 function openCity(evt, cityName) {
     var i, tabcontent, tablinks;
@@ -198,6 +221,6 @@ function openCity(evt, cityName) {
 
 
 
-
+<script src="{{=URL('static', 'js/default_profile.js')}}"></script>
 </body>
 </html>
