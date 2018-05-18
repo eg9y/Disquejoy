@@ -22,11 +22,13 @@ var app = function() {
     }
 
     self.userTotalLikes = function() {
-      var sum = 0;
+      //var sum = 0;
+      //self.vue.totNumLikesReceived = data.totNumLikesReceived;
       $.post(totLikes, {}, function(data){
         self.vue.tracksUserUploaded = data.tracksUserUploaded;
         for(var i = 0;i<data.tracksUserUploaded.length;i++) {
-          sum += data.tracksUserUploaded[i].upvotes;
+          self.vue.totNumLikesReceived += data.tracksUserUploaded[i].upvotes;
+          self.vue.totNumSongsUploaded += 1;
         }
         console.log(data.tracksUserUploaded);
       })
@@ -57,7 +59,10 @@ var app = function() {
         data: {
             tracksUserUploaded: Array,
             countLikesOfUserUploaded: Array,
-            ReceivedUserLikes: Array
+            ReceivedUserLikes: Array,
+            totNumLikesReceived: 0,
+            totNumSongsUploaded: 0,
+            totNumLikesGiven: 0
         },
         methods: {
           userTotalLikes: self.userTotalLikes,

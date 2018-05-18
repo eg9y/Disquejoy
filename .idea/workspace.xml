@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="7413d306-9326-4090-8dca-2087e1cf8dd8" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/profile.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/profile.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/default_profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/default_profile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/views/layout.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/profile/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/views/profile/index.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -15,13 +16,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="layout.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="layout.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/layout.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="42" column="53" selection-start-line="42" selection-start-column="53" selection-end-line="42" selection-end-column="53" />
+            <state relative-caret-position="494">
+              <caret line="49" column="67" lean-forward="true" selection-start-line="49" selection-start-column="67" selection-end-line="49" selection-end-column="67" />
               <folding>
                 <element signature="n#style#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -30,8 +32,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/profile/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" column="57" lean-forward="true" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="57" />
+            <state relative-caret-position="327">
+              <caret line="150" column="31" selection-start-line="150" selection-start-column="31" selection-end-line="150" selection-end-column="31" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -47,11 +49,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="default_profile.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="default_profile.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/static/js/default_profile.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="104">
-              <caret line="25" column="20" lean-forward="true" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="20" />
+            <state relative-caret-position="373">
+              <caret line="46" column="38" lean-forward="true" selection-start-line="46" selection-start-column="38" selection-end-line="46" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -59,8 +61,8 @@
       <file leaf-file-name="profile.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/controllers/profile.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="593">
-              <caret line="83" column="12" selection-start-line="83" selection-start-column="12" selection-end-line="83" selection-end-column="12" />
+            <state relative-caret-position="335">
+              <caret line="53" column="73" lean-forward="true" selection-start-line="53" selection-start-column="35" selection-end-line="53" selection-end-column="73" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -94,6 +96,11 @@
       <find>back</find>
       <find>Received</find>
       <find>v-</find>
+      <find>upvoter</find>
+      <find>title</find>
+      <find>&quot;likes</find>
+      <find>id</find>
+      <find>tracksUser</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -109,15 +116,15 @@
         <option value="$PROJECT_DIR$/views/api/songs.html" />
         <option value="$PROJECT_DIR$/views/api/upload.html" />
         <option value="$PROJECT_DIR$/views/api/profile.html" />
-        <option value="$PROJECT_DIR$/views/layout.html" />
         <option value="$PROJECT_DIR$/views/default/index.html" />
         <option value="$PROJECT_DIR$/controllers/profile.py" />
+        <option value="$PROJECT_DIR$/views/layout.html" />
         <option value="$PROJECT_DIR$/static/js/default_profile.js" />
         <option value="$PROJECT_DIR$/views/profile/index.html" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds">
     <option name="y" value="23" />
     <option name="width" value="1280" />
     <option name="height" value="722" />
@@ -146,30 +153,12 @@
               <item name="Disquejoy" type="b2602c69:ProjectViewProjectNode" />
               <item name="Disquejoy" type="462c0819:PsiDirectoryNode" />
               <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="css" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Disquejoy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Disquejoy" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
               <item name="js" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Disquejoy" type="b2602c69:ProjectViewProjectNode" />
               <item name="Disquejoy" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Disquejoy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Disquejoy" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="api" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Disquejoy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Disquejoy" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="default" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Disquejoy" type="b2602c69:ProjectViewProjectNode" />
@@ -244,17 +233,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/views/default/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="26" lean-forward="true" selection-start-line="22" selection-start-column="26" selection-end-line="22" selection-end-column="26" />
-          <folding>
-            <element signature="n#style#0;n#div#1;n#div#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#button#0;n#a#2;n#div#1;n#div#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/css/main.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -286,6 +264,7 @@
           <caret line="44" column="15" selection-start-line="44" selection-start-column="15" selection-end-line="44" selection-end-column="15" />
           <folding>
             <element signature="n#style#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -509,11 +488,6 @@
         <state relative-caret-position="-3688" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/default_index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-97" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/js/main-vue.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-277" />
@@ -559,20 +533,41 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/default.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-217" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/default_index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-86" />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/controllers/profile.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="593">
-          <caret line="83" column="12" selection-start-line="83" selection-start-column="12" selection-end-line="83" selection-end-column="12" />
+        <state relative-caret-position="335">
+          <caret line="53" column="73" lean-forward="true" selection-start-line="53" selection-start-column="35" selection-end-line="53" selection-end-column="73" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/views/layout.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="494">
+          <caret line="49" column="67" lean-forward="true" selection-start-line="49" selection-start-column="67" selection-end-line="49" selection-end-column="67" />
+          <folding>
+            <element signature="n#style#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/views/profile/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="57" lean-forward="true" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="57" />
+        <state relative-caret-position="327">
+          <caret line="150" column="31" selection-start-line="150" selection-start-column="31" selection-end-line="150" selection-end-column="31" />
           <folding>
             <element signature="n#style#0;n#div#0;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -589,18 +584,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/static/js/default_profile.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="104">
-          <caret line="25" column="20" lean-forward="true" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/layout.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="42" column="53" selection-start-line="42" selection-start-column="53" selection-end-line="42" selection-end-column="53" />
-          <folding>
-            <element signature="n#style#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
+        <state relative-caret-position="373">
+          <caret line="46" column="38" lean-forward="true" selection-start-line="46" selection-start-column="38" selection-end-line="46" selection-end-column="38" />
         </state>
       </provider>
     </entry>
