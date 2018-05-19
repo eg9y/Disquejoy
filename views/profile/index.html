@@ -6,7 +6,6 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>
-
 var totLikes = "{{=URL('profile', 'retrieveTotalLikes')}}";
 var songsUploaded = 0;
 var givenLikes = "{{=URL('profile', 'retrieveTotalLikesGiven')}}";
@@ -146,10 +145,10 @@ var discoverData = "{{=URL('profile', 'discoverData')}}";
     </div>
     <div id = "buttonHeader" class="child">
     	<div id = "totLikes" style="position: relative; margin-top: 3%; font-size: 75; font-weight: 550; color: white;">
-          34
+          ${totNumLikesReceived}
         </div>
         <div id = "songsUploaded" style="position: relative; margin-top: 3%; font-size: 75; font-weight: 550; color: white;">
-          23
+          ${totNumSongsUploaded}
         </div>
         <div id = "givenLikes" style="position: relative; margin-top: 3%; font-size: 75; font-weight: 550; color: white;">
           33
