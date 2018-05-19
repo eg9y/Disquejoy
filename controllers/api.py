@@ -8,8 +8,18 @@ from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv())
 import os
 
+def getauth():
+    SPOTIPY_CLIENT_ID = os.getenv("SPOTIPY_CLIENT_ID")
+    SPOTIPY_CLIENT_SECRET = os.getenv("SPOTIPY_CLIENT_SECRET")
+    SPOTIPY_REDIRECT_URI = os.getenv("SPOTIPY_REDIRECT_URI")
+    SCOPE = 'user-library-read user-modify-playback-state streaming user-read-birthdate user-read-email user-read-private'
+    CACHE = '.spotipyoauthcache'
+    sp_oauth = oauth2.SpotifyOAuth(
+        SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET, SPOTIPY_REDIRECT_URI, scope=SCOPE, cache_path=CACHE)
+    return sp_oauth
 
-def login(sp_oauth):
+def login():
+    sp_oauth = getauth()
     access_token = ""
     token_info = sp_oauth.get_cached_token()
 
@@ -23,21 +33,13 @@ def login(sp_oauth):
             access_token = token_info['access_token']
     return access_token
 
-
-def getAuth():
-    SPOTIPY_CLIENT_ID = os.getenv("SPOTIPY_CLIENT_ID")
-    SPOTIPY_CLIENT_SECRET = os.getenv("SPOTIPY_CLIENT_SECRET")
-    SPOTIPY_REDIRECT_URI = os.getenv("SPOTIPY_REDIRECT_URI")
-    SCOPE = 'user-library-read'
-    CACHE = '.spotipyoauthcache'
-    sp_oauth = oauth2.SpotifyOAuth(
-        SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET, SPOTIPY_REDIRECT_URI, scope=SCOPE, cache_path=CACHE)
-    return sp_oauth
-
+def get_token_client():
+    access_token = login()
+    return response.json(dict(access_token=access_token))
 
 def index():
-    sp_oauth = getAuth()
-    access_token = login(sp_oauth)
+    sp_oauth = getauth()    
+    access_token = login()
     if access_token:
         sp = spotipy.Spotify(access_token)
         results = sp.current_user()
@@ -78,8 +80,7 @@ def show_tracks(results):
 def upload():
     form = SQLFORM(db.track, deletable=True)
     error = None
-    sp_oauth = getAuth()
-    access_token = login(sp_oauth)
+    access_token = login()
     if access_token is None:
         redirect(URL('default', 'index'))
     if form.process().accepted:
@@ -101,7 +102,6 @@ def upload():
             return dict(form=form, error=error)
         checkSame = (db.track.artist == track["album"]["artists"][0]["name"])
         if db(checkSame).select().first() is not None:
-            logger.info("Tests")
             error = '"'+track["album"]["name"] + \
                 '"-' + track["album"]["artists"][0]["name"] +' has already been uploaded.'
             db(checkSame).delete()
@@ -110,15 +110,16 @@ def upload():
             # track_details = sp.audio_features([realURL])
             track_row = db(q).select().first()
             track_row.update_record(
-                uploader = results["id"],artist=track["album"]["artists"][0]["name"], title=track["album"]["name"], popularity=track["popularity"])
+                uploader=results["id"], artist=track["album"]["artists"][0]["name"], 
+                title=track["album"]["name"], popularity=track["popularity"], 
+                image=track["album"]["images"][0]["url"], spotify_uri=track["uri"])
             redirect(URL('default', 'index'))
     return dict(form=form, error=None)
 
 
 
 def get_playlists():
-    sp_oauth = getAuth()
-    access_token = login(sp_oauth)
+    access_token = login()
     sp = spotipy.Spotify(access_token)
     username = request.args(0)
     playlists = sp.user_playlists(username)

@@ -14,6 +14,8 @@ def get_user_email():
 
 db.define_table('track',
                 Field('spotify_url'),
+                Field('spotify_uri'),
+                Field('image'),
                 Field('uploader', 'text'),
                 Field('title'),
                 Field('artist', 'text'),
@@ -34,6 +36,8 @@ db.track.title.writable = db.track.title.readable = False
 db.track.artist.writable = db.track.artist.readable = False
 db.track.popularity.writable = db.track.popularity.readable = False
 db.track.updated_on.writable = db.track.updated_on.readable = False
+db.track.image.writable = db.track.image.readable = False
+db.track.spotify_uri.writable = db.track.spotify_uri.readable = False
 db.track.upvotes.writable = False
 db.track.upvotes.readable = False
 db.define_table('spotify_user',

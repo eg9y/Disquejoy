@@ -2,3 +2,9 @@
 .colorful {
   color: #bb8833;
 }
+.error-message{
+  color: white;
+}
+[v-cloak] {
+  display: none;
+}

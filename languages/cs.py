@@ -251,7 +251,7 @@
 'loading...': 'nahrávám...',
 'locals': 'locals',
 'Locals##debug': 'Lokální proměnné',
-'Log In': 'Přihlásit se',
+# 'Log In': 'Přihlásit se',
 'Logged in': 'Přihlášení proběhlo úspěšně',
 'Logged out': 'Odhlášení proběhlo úspěšně',
 'Login': 'Přihlásit se',

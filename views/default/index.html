@@ -6,6 +6,7 @@ var my_url = "{{=URL('api', 'my_method')}}";
 var urrl = "{{=URL('default', 'index2')}}";
 var del_memo_url = "{{=URL('default', 'delete')}}";
 var upvoteUrl = "{{=URL('default', 'updateUpvote')}}"
+var get_token_access_url = "{{=URL('api', 'get_token_client', user_signature=True)}}";
 </script> {{end}}
 <html>
 <head>
@@ -24,7 +25,7 @@ var upvoteUrl = "{{=URL('default', 'updateUpvote')}}"
   <div v-if = "reverse">
     Hello!!
   </div>
-  <table id = "songs" class = "table table-hover" box = "frame">
+  <table id = "songs" v-cloak class ="table table-hover" box = "frame">
     <thead>
       <tr id = "header" bgcolor="red">
         <th v-for="col in columns" v-on:click="sortTable(col)">
@@ -34,12 +35,19 @@ var upvoteUrl = "{{=URL('default', 'updateUpvote')}}"
     </thead>
     <div v-if = "tracks is not None">
     <tr v-for = "(track, i) in musicAr">
-      <td class="greyRow">${track.artist}</td>
+      <td class="greyRow">
+        <img :src="track.image" alt="" style="max-width:200px;max-height:200px">        
+      </td>
+      <td class="greyRow">
+          ${track.artist}
+      </td>
       <td class="greyRow">${track.title}</td>
       <td class="greyRow">${track.popularity}</td>
-      <td class="greyRow"></td>
+      <td class="greyRow"><button @click="play_track(track.spotify_uri)">play dis shitt</button></td>
       <td class="greyRow" @click = "increment(track.id)">
         ${track.upvotes}
+      </td>
+      <td>
       </td>
       <td id="trash">
         <a class="btn rounded red" @click="delete_track(track.id)">
@@ -62,6 +70,7 @@ var upvoteUrl = "{{=URL('default', 'updateUpvote')}}"
 
 </div>
 
-
 <script src="{{=URL('static', 'js/default_index.js')}}"></script>
+<script src="https://sdk.scdn.co/spotify-player.js"></script>
+<script src="{{=URL('static', 'js/player.js')}}"></script>
 </html>

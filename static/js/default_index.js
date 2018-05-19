@@ -1,6 +1,6 @@
 // This is the js for the default/index.html view.
 
-var app = function() {
+var app = function (data, device_id, player) {
     var url = "{{=URL('default', 'index')}}";
     var self = {};
     var musicArray = [];
@@ -15,9 +15,8 @@ var app = function() {
 
     self.getTracks= function() {
       $.post(urrl,{}, function(data) {
-          self.vue.musicAr = data.tracks;
+        self.vue.musicAr = data.tracks;
         console.log(self.vue.musicAr);
-        console.log("worked!")
       });
     };
 
@@ -78,13 +77,44 @@ var app = function() {
         incrementedVote: newVal,
         id:id
       }, function(data){
-        console.log(data);
         self.vue.musicAr[u].upvotes = data.row.upvotes;
         slowDown = true;
       }
       )
     }
-    //const cols = ['Artist', 'Song', 'Rating', 'Play/Pause', 'Upvotes', 'Delete'];
+
+    var notPlaying = true;
+    var currentURI = "";
+    self.play_track = function(uri) {
+      if (notPlaying) {
+        if(currentURI === uri){
+          player.resume().then(() => {
+            console.log("Resume");
+            notPlaying = false;
+          })
+        } else {
+          $.ajax({
+            dataType: 'json',
+            url: `https://api.spotify.com/v1/me/player/play?device_id=${device_id}`,
+            beforeSend: function (xhr) {
+              xhr.setRequestHeader('Authorization', 'Bearer ' + data.access_token);
+            },
+            data: "{\"uris\":[\"" + uri + "\"]}",
+            type: "PUT",
+            contentType: "application/json",
+            success: function (result) {
+              currentURI = uri;
+              notPlaying = false;
+            }
+          });
+        }
+      } else {
+        player.togglePlay().then(() => {
+          console.log("Paused");
+          notPlaying = true;
+        })
+      }
+    }
     // Complete as needed.
     self.vue = new Vue({
         el: "#songs",
@@ -96,11 +126,11 @@ var app = function() {
             reverse: false,
             search: '',
             has_more: false,
-            columns: ['Artist', 'Song', 'Rating', 'Play/Pause', 'Upvotes', 'Delete']
+            columns: ['art','Artist', 'Song', 'Rating', 'Play/Pause', 'Upvotes', 'Play Count','Delete']
         },
         methods: {
           delete_track: self.delete_track,
-          sortTable:function sortTable(col) {
+          sortTable: function sortTable(col) {
               if (this.sortColumn === col) {
                   this.ascending = !this.ascending;
               } else {
@@ -117,8 +147,8 @@ var app = function() {
                   return 0;
                 })
           },
-          increment:self.increment
-
+          increment: self.increment,
+          play_track: self.play_track
     },
 
     });
@@ -131,4 +161,3 @@ var APP = null;
 
 // This will make everything accessible from the js console;
 // for instance, self.x above would be accessible as APP.x
-jQuery(function(){APP = app();});

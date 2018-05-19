@@ -68,14 +68,6 @@ plugins = PluginManager()
 # create all tables needed by auth if not custom tables
 auth.define_tables(username=False, signature=False)
 
-# configure email
-mail = auth.settings.mailer
-mail.settings.server = 'logging' if request.is_local else myconf.get('smtp.server')
-mail.settings.sender = myconf.get('smtp.sender')
-mail.settings.login = myconf.get('smtp.login')
-mail.settings.tls = myconf.get('smtp.tls') or False
-mail.settings.ssl = myconf.get('smtp.ssl') or False
-
 # configure auth policy
 auth.settings.registration_requires_verification = False
 auth.settings.registration_requires_approval = False

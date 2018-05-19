@@ -9,11 +9,11 @@
     <div id="vue-div" class="display:none">
         <!-- Your code goes here.  Remember to call $("#vue-div").show() once you get the data for the first time. -->
     </div>
-    <div class = "form" style="margin-left: 260px;" >
+    <div class ="form error-message" style="margin-left: 260px;">
       {{=form}}
     </form>
      {{if error is not None: }} 
-        <h2>{{=error}}</h2>
+        <h2 class="error-message">{{=error}}</h2>
       {{pass}}
 </div>
 
