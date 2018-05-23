@@ -4,19 +4,208 @@
 {{end}}
 
 <link href="{{=URL('static','css/events.css')}}" rel="stylesheet" type="text/css"/>
+<!Doctype html>
+<html>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>
+  var hookToEvents = "{{=URL('events', 'get_events')}}";
+  var del = "{{=URL('events', 'delete')}}";
+  var del_memo_url = "{{=URL('events', 'delete_memo')}}";
+</script>
 
-<div id="vue-div" >
-	<div  id="XXX">
-		<div id = "event1"> Event 1
-			<button class="btn btn-primary btn-sm post-edit-button" id= "eventButton"> + </button>
-		</div>
+<style>
+@import url('https://fonts.googleapis.com/css?family=Varela+Round');
 
-		<div id = "event1"> Event 2
-			<button class="btn btn-primary btn-sm post-edit-button" id= "eventButton"> + </button>
+.events {
+  width:67%;
+  margin-right:10px;
+  margin-left:300px;
+  margin-top: 3%;
+  height:155px;
+  background-color:#363E45;
+}
 
-		</div>
-	</div>
+.gifpic {
+
+  float:left;
+  margin-top:1%;
+  margin-left:1%;
+  margin-bottom:1%;
+  height:135px;
+  width:135px;
+}
+
+.title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-left:1%;
+  margin-top:1%;
+  height:22%;
+  width:35%;
+  float:left;
+  display:inline-block;
+  float:left;
+  font-family: 'Varela Round', sans-serif !important;
+}
+
+.location {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  float:left;
+  margin-left:1%;
+  margin-top:1%;
+  display:inline-block;
+  height:22%;
+  width:40%;
+  font-family: 'Varela Round', sans-serif !important;
+}
+
+.description {
+	width:76%;
+  height:41%;
+  margin-top:.2%;
+  margin-left:1%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  float:left;
+  font-family: 'Varela Round', sans-serif !important;
+}
+
+.jukebox {
+
+  height:22%;
+  width:20%;
+  float:left;
+  margin-left:1%;
+  margin-bottom:0.5%;
+  margin-top:.4%;
+  display:inline-block;
+  border: 1px solid grey;
+}
+
+.viewmembers {
+
+  height:22%;
+  width:20%;
+  float:left;
+  margin-left:1%;
+  margin-bottom:0.5%;
+  margin-top:.4%;
+  display:inline-block;
+  border: 1px solid grey;
+}
+
+.viewsongs {
+
+  height:22%;
+  width:20%;
+  float:left;
+  margin-left:1%;
+  margin-bottom:0.1%;
+  margin-top:.4%;
+  display:inline-block;
+  border: 1px solid grey;
+}
+.btn-group {
+  display:inline-block;
+  padding-right:10px;
+  bottom:0 !important;
+  right:0!important;
+  margin-left:1%;
+  margin-top:.4%;
+  width:20%;
+  height:22%;
+}
+.btn-group button {
+  background-color: #4CAF50; /*Green background*/
+  border:none;
+  color: white; /* White text */
+  margin-bottom:2px;
+  cursor: pointer; /* Pointer/hand icon */
+  width: 30px; /* Set a width if needed */
+  height:30px;
+  display: inline-block; /* Make the buttons appear below each other */
+}
+
+.btn-group button:not(:last-child) {
+  border-bottom: none; /* Prevent double borders */
+
+}
+
+
+/* Add a background color on hover */
+.btn-group button:hover {
+  background-color: #3e8e41;
+}
+</style>
+
+<script>
+
+  var deleteP = function() {
+    $.post(del, {}, function(data){ console.log(data)})
+  }
+
+</script>
+<body>
+
+  <form id = "search-form" style = "margin-left:300px;width:100%;">
+   <div class = "search-box" style = "width:80%;">
+     <input type = "text" class = "inputForm" style = "width:80%;" /> <!-- Put v-model in tag when ready -->
+     <input type = "submit" style = "width:10%;" />
+   </div>
+ </form>
+
+ <div id = "container">
+
+  <div v-for = "event in eventsArr">
+    <div class = "events">
+      <div class = "gifpic"><img :src="event.GIF" alt="" style="width:135px;height:135px"></div>
+      <div class = "title" style = "font-size:22;color:white;">Title: ${event.name_of_event}</div>
+      <div class = "location" style = "font-size:22;color:white;">Location: ${event.Area}</div>
+      <div class = "description" style = "font-size:16;color:white;">Description: ${event.description}</div>
+      <div class = "jukebox" style = "text-align:center;color:white;" class = "tablinks" ><i class="fa fa-plus" style="font-size:24px;margin-top:2%;margin-left:1%;display:inline-block"></i><div style = "font-size:18;margin-left:1px;margin-top:1%;color:white;display:inline-block">Add to jukebox</div></div>
+      <div class = "viewmembers" style = "text-align:center;color:white;" class = "tablinks" ><i class="fa fa-users" style="font-size:24px;margin-top:2%;margin-left:1%;display:inline-block"></i><div style = "font-size:18;margin-left:1px;margin-top:1%;color:white;display:inline-block">Monitor Users</div></div>
+      <div class = "viewsongs" style = "text-align:center;color:white;" class = "tablinks" ><i class="fa fa-music" style="font-size:24px;margin-top:2%;margin-left:1%;display:inline-block"></i><div style = "font-size:18;margin-left:1px;margin-top:1%;color:white;display:inline-block">Monitor Music</div></div>
+      <div class="btn-group">
+        <button type="button" class="btn btn-default btn-sm">
+          <span class="glyphicon glyphicon-plus-sign"></span>
+        </button>
+        <button type="button" class="btn btn-default btn-sm">
+          <span class="glyphicon glyphicon-eye-open"></span>
+        </button>
+        <button type="button" class="btn btn-default btn-sm" @click = "delete_memo(event.id)">
+          <span class="glyphicon glyphicon-trash"></span>
+        </button>
+        <button type="button" class="btn btn-default btn-sm" @click = "edit_memo_button(event.id)">
+          <span class="glyphicon glyphicon-pencil"></span>
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
 </div>
 
-<script src="{{=URL('static', 'js/events_index.js')}}"></script>
+<div id = "buttonContainer" style="width:100%;text-align:center;display:inline-block;">
+  <a href='{{=URL("disquejoy","events","upload")}}'>
+    <button class="buttonAdd w3-button w3-xlarge w3-circle w3-teal" style="right: 1;margin-left: auto;bottom: 1;z-index: 100;position: fixed;">+</button>
+  </a>
+</div>
+</body>
+</html>
 
+<style>
+.dn {
+  display: none
+}
+
+.db {
+  display: block
+}
+</style>
+<script src="{{=URL('static', 'js/events_index.js')}}"></script>

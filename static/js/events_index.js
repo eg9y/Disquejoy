@@ -7,31 +7,51 @@ var app = function() {
     Vue.config.silent = false; // show all warnings
 
     // Extends an array
-    // self.extend = function(a, b) {
-    //     for (var i = 0; i < b.length; i++) {
-    //         a.push(b[i]);
-    //     }
-    // };
+    self.extend = function(a, b) {
+        for (var i = 0; i < b.length; i++) {
+            a.push(b[i]);
+        }
+    };
 
     // // Enumerates an array.
-    // var enumerate = function(v) { var k=0; return v.map(function(e) {e._idx = k++;});};
+    var enumerate = function(v) { var k=0; return v.map(function(e) {e._idx = k++;});};
 
-    // function get_memos_url(start_idx, end_idx) {
-    //     var pp = {
-    //         start_idx: start_idx,
-    //         end_idx: end_idx
-    //     };
-    //     return memos_url + "?" + $.param(pp);
-    // }
+    function get_memos_url(start_idx, end_idx) {
+        var pp = {
+            start_idx: start_idx,
+            end_idx: end_idx
+        };
+        return hookToEvents + "?" + $.param(pp);
+    }
 
-    // self.get_memos = function () {
-    //     $.getJSON(get_memos_url(0, 10), function (data) {
-    //         self.vue.memos = data.memos;
-    //         self.vue.has_more = data.has_more;
-    //         self.vue.logged_in = data.logged_in;
-    //         enumerate(self.vue.memos);
-    //     })
-    // };
+    self.get_memos = function () {
+        $.getJSON(get_memos_url(0, 10), function (data) {
+            console.log(data);
+            self.vue.eventsArr = data.events;
+            // self.vue.has_more = data.has_more;
+            // self.vue.logged_in = data.logged_in;
+            // enumerate(self.vue.eventsArr);
+        })
+    };
+
+
+    self.delete = function(){
+        $.post(del, {}, function(data){
+          console.log(data)  })};
+
+
+    self.delete_memo = function(memo_idx) {
+        $.post(del_memo_url,
+            { id: memo_idx },
+            function () {
+                self.vue.eventsArr.splice(memo_idx, 1);
+                enumerate(self.vue.eventsArr);
+            }
+        )
+        document.location.reload(); //TEMP FIX FOR REFRESH
+    };
+
+
 
     // self.get_more = function () {
     //     var num_memos = self.vue.memos.length;
@@ -64,58 +84,59 @@ var app = function() {
     //         });
     // };
 
-    self.delete_memo = function(memo_idx) {
-        $.post(del_memo_url,
-            { memo_id: self.vue.memos[memo_idx].id },
-            function () {
-                self.vue.memos.splice(memo_idx, 1);
-                enumerate(self.vue.memos);
-            }
-        )
-    };
+  //   self.delete_memo = function(memo_idx) {
+  //       $.post(del_memo_url,
+  //           { memo_id: self.vue.memos[memo_idx].id },
+  //           function () {
+  //               self.vue.memos.splice(memo_idx, 1);
+  //               enumerate(self.vue.memos);
+  //           }
+  //       )
+  //   };
 
-    self.edit_memo_button = function (memo_idx) {
-        // The button to edit a memo has been pressed.
-        self.vue.is_editing_memo = !self.vue.is_editing_memo;
-        self.vue.selected_id = self.vue.memos[memo_idx].id;
-        self.vue.form_edit_title = self.vue.memos[memo_idx].title;
-        self.vue.form_edit_memo =self.vue.memos[memo_idx].memo;
-    };
+  //   self.edit_memo_button = function (memo_idx) {
+  //       // The button to edit a memo has been pressed.
+  //       self.vue.is_editing_memo = !self.vue.is_editing_memo;
+  //       self.vue.selected_id = self.vue.memos[memo_idx].id;
+  //       self.vue.form_edit_title = self.vue.memos[memo_idx].title;
+  //       self.vue.form_edit_memo =self.vue.memos[memo_idx].memo;
+  //   };
 
-    self.edit_memo = function(memo_idx) {
-        // The save button to edit a memo has been pressed.
-        $.post(edit_memo_url,
-            {
-                memo_id: self.vue.memos[memo_idx].id,
-                title: self.vue.form_edit_title,
-                memo: self.vue.form_edit_memo
-            },
-            function () {
-                self.vue.memos[memo_idx].title = self.vue.form_edit_title;
-                self.vue.memos[memo_idx].memo = self.vue.form_edit_memo;
-                enumerate(self.vue.memos);
-                self.vue.form_edit_title = "";
-                self.vue.form_edit_memo = "";
-                self.vue.is_editing_memo = !self.vue.is_editing_memo;
-            }
-        )
-  };
+  //   self.edit_memo = function(memo_idx) {
+  //       // The save button to edit a memo has been pressed.
+  //       $.post(edit_memo_url,
+  //           {
+  //               memo_id: self.vue.memos[memo_idx].id,
+  //               title: self.vue.form_edit_title,
+  //               memo: self.vue.form_edit_memo
+  //           },
+  //           function () {
+  //               self.vue.memos[memo_idx].title = self.vue.form_edit_title;
+  //               self.vue.memos[memo_idx].memo = self.vue.form_edit_memo;
+  //               enumerate(self.vue.memos);
+  //               self.vue.form_edit_title = "";
+  //               self.vue.form_edit_memo = "";
+  //               self.vue.is_editing_memo = !self.vue.is_editing_memo;
+  //           }
+  //       )
+  // };
 
-  self.toggle_visibility = function(memo_idx) {
-      $.post(toggle_memo_url,
-            { memo_id: self.vue.memos[memo_idx].id },
-            function () {
-                self.vue.memos[memo_idx].is_public = !self.vue.memos[memo_idx].is_public;
-                enumerate(self.vue.memos);
-            }
-        )
-  };
+  // self.toggle_visibility = function(memo_idx) {
+  //     $.post(toggle_memo_url,
+  //           { memo_id: self.vue.memos[memo_idx].id },
+  //           function () {
+  //               self.vue.memos[memo_idx].is_public = !self.vue.memos[memo_idx].is_public;
+  //               enumerate(self.vue.memos);
+  //           }
+  //       )
+  // };
 
     self.vue = new Vue({
-        el: "#vue-div",
+        el: "#container",
         delimiters: ['${', '}'],
         unsafeDelimiters: ['!{', '}'],
         data: {
+            eventsArr: Array
             // is_adding_memo: false,
             // is_editing_memo: false,
             // memos: [],
@@ -128,6 +149,8 @@ var app = function() {
             // selected_id: -1  // Saves selected memo ID.
         },
         methods: {
+            delete: self.delete,
+            delete_memo: self.delete_memo,
             // get_more: self.get_more,
             // add_memo_button: self.add_memo_button,
             // add_memo: self.add_memo,
@@ -140,8 +163,8 @@ var app = function() {
 
     });
 
-    // self.get_memos();
-    $("#vue-div").show();
+     self.get_memos();
+    $("#container").show();
 
     return self;
 };

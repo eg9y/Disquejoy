@@ -57,5 +57,30 @@ db.define_table(
 db.spotify_user.username.writable = db.spotify_user.username.readable = False
 db.spotify_user.email.writable = db.spotify_user.email.readable = False
 
+db.define_table('eventDetails',
+                Field('GIF'),
+                Field('name_of_event'),
+                Field('organizer_id'),
+                Field('organizer_name'),
+                Field('Area'),
+                Field('description'))
+
+db.define_table('eventMembers',
+                Field('member_id'),
+                Field('member_name'),
+                Field('name_of_event'),
+                Field('id_of_event'),
+                Field('is_organizer_of_event_id')
+                )
+
+db.eventMembers.member_id.writable = db.eventMembers.member_id.readable = False
+db.eventMembers.member_name.writable = db.eventMembers.member_name.readable = False
+db.eventMembers.id_of_event.writable = db.eventMembers.id_of_event.readable = False
+db.eventMembers.name_of_event.writable = db.eventMembers.name_of_event.readable = False
+db.eventMembers.is_organizer_of_event_id.writable = db.eventMembers.is_organizer_of_event_id.readable = False
+
+db.spotify_user.username.writable = db.spotify_user.username.readable = False
+db.spotify_user.email.writable = db.spotify_user.email.readable = False
+
 # after defining tables, uncomment below to enable auditing
 # auth.enable_record_versioning(db)
