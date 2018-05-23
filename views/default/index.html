@@ -11,6 +11,7 @@ var get_token_access_url = "{{=URL('api', 'get_token_client', user_signature=Tru
 <html>
 <head>
   <link rel = "stylesheet" href = "https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
+
   <script type = "text/javascript" src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
   <script type = "text/javascript" src = "https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
   <script type = "text/javascript" src = "paging.js"></script>
@@ -36,14 +37,14 @@ var get_token_access_url = "{{=URL('api', 'get_token_client', user_signature=Tru
     <div v-if = "tracks is not None">
     <tr v-for = "(track, i) in musicAr">
       <td class="greyRow">
-        <img :src="track.image" alt="" style="max-width:200px;max-height:200px">        
+        <img :src="track.image" alt="" style="max-width:100px;max-height:100px">
       </td>
       <td class="greyRow">
           ${track.artist}
       </td>
       <td class="greyRow">${track.title}</td>
       <td class="greyRow">${track.popularity}</td>
-      <td class="greyRow"><button @click="play_track(track.spotify_uri)">play dis shitt</button></td>
+      <td class="greyRow" style = "text-align:center;"><div v-if="notPlaying"><a @click="play_track(track.spotify_uri)" class="btn rounded red"><i class="fa fa-play"></i> </a></div><div v-if="!notPlaying"><a @click="play_track(track.spotify_uri)" class="btn rounded red"><i class="fa fa-pause"></i> </a></div></td>
       <td class="greyRow" @click = "increment(track.id)">
         ${track.upvotes}
       </td>

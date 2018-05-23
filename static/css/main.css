@@ -27,12 +27,13 @@
 
 .sidebtn a {
     position: relative !important;
-    align-content: right !important;
     text-align: center !important;
     font-size: 2vw !important;
     border-radius: 15px !important;
-    width: 50%  !important;
+    width: auto  !important;
     margin-top: 20% !important;
+    margin-left: 16%;
+    margin-right: 16%;
 }
 
 #logo img{

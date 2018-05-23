@@ -83,10 +83,10 @@ var app = function (data, device_id, player) {
       )
     }
 
-    var notPlaying = true;
+    //var notPlaying = true;
     var currentURI = "";
     self.play_track = function(uri) {
-      if (notPlaying) {
+      if (self.vue.notPlaying) {
         if(currentURI === uri){
           player.resume().then(() => {
             console.log("Resume");
@@ -111,7 +111,7 @@ var app = function (data, device_id, player) {
       } else {
         player.togglePlay().then(() => {
           console.log("Paused");
-          notPlaying = true;
+          self.vue.notPlaying = true;
         })
       }
     }
@@ -126,7 +126,8 @@ var app = function (data, device_id, player) {
             reverse: false,
             search: '',
             has_more: false,
-            columns: ['art','Artist', 'Song', 'Rating', 'Play/Pause', 'Upvotes', 'Play Count','Delete']
+            columns: ['Album','Artist', 'Song', 'Rating', 'Play/Pause', 'Upvotes', 'Play Count','Delete'],
+            notPlaying:true
         },
         methods: {
           delete_track: self.delete_track,
