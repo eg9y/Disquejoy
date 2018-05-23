@@ -15,7 +15,8 @@
     border-radius: 10px;
     text-align: center;
     width: 75%;
-    margin: auto;
+    margin-top:1% !important;
+
 
 }
 
@@ -26,7 +27,7 @@
 }
 
 .sidebtn a {
-    position: relative !important;
+    /*position: relative !important;*/
     text-align: center !important;
     font-size: 2vw !important;
     border-radius: 15px !important;

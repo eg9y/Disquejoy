@@ -30,10 +30,10 @@
       <div id = "logo" class="compressible">
         <img src="../static/images/logo.jpg" alt="logo" width="200" height=auto>
       </div>
-      <div class = "compressible sidebtn"><a href="{{=URL('profile','index')}}"><i class="fa fa-user"></i> Profile</a></div>
-      <div class = "compressible sidebtn"><a href="{{=URL('default','index')}}"><i class="fa fa-music"></i> Songs</a></div>
-      <div class = "compressible sidebtn"><a href="#"><i class="fa fa-file-text"></i> Feed</a></div>
-      <div class = "compressible sidebtn"><a href="{{=URL('events','index')}}"><i class="fa fa-group"></i> Events</a></div>
+      <div id = "profileLink" class = "compressible sidebtn"><a href="{{=URL('profile','index')}}" style="color: black !important;"><i class="fa fa-user"></i> Profile</a></div>
+      <div id = "musicLink" class = "compressible sidebtn"><a href="{{=URL('default','index')}}" style="color: black !important;"><i class="fa fa-music"></i> Songs</a></div>
+      <div id = "feedLink" class = "compressible sidebtn"><a href="#" style="color: black !important;"><i class="fa fa-file-text" ></i> Feed</a></div>
+      <div id = "groupLink" class = "compressible sidebtn"><a href="{{=URL('events','index')}}" style="color: black !important;"><i class="fa fa-group"></i> Events</a></div>
   </div>
     <main class="white" style = "width:100%;height:165%;background-color:#181818">>
       {{include}}
@@ -57,4 +57,25 @@
   <script>
     jQuery('.social a').each(function(){var t=jQuery(this); t.attr('href',t.attr('href').replace('{url}',encodeURIComponent(window.location.href)));});
   </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css?family=Varela+Round');
+
+    #profileLink {
+      color: black !important;
+      font-family: 'Varela Round', sans-serif !important;
+    }
+    #musicLink {
+      color: black !important;
+      font-family: 'Varela Round', sans-serif !important;
+    }
+    #feedLink {
+      color: black !important;
+      font-family: 'Varela Round', sans-serif !important;
+    }
+    #groupLink {
+      color: black !important;
+      font-family: 'Varela Round', sans-serif !important;
+    }
+
+  </style>
 </html>
