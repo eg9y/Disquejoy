@@ -81,8 +81,8 @@ var discoverData = "{{=URL('profile', 'discoverData')}}";
     overflow: hidden;
     border: 1px solid #ccc;
     background-color: #363E45;
-    width: 100% !important;
-    margin-left: 14%;
+    width: 86% !important;
+    margin-left: 14.5%;
 }
 
 /* Style the buttons inside the tab */
@@ -95,7 +95,7 @@ var discoverData = "{{=URL('profile', 'discoverData')}}";
     /*padding: 14px 16px;*/
     transition: 0.3s;
     font-size: 17px;
-    width: 28.333%;
+    width: 33.2%;
     height: 10%;
     text-align: center;
     margin: 0 0 0 0 !important;
@@ -104,12 +104,12 @@ var discoverData = "{{=URL('profile', 'discoverData')}}";
 /* Change background color of buttons on hover */
 .tab button:hover {
     background-color: #2FD566;
-    height: 12%;
+
 }
 
 /* Create an active/current tablink class */
 .tab button.active {
-    background-color: #2FD566;
+    background-color: #26a69a;
 }
 
 /* Style the tab content */
@@ -143,6 +143,7 @@ var discoverData = "{{=URL('profile', 'discoverData')}}";
     </div>
     <div id = "name" class="child">Bar
     </div>
+    <!--<button onclick="deleteP()">Delete</button>-->
     <div id = "buttonHeader" class="child">
     	<div id = "totLikes" style="position: relative; margin-top: 3%; font-size: 75; font-weight: 550; color: white;">
           ${totNumLikesReceived}
@@ -151,30 +152,33 @@ var discoverData = "{{=URL('profile', 'discoverData')}}";
           ${totNumSongsUploaded}
         </div>
         <div id = "givenLikes" style="position: relative; margin-top: 3%; font-size: 75; font-weight: 550; color: white;">
-          33
+          ${totNumLikesGiven}
         </div>
 
     </div>
 
-<div class="tab">
+<div class="tab" style = "border-radius:50px 50px 50px 50px;">
   <button class="tablinks" onclick="openCity(event, 'Received_Likes')">Received Likes</button>
   <button class="tablinks" onclick="openCity(event, 'Songs_Uploaded')">Songs Uploaded</button>
   <button class="tablinks" onclick="openCity(event, 'Likes_Given')">Likes Given</button>
 </div>
 
-<div id="Received_Likes" class="tabcontent">
+<div id="Received_Likes" class="tabcontent" style = "overflow-y: scroll;height:200px;">
   <div class = "likes" v-for = "data in ReceivedUserLikes">
-    <div style = "float:right;color:white;width:80%;border: 1px solid grey;">
+    <div style = "float:right;color:white;width:80%;border: 1px solid grey;border-radius:45px 45px 45px 45px;">
       <div class = "text" style = "float:left;margin-top:4%;margin-bottom:4%;">
-        ${data.upvoter} upvoted track id: ${data.song}
+          <!--<div v-if = "data.upvoterName is not None">
+            <h4>Hello!</h4>
+          </div>-->
+        ${data.upvoterName} upvoted ${data.songName}
     </div>
   </div>
 </div>
 </div>
 
-<div id="Songs_Uploaded" class="tabcontent">
+<div id="Songs_Uploaded" class="tabcontent" style = "overflow-y: scroll;height:200px;">
   <div v-for = "track in tracksUserUploaded">
-    <div style = "float:right;color:white;width:80%;border: 1px solid grey;">
+    <div style = "float:right;color:white;width:80%;border: 1px solid grey;border-radius:45px 45px 45px 45px;">
       <div class = "text" style = "float:left;margin-top:4%;margin-bottom:4%;">
         ${track.artist} - ${track.title}
     </div>
@@ -182,11 +186,11 @@ var discoverData = "{{=URL('profile', 'discoverData')}}";
 </div>
 </div>
 
-<div id="Likes_Given" class="tabcontent">
-    <div v-for = "track in countLikesOfUserUploaded">
-    <div style = "float:right;color:white;width:80%;border: 1px solid grey;">
+<div id="Likes_Given" class="tabcontent" style = "overflow-y: scroll;height:200px;">
+    <div v-for = "data in countLikesOfUserUploaded">
+    <div style = "float:right;color:white;width:80%;border: 1px solid grey;border-radius:45px 45px 45px 45px;">
       <div class = "text" style = "float:left;margin-top:4%;margin-bottom:4%;">
-        This user liked song id: ${track.song}
+        ${data.upvoterName} upvoted ${data.songName}
     </div>
   </div>
 </div>
@@ -218,7 +222,13 @@ function openCity(evt, cityName) {
 }
 </script>
 
-
+    <!--
+<script>
+    function deleteP() {
+        $.post(deleteData, {}, function(data) { console.log(data)})
+    }
+</script>
+-->
 
 <script src="{{=URL('static', 'js/default_profile.js')}}"></script>
 </body>

@@ -37,6 +37,9 @@ var app = function() {
     self.songsUserLikes = function() {
       $.post(givenLikes, {}, function(data){
             self.vue.countLikesOfUserUploaded = data.retrieveTotalLikesGiven;
+            for(var i = 0;i<self.vue.countLikesOfUserUploaded.length;i++) {
+                self.vue.totNumLikesGiven += 1;
+            }
           console.log(self.vue.countLikesOfUserUploaded);
         })
       }

@@ -55,6 +55,12 @@ def retrieveTotalLikes():
     else:
         pass
 
+#def deleteData():
+#    q = (db.upvotes.songName == "None")
+#    q2 = (db.upvotes.songName == "None").select()
+#    db(q).delete()
+#    return response.json(dict(q = q))
+
 def retrieveTotalLikesGiven():
     sp_oauth = getAuth()
     access_token = login(sp_oauth)

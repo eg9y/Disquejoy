@@ -81,14 +81,16 @@ def updateUpvote():
         results = sp.current_user()
         q = (db.spotify_user.username == results["id"])
         spotify_user = db(q).select().first()
-        q2 = ((db.upvotes.upvoter == spotify_user.username) and (db.upvotes.song == request.vars.id))
+        q2 = (db.upvotes.upvoter == spotify_user.username) & (db.upvotes.song == request.vars.id)
         hasUserUpvoted = db(q2).select().first()
         if hasUserUpvoted is not None:
-            return response.json(dict(row = row))
+            return response.json(dict(row=row, hasUserUpvoted=hasUserUpvoted, spotify_user=spotify_user))
         else:
-            db.upvotes.insert(upvoter = spotify_user.username, song = request.vars.id, uploaderOfSong = row.uploader)
-            row.update_record(upvotes = request.vars.incrementedVote)
-            return response.json(dict(row = row))
+            db.upvotes.insert(upvoter=spotify_user.username, song=request.vars.id, songName=request.vars.title,
+                              uploaderOfSong=row.uploader, upvoterName=results["display_name"])
+            row.update_record(upvotes=request.vars.incrementedVote)
+            return response.json(dict(row=row))
+
 
 def user():
     """

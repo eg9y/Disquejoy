@@ -28,7 +28,9 @@ db.define_table('track',
 db.define_table('upvotes',
                 Field('upvoter', 'text'),
                 Field('song', 'text'),
+                Field('songName', 'text', default = None),
                 Field('uploaderOfSong', 'text'),
+                Field('upvoterName', 'text', default = None),
                 )
 
 db.track.uploader.writable = db.track.uploader.readable = False
