@@ -124,3 +124,11 @@ thead tr:last-child th:last-child {
   margin-left: 1430px;
   margin-top: 490px;
 }
+
+@media screen and (max-width: 1000px) {
+    .sidenav {width:0%}
+    .main_content{position: relative;}
+    #songs{ position: absolute;margin: 0 auto auto 0;width:60% !important; overflow-x: auto;}
+    .sidenav a { font-size:0}
+
+}
