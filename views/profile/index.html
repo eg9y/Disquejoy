@@ -28,6 +28,7 @@ var discoverData = "{{=URL('profile', 'discoverData')}}";
     border-radius: 128px;
     border: 2px solid range;
     margin-right: 32%;
+    margin-left: 49%;
 }
 
 #name {
@@ -44,6 +45,7 @@ var discoverData = "{{=URL('profile', 'discoverData')}}";
     vertical-align: middle;
     position:absolute;*/
     right: 0;
+    padding-left: 15%;
 }
 
 #totLikes {
@@ -56,10 +58,9 @@ var discoverData = "{{=URL('profile', 'discoverData')}}";
 }
 
 #songsUploaded {
-    display: inline-block;
     margin:0 auto;
     width:28.333%;
-    height: 100%;
+
     /*background: #00ff00;*/
 }
 
@@ -144,26 +145,33 @@ var discoverData = "{{=URL('profile', 'discoverData')}}";
     <div id = "name" class="child">Bar
     </div>
     <!--<button onclick="deleteP()">Delete</button>-->
-    <div id = "buttonHeader" class="child">
-    	<div id = "totLikes" style="position: relative; margin-top: 3%; font-size: 75; font-weight: 550; color: white;">
-          ${totNumLikesReceived}
+    <div id = "buttonHeader" class="child" style="display: none !important;">
+    	<div id = "totLikes" style="position: relative; margin-top: 3%; font-size: 75; font-weight: 550; color: white; display:inline-block;">
+          ${totNumLikesReceived} <div style="display:block; font-size: 25;"> Received Likes </div>
         </div>
-        <div id = "songsUploaded" style="position: relative; margin-top: 3%; font-size: 75; font-weight: 550; color: white;">
-          ${totNumSongsUploaded}
+        <div id = "songsUploaded" style="position: relative; margin-top: 3%; font-size: 75; font-weight: 550; color: white;display:inline-block;">
+          ${totNumSongsUploaded} <div style="display:block; font-size: 25;"> Songs Uploaded </div>
         </div>
-        <div id = "givenLikes" style="position: relative; margin-top: 3%; font-size: 75; font-weight: 550; color: white;">
-          ${totNumLikesGiven}
+
+      <div id = "givenLikes" style="position: relative; margin-top: 3%; font-size: 75; font-weight: 550; color: white;display:inline-block;">
+          ${totNumLikesGiven} <div style="display:block; font-size: 25;"> Likes Given </div>
         </div>
 
     </div>
 
 <div class="tab" style = "border-radius:50px 50px 50px 50px;">
-  <button class="tablinks" onclick="openCity(event, 'Received_Likes')">Received Likes</button>
-  <button class="tablinks" onclick="openCity(event, 'Songs_Uploaded')">Songs Uploaded</button>
-  <button class="tablinks" onclick="openCity(event, 'Likes_Given')">Likes Given</button>
+  <button class="tablinks" onclick="openCity(event, 'Received_Likes')">
+    <div style="display:block; font-size: 40;"> ${totNumLikesReceived} <br> Received Likes </div>
+  </button>
+  <button class="tablinks" onclick="openCity(event, 'Songs_Uploaded')">
+     <div style="display:block; font-size: 40;">${totNumSongsUploaded} <br> Songs Uploaded </div>
+  </button>
+  <button class="tablinks" onclick="openCity(event, 'Likes_Given')">
+     <div style="display:block; font-size: 40;"> ${totNumLikesGiven} <br> Likes Given </div>
+  </button>
 </div>
 
-<div id="Received_Likes" class="tabcontent" style = "overflow-y: scroll;height:200px;">
+<div id="Received_Likes" class="tabcontent" style = "overflow-y: scroll;height:400px;">
   <div class = "likes" v-for = "data in ReceivedUserLikes">
     <div style = "float:right;color:white;width:80%;border: 1px solid grey;border-radius:45px 45px 45px 45px;">
       <div class = "text" style = "float:left;margin-top:4%;margin-bottom:4%;">
@@ -176,7 +184,7 @@ var discoverData = "{{=URL('profile', 'discoverData')}}";
 </div>
 </div>
 
-<div id="Songs_Uploaded" class="tabcontent" style = "overflow-y: scroll;height:200px;">
+<div id="Songs_Uploaded" class="tabcontent" style = "overflow-y: scroll;height:400px;">
   <div v-for = "track in tracksUserUploaded">
     <div style = "float:right;color:white;width:80%;border: 1px solid grey;border-radius:45px 45px 45px 45px;">
       <div class = "text" style = "float:left;margin-top:4%;margin-bottom:4%;">
@@ -186,7 +194,7 @@ var discoverData = "{{=URL('profile', 'discoverData')}}";
 </div>
 </div>
 
-<div id="Likes_Given" class="tabcontent" style = "overflow-y: scroll;height:200px;">
+<div id="Likes_Given" class="tabcontent" style = "overflow-y: scroll;height:400px;">
     <div v-for = "data in countLikesOfUserUploaded">
     <div style = "float:right;color:white;width:80%;border: 1px solid grey;border-radius:45px 45px 45px 45px;">
       <div class = "text" style = "float:left;margin-top:4%;margin-bottom:4%;">
