@@ -82,5 +82,15 @@ db.eventMembers.is_organizer_of_event_id.writable = db.eventMembers.is_organizer
 db.spotify_user.username.writable = db.spotify_user.username.readable = False
 db.spotify_user.email.writable = db.spotify_user.email.readable = False
 
+db.define_table('feed_info',
+                Field('feed_type'),
+                Field('user_id_active'),
+                Field('user_name_active'),
+                Field('user_id_passive', default = None),
+                Field('user_name_passive', default = None),
+                Field('song'),
+                Field('song_picture')
+                )
+
 # after defining tables, uncomment below to enable auditing
 # auth.enable_record_versioning(db)

@@ -1,0 +1,33 @@
+{{extend 'layout.html'}} {{block head}}
+<script src="{{=URL('static', 'js/vue.js')}}"></script>
+
+{{end}}
+<script>
+  var feedURL = "{{=URL('feed', 'retrieveFeed')}}";
+</script>
+<style>
+@import url('https://fonts.googleapis.com/css?family=Varela+Round');
+.feedText{
+  font-family: 'Varela Round', sans-serif;
+  font-size: 25;
+}
+</style>
+
+<div id="parent">
+  <div class="feedCell" style="border-radius: 18px; margin-top: 3%;margin-right: 7%;float:right; width:70%; background-color:#E8EEF2; padding-top: 2%; padding-bottom: 1%; padding-left:2%">
+    <div class ="feedProfilePic" style="display:inline-block;"> <img src="../static/images/person.png" style=" max-width:50px">
+    </div>
+    <div class ="feedText" style="font-family:"> Shyaan Khan is listening to _____ </div>
+    <div class ="feedButtons" style="padding-top: 1%; display:inline-block">
+      <img src="../static/images/comment.png" style="max-width:20px">
+      <div class = "feedText" style="font-size:15 !important; display:inline-block !important;">Comment</div>
+      <img src="../static/images/like.png" style="max-width:20px">
+      <div class = "feedText" style="font-size:15 !important; display:inline-block !important;">Like</div>
+
+
+
+    </div>
+  </div>
+</div>
+
+<script src="{{=URL('static', 'js/feed_index.js')}}"></script>

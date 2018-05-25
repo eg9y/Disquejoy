@@ -38,7 +38,7 @@ def get_token_client():
     return response.json(dict(access_token=access_token))
 
 def index():
-    sp_oauth = getauth()    
+    sp_oauth = getauth()
     access_token = login()
     if access_token:
         sp = spotipy.Spotify(access_token)
@@ -110,9 +110,10 @@ def upload():
             # track_details = sp.audio_features([realURL])
             track_row = db(q).select().first()
             track_row.update_record(
-                uploader=results["id"], artist=track["album"]["artists"][0]["name"], 
-                title=track["album"]["name"], popularity=track["popularity"], 
+                uploader=results["id"], artist=track["album"]["artists"][0]["name"],
+                title=track["album"]["name"], popularity=track["popularity"],
                 image=track["album"]["images"][0]["url"], spotify_uri=track["uri"])
+            db.feed_info.insert(feed_type="UPLOAD", user_id_active=results["id"], user_name_active=results["display_name"],song=track["album"]["name"], song_picture=track["album"]["images"])    
             redirect(URL('default', 'index'))
     return dict(form=form, error=None)
 
