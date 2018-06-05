@@ -46,12 +46,15 @@ def index():
         q = (db.spotify_user.username == results["id"])
         spotify_user = db(q).select().first()
         if spotify_user is None:
-            if hasattr(results, 'email'):
+            if results["email"] is not None and len(results["images"]) != 0:
                 db.spotify_user.insert(
-                    username=results["id"], email=results["email"])
+                    username=results["id"], email=results["email"], image = results["images"][0]["url"])
+            elif results["email"] is not None:
+                db.spotify_user.insert(
+                    username=results["id"], email=results["email"], image = "http://www.psi.toronto.edu/images/people/profile-default.jpg")
             else:
                 db.spotify_user.insert(
-                    username=results["id"], email=None)
+                    username=results["id"], email=None, image = "http://www.psi.toronto.edu/images/people/profile-default.jpg")
         return dict(auth_url=None, results=results, access_token=access_token)
     else:
         auth_url = sp_oauth.get_authorize_url()
@@ -113,7 +116,7 @@ def upload():
                 uploader=results["id"], artist=track["album"]["artists"][0]["name"],
                 title=track["album"]["name"], popularity=track["popularity"],
                 image=track["album"]["images"][0]["url"], spotify_uri=track["uri"])
-            db.feed_info.insert(feed_type="UPLOAD", user_id_active=results["id"], user_name_active=results["display_name"],song=track["album"]["name"], song_picture=track["album"]["images"])    
+            db.feed_info.insert(feed_type="UPLOAD", user_id_active=results["id"], user_name_active=results["display_name"],song=track["album"]["name"], song_picture=track["album"]["images"])
             redirect(URL('default', 'index'))
     return dict(form=form, error=None)
 

@@ -228,10 +228,13 @@
     </div>
     <div v-if = "is_viewing_members && selected_id_to_display_members == event.id" style = "display:block;width:70%;margin-right:7%;padding-top:1%;padding-left:1%;padding-right:1%;margin-top:2px;margin-left:16%;height:100px;overflow-y:scroll;background-color:#363E45;border-radius:12px;">
       <div v-if = "id_of_current_user == event.organizer_id" >
-        <div v-for = "row in rows_of_members" style = "border-radius: 24px 24px 24px 24px;border:1px solid grey;padding-top:7px;padding-bottom:7px;padding-left:7px;height:50px"> row.memberid<buttonv−if="idofcurrentuser!=row.memberid"type="button"class="btnbtn−danger"style="float:right;margin−bottom:3px;"@click="deletemember(row.idofevent,row.memberid,row.id)">Delete</button></div></div><divv−if="idofcurrentuser!=event.organizerid"><divv−for="rowinrowsofmembers"style="border:1pxsolidgrey;padding−top:7px;padding−bottom:7px;padding−left:7px;"> {row.member_id}</div>
+        <div v-for = "row in rows_of_members" style = "border-radius: 48px 48px 48px 48px;border:1px solid grey;padding-top:7px;padding-bottom:7px;padding-left:7px;height:70px"><img :src = "row.profilePicture" width="50px" height = "50px" style = "border-radius:50%;padding-left:5px;display:inline-block;"><div style = "padding-left:3px;font-family:Raleway;color:white;display:inline-block;">${row.member_name}</div><button v-if = "id_of_current_user != row.member_id" type="button" class="btn btn-danger" style = "float:right;margin-bottom:3px;" @click = "delete_member(row.id_of_event, row.member_id, row.id)">Delete</button>
+        <button v-if = "id_of_current_user == row.member_id" type="button" class="btn btn-danger" style = "float:right;padding-bottom:6px;padding-top:6px;padding-left:15px;">Admin</button></div>
+      </div>
+      <div v-if = "id_of_current_user != event.organizer_id">
+        <div v-for = "row in rows_of_members" style = "border-radius: 24px 24px 24px 24px;border:1px solid grey;padding-top:7px;padding-bottom:7px;padding-left:7px;height:50px;">${row.member_name}</div>
       </div>
     </div>
-  </div>
 </div>
 </div>
 

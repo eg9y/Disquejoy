@@ -72,7 +72,8 @@ db.define_table('eventMembers',
                 Field('member_name'),
                 Field('name_of_event'),
                 Field('id_of_event'),
-                Field('is_organizer_of_event_id')
+                Field('is_organizer_of_event_id'),
+                Field('profilePicture')
                 )
 
 db.eventMembers.member_id.writable = db.eventMembers.member_id.readable = False

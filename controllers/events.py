@@ -66,9 +66,11 @@ def add_member():
     if access_token:
         sp = spotipy.Spotify(access_token)
         results = sp.current_user()
+        q = (db.spotify_user.username == results["id"])
+        spotify_user = db(q).select().first()
         q = db((db.eventMembers.member_id == results["id"]) & (db.eventMembers.member_name == results["display_name"]) & (db.eventMembers.name_of_event == request.vars.name) & (db.eventMembers.id_of_event == request.vars.id) & (db.eventMembers.is_organizer_of_event_id == False)).select().first()
         if q is None:
-            number = db.eventMembers.insert(member_id = results["id"], member_name = results["display_name"], name_of_event = request.vars.name, id_of_event = request.vars.id, is_organizer_of_event_id = False)
+            number = db.eventMembers.insert(member_id = results["id"], member_name = results["display_name"], name_of_event = request.vars.name, id_of_event = request.vars.id, is_organizer_of_event_id = False, profilePicture = spotify_user.image)
             row = db(db.eventMembers.id == number).select().first()
             return response.json(dict(row = row))
         else:
@@ -109,14 +111,27 @@ def login():
 
 def upload():
     	form = SQLFORM(db.eventDetails, deletable = True)
-    	error = None
-    	access_token = login()
-    	if access_token is None:
-    		redirect(URL('default', index))
-    	if form.process().accepted:
-    		sp = spotipy.Spotify(access_token)
-    		results = sp.current_user()
-    	return dict(form = form,  error = None)
+	error = None
+	access_token = login()
+	if access_token is None:
+		redirect(URL('default', index))
+	if form.process().accepted:
+		sp = spotipy.Spotify(access_token)
+		results = sp.current_user()
+        try:
+            q = (db.spotify_user.username == results["id"])
+            spotify_user = db(q).select().first()
+            if results["email"] is not None and len(results["images"]) != 0:
+                row = db(db.eventDetails.name_of_event == form.vars.name_of_event).select().first().update_record(GIF = form.vars.GIF, name_of_event = form.vars.name_of_event, organizer_id = results["id"], organizer_name = results["display_name"], datetime = form.vars.datetime, Area = form.vars.Area, description = form.vars.description)
+                db.feed_info.insert(feed_type="EVENT", user_id_active=results["id"], user_name_active=results["display_name"],title = form.vars.name_of_event,song=None, song_picture=None, profilePicture = spotify_user.image)
+                db.eventMembers.insert(member_id = results["id"], member_name = results["display_name"], name_of_event = form.vars.name_of_event, id_of_event = row.id, is_organizer_of_event_id = True, profilePicture = spotify_user.image)
+            else:
+                pass
+        except:
+            return dict(form = form, error = "")
+        redirect(URL('events', index))
+        return dict(form = form, error = None)
+	return dict(form = form,  error = None)
 
 def update():
     q = db(db.eventDetails.id == request.vars.id).select().first().update_record(GIF = request.vars.GIFurl, name_of_event = request.vars.title,datetime = request.vars.datetime, Area = request.vars.locationOfEvent, description = request.vars.description)
@@ -137,4 +152,3 @@ def delete_memo():
     q = (db.eventDetails.id == request.vars.id)
     events = db(q).delete()
     return response.json(dict(events = events))
-
