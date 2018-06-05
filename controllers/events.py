@@ -18,6 +18,20 @@ def index():
     else:
         return dict()
 
+def get_current_user_info():
+    sp_oauth = getauth()
+    access_token = login()
+    if access_token:
+        sp = spotipy.Spotify(access_token)
+        results = sp.current_user()
+        return response.json(dict(results = results))
+    else:
+        return response.json(dict(results = None))
+
+def get_current_user_events():
+    rows = db(db.eventMembers.member_id == request.vars.id).select()
+    return response.json(dict(rows = rows))
+
 def get_events():
     start_idx = int(request.vars.start_idx) if request.vars.start_idx is not None else 0
     end_idx = int(request.vars.end_idx) if request.vars.end_idx is not None else 0
@@ -35,6 +49,7 @@ def get_events():
                 name_of_event=r.name_of_event,
                 organizer_id=r.organizer_id,
                 organizer_name=r.organizer_name,
+                datetime = r.datetime,
                 Area=r.Area,
                 description=r.description
             )
@@ -45,6 +60,24 @@ def get_events():
         events = events
     ))
 
+def add_member():
+    sp_oauth = getauth()
+    access_token = login()
+    if access_token:
+        sp = spotipy.Spotify(access_token)
+        results = sp.current_user()
+        q = db((db.eventMembers.member_id == results["id"]) & (db.eventMembers.member_name == results["display_name"]) & (db.eventMembers.name_of_event == request.vars.name) & (db.eventMembers.id_of_event == request.vars.id) & (db.eventMembers.is_organizer_of_event_id == False)).select().first()
+        if q is None:
+            number = db.eventMembers.insert(member_id = results["id"], member_name = results["display_name"], name_of_event = request.vars.name, id_of_event = request.vars.id, is_organizer_of_event_id = False)
+            row = db(db.eventMembers.id == number).select().first()
+            return response.json(dict(row = row))
+        else:
+            db(db.eventMembers.id == q.id).delete()
+            row = db().select(db.eventMembers.ALL)
+            return response.json(dict(row = row))
+    else:
+        return response.json(dict(row = none))
+
 def getauth():
     SPOTIPY_CLIENT_ID = os.getenv("SPOTIPY_CLIENT_ID")
     SPOTIPY_CLIENT_SECRET = os.getenv("SPOTIPY_CLIENT_SECRET")
@@ -54,6 +87,10 @@ def getauth():
     sp_oauth = oauth2.SpotifyOAuth(
         SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET, SPOTIPY_REDIRECT_URI, scope=SCOPE, cache_path=CACHE)
     return sp_oauth
+
+def get_event_members():
+    rows = db(db.eventMembers.id_of_event == request.vars.id).select()
+    return response.json(dict(rows = rows))
 
 def login():
     sp_oauth = getauth()
@@ -71,22 +108,24 @@ def login():
     return access_token
 
 def upload():
-	form = SQLFORM(db.eventDetails, deletable = True)
-	error = None
-	access_token = login()
-	if access_token is None:
-		redirect(URL('default', index))
-	if form.process().accepted:
-		sp = spotipy.Spotify(access_token)
-		results = sp.current_user()
-		q = db(db.eventDetails.name_of_event == form.vars.name_of_event).select().first()
-		try:
-			db(db.eventDetails.name_of_event == form.vars.name_of_event).select().first().update_record(GIF = form.vars.GIF, name_of_event = form.vars.name_of_event, organizer_id = results["id"], organizer_name = results["display_name"], Area = form.vars.Area, description = form.vars.description)
-		except:
-			error = 'URL is invalid'
-			return dict(form = form, error = error)
-		return dict(form = form,  error = None)
-	return dict(form = form,  error = None)
+    	form = SQLFORM(db.eventDetails, deletable = True)
+    	error = None
+    	access_token = login()
+    	if access_token is None:
+    		redirect(URL('default', index))
+    	if form.process().accepted:
+    		sp = spotipy.Spotify(access_token)
+    		results = sp.current_user()
+    	return dict(form = form,  error = None)
+
+def update():
+    q = db(db.eventDetails.id == request.vars.id).select().first().update_record(GIF = request.vars.GIFurl, name_of_event = request.vars.title,datetime = request.vars.datetime, Area = request.vars.locationOfEvent, description = request.vars.description)
+    return response.json(dict(q = q))
+
+def delete_member():
+    q = db((db.eventMembers.member_id == request.vars.user) & (db.eventMembers.id_of_event == request.vars.id)).delete()
+    a = db().select(db.eventMembers.ALL);
+    return response.json(dict(a=a));
 
 #Method for debugging
 def delete():
@@ -98,3 +137,4 @@ def delete_memo():
     q = (db.eventDetails.id == request.vars.id)
     events = db(q).delete()
     return response.json(dict(events = events))
+

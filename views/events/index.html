@@ -14,18 +14,26 @@
   var hookToEvents = "{{=URL('events', 'get_events')}}";
   var del = "{{=URL('events', 'delete')}}";
   var del_memo_url = "{{=URL('events', 'delete_memo')}}";
+  var deleteMember = "{{=URL('events', 'delete_member')}}";
+  var update = "{{=URL('events', 'update')}}";
+  var get_current_user_informations = "{{=URL('events', 'get_current_user_info')}}";
+  var get_current_user_events = "{{=URL('events', 'get_current_user_events')}}";
+  var add_member_url = "{{=URL('events', 'add_member')}}";
+  var get_events_members = "{{=URL('events', 'get_event_members')}}"
 </script>
 
 <style>
 @import url('https://fonts.googleapis.com/css?family=Varela+Round');
 
 .events {
-  width:67%;
-  margin-right:10px;
-  margin-left:300px;
+  width:70%;
+  margin-right:7%;
+  border-radius: 12px;
+  margin-left:16%;
   margin-top: 3%;
-  height:155px;
+  height:175px;
   background-color:#363E45;
+  display:block;
 }
 
 .gifpic {
@@ -34,8 +42,10 @@
   margin-top:1%;
   margin-left:1%;
   margin-bottom:1%;
-  height:135px;
-  width:135px;
+  height:155px;
+  width:155px;
+  border-radius:12px;
+  overflow:hidden;
 }
 
 .title {
@@ -158,35 +168,69 @@
    </div>
  </form>
 
- <div id = "container">
+ <div id = "container" style = "overflow-y:scroll;height:700px;position:fixed;right:0;width:90%;">
 
   <div v-for = "event in eventsArr">
     <div class = "events">
-      <div class = "gifpic"><img :src="event.GIF" alt="" style="width:135px;height:135px"></div>
+      <div class = "gifpic"><img :src="event.GIF" alt="" style="width:155px;height:155px"></div>
       <div class = "title" style = "font-size:22;color:white;">Title: ${event.name_of_event}</div>
       <div class = "location" style = "font-size:22;color:white;">Location: ${event.Area}</div>
       <div class = "description" style = "font-size:16;color:white;">Description: ${event.description}</div>
-      <div class = "jukebox" style = "text-align:center;color:white;" class = "tablinks" ><i class="fa fa-plus" style="font-size:24px;margin-top:2%;margin-left:1%;display:inline-block"></i><div style = "font-size:18;margin-left:1px;margin-top:1%;color:white;display:inline-block">Add to jukebox</div></div>
-      <div class = "viewmembers" style = "text-align:center;color:white;" class = "tablinks" ><i class="fa fa-users" style="font-size:24px;margin-top:2%;margin-left:1%;display:inline-block"></i><div style = "font-size:18;margin-left:1px;margin-top:1%;color:white;display:inline-block">Monitor Users</div></div>
-      <div class = "viewsongs" style = "text-align:center;color:white;" class = "tablinks" ><i class="fa fa-music" style="font-size:24px;margin-top:2%;margin-left:1%;display:inline-block"></i><div style = "font-size:18;margin-left:1px;margin-top:1%;color:white;display:inline-block">Monitor Music</div></div>
+      <div class = "title" style = "font-size:22;color:white;" @click = "select_event_to_display_members(event.id)"><i class="fa fa-users"></i>Members</div>
       <div class="btn-group">
-        <button type="button" class="btn btn-default btn-sm">
-          <span class="glyphicon glyphicon-plus-sign"></span>
-        </button>
-        <button type="button" class="btn btn-default btn-sm">
-          <span class="glyphicon glyphicon-eye-open"></span>
-        </button>
-        <button type="button" class="btn btn-default btn-sm" @click = "delete_memo(event.id)">
-          <span class="glyphicon glyphicon-trash"></span>
-        </button>
-        <button type="button" class="btn btn-default btn-sm" @click = "edit_memo_button(event.id)">
-          <span class="glyphicon glyphicon-pencil"></span>
-        </button>
+        <div v-if = "id_of_current_user == event.organizer_id">
+          <button type="button" class="btn btn-default btn-sm">
+            <i class="fa fa-check"></i>
+          </button>
+          <button type="button" class="btn btn-default btn-sm" @click = "delete_memo(event.id)">
+            <i class="fa fa-trash"></i>
+          </button>
+          <button type="button" class="btn btn-default btn-sm" @click = "edit_memo_button(event.id)">
+            <i class="fa fa-pencil-square-o"></i>
+          </button>
+        </div>
+        <div v-if = "id_of_current_user != event.organizer_id">
 
+          <button v-if = "event.is_member_not_organizer" type="button" class="btn btn-default btn-sm"  @click = "add_member(event.id, event.name_of_event)">
+            <i class="fa fa-check"></i>
+          </button>
+
+          <button v-if = "!event.is_member_not_organizer" type="button" class="btn btn-default btn-sm" @click = "add_member(event.id, event.name_of_event)">
+            <i class="fa fa-plus"></i>
+          </button>
+
+          <button type="button" class="btn btn-default btn-sm" style = "pointer-events:none;opacity:0.5;" @click = "delete_memo(event.id)">
+            <i class="fa fa-trash"></i>
+          </button>
+          <button type="button" class="btn btn-default btn-sm" style = "pointer-events:none;opacity:0.5;"@click = "edit_memo_button(event.id)">
+            <i class="fa fa-pencil-square-o"></i>
+          </button>
+        </div>
       </div>
-
     </div>
+    <div v-if = "is_editing_memo && selected_id == event.id" style = "display:block;border-radius:12px;width:70%;margin-right:7%;padding-top:1%;padding-left:1%;padding-right:1%;margin-top:2px;margin-left:16%;height:auto;background-color:#363E45;">
+      <input  style="border:1px solid #ccc;border-radius:3px;color:#555" v-model="GIFurl = event.GIF" type="text"></input>
+      <input style="border:1px solid #ccc;border-radius:3px;color:#555" v-model="title_inserted = event.name_of_event" type="text" ></input>
+      <input  style="border:1px solid #ccc;border-radius:3px;color:#555" v-model="dateOfEvent = event.datetime" type="text" ></input>
+      <input  style="border:1px solid #ccc;border-radius:3px;color:#555" v-model="locationOfEvent = event.Area" type="text" ></input>
+      <input style="border:1px solid #ccc;border-radius:3px;color:#555" v-model="description = event.description" type="text" ></input>
+      <div class="form-group row edit-buttons" id="submit_record__row">
+        <div style = "float:right;margin-right:1%;margin-top:1%;">
+          <button v-if="is_editing_memo" class="btn btn-warning btn-sm cancel-button" v-on:click="cancel_edit()" type="button">
+            Cancel
+          </button>
 
+          <button v-if="is_editing_memo" class="btn btn-primary btn-sm post-edit-button" v-on:click="edit_memo(event.id)" type="submit">
+            Post
+          </button>
+        </div>
+      </div>
+    </div>
+    <div v-if = "is_viewing_members && selected_id_to_display_members == event.id" style = "display:block;width:70%;margin-right:7%;padding-top:1%;padding-left:1%;padding-right:1%;margin-top:2px;margin-left:16%;height:100px;overflow-y:scroll;background-color:#363E45;border-radius:12px;">
+      <div v-if = "id_of_current_user == event.organizer_id" >
+        <div v-for = "row in rows_of_members" style = "border-radius: 24px 24px 24px 24px;border:1px solid grey;padding-top:7px;padding-bottom:7px;padding-left:7px;height:50px"> row.memberid<buttonv−if="idofcurrentuser!=row.memberid"type="button"class="btnbtn−danger"style="float:right;margin−bottom:3px;"@click="deletemember(row.idofevent,row.memberid,row.id)">Delete</button></div></div><divv−if="idofcurrentuser!=event.organizerid"><divv−for="rowinrowsofmembers"style="border:1pxsolidgrey;padding−top:7px;padding−bottom:7px;padding−left:7px;"> {row.member_id}</div>
+      </div>
+    </div>
   </div>
 </div>
 </div>

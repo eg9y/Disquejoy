@@ -43,8 +43,9 @@ db.track.spotify_uri.writable = db.track.spotify_uri.readable = False
 db.track.upvotes.writable = False
 db.track.upvotes.readable = False
 db.define_table('spotify_user',
+    Field('image', default = None),
                 Field('username'),
-                Field('email'),
+                Field('email')
                 )
 
 db.define_table(
@@ -62,6 +63,7 @@ db.define_table('eventDetails',
                 Field('name_of_event'),
                 Field('organizer_id'),
                 Field('organizer_name'),
+                Field('datetime'),
                 Field('Area'),
                 Field('description'))
 
