@@ -49,7 +49,7 @@
           $.post(del_memo_url,
             { id: memo_idx },
             function () {
-              self.vue.eventsArr = self.vue.eventsArr.filter(e => e.id != memi._idx)
+              self.vue.eventsArr = self.vue.eventsArr.filter(e => e.id != memo_idx)
             }
             )
           
