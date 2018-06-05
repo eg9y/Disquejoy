@@ -90,9 +90,19 @@ db.define_table('feed_info',
                 Field('user_id_active'),
                 Field('user_name_active'),
                 Field('user_id_passive', default = None),
+                Field('title', default = None),
                 Field('user_name_passive', default = None),
                 Field('song'),
-                Field('song_picture')
+                Field('song_picture'),
+                Field('profilePicture')
+                )
+
+
+db.define_table('feed_upvotes',
+                Field('upvoter', 'text'),
+                Field('feed_type', 'text'),
+                Field('user_id_of_upvoter', 'text', default = None),
+                Field('id_of_feed', 'text', default = None),
                 )
 
 # after defining tables, uncomment below to enable auditing

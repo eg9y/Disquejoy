@@ -89,6 +89,8 @@ def upload():
     if form.process().accepted:
         sp = spotipy.Spotify(access_token)
         results = sp.current_user()
+        person = (db.spotify_user.username == results["id"])
+        spotify_user = db(person).select().first()
         q = (db.track.spotify_url == form.vars.spotify_url)
         try:
             realURL = re.search(r'[0-9][^?]+', form.vars.spotify_url).group(0)
@@ -116,7 +118,7 @@ def upload():
                 uploader=results["id"], artist=track["album"]["artists"][0]["name"],
                 title=track["album"]["name"], popularity=track["popularity"],
                 image=track["album"]["images"][0]["url"], spotify_uri=track["uri"])
-            db.feed_info.insert(feed_type="UPLOAD", user_id_active=results["id"], user_name_active=results["display_name"],song=track["album"]["name"], song_picture=track["album"]["images"])
+            db.feed_info.insert(feed_type="UPLOAD", user_id_active=results["id"], user_name_active=results["display_name"],song=track["album"]["name"], song_picture=track["album"]["images"],profilePicture= spotify_user.image)
             redirect(URL('default', 'index'))
     return dict(form=form, error=None)
 

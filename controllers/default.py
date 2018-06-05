@@ -72,7 +72,7 @@ def delete():
         q = ((db.track.id == request.vars.id))
         db(q).delete()
     redirect(URL('default', 'index'))
-    
+
 def updateUpvote():
     row = db(db.track.id == request.vars.id).select().first()
     access_token = login()
@@ -89,6 +89,7 @@ def updateUpvote():
             db.upvotes.insert(upvoter=spotify_user.username, song=request.vars.id, songName=request.vars.title,
                               uploaderOfSong=row.uploader, upvoterName=results["display_name"])
             row.update_record(upvotes=request.vars.incrementedVote)
+            db.feed_info.insert(feed_type="UPVOTE", user_id_active=results["id"], user_name_active=results["display_name"],title = request.vars.title,song=request.vars.id, song_picture=row.image, profilePicture = spotify_user.image)
             return response.json(dict(row=row))
 
 

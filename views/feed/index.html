@@ -4,6 +4,10 @@
 {{end}}
 <script>
   var feedURL = "{{=URL('feed', 'retrieveFeed')}}";
+  var likeURL = "{{=URL('feed', 'increaseLike')}}";
+  var getUserInfoFromFeed = "{{=URL('feed', 'userInfo')}}";
+  var getUserFeedLikes = "{{=URL('feed', 'get_feed_that_user_likes')}}";
+
 </script>
 <style>
 @import url('https://fonts.googleapis.com/css?family=Varela+Round');
@@ -13,21 +17,51 @@
 }
 </style>
 
-<div id="parent">
-  <div class="feedCell" style="border-radius: 18px; margin-top: 3%;margin-right: 7%;float:right; width:70%; background-color:#E8EEF2; padding-top: 2%; padding-bottom: 1%; padding-left:2%">
-    <div class ="feedProfilePic" style="display:inline-block;"> <img src="../static/images/person.png" style=" max-width:50px">
+<div id="parent" style = "overflow-y:scroll;height:700px;position:fixed;right:0;width:90%;">
+  <div v-for = "feed in feedArr">
+  <div class="feedCell" style="border-radius: 18px; margin-top: 3%;margin-right: 3%;float:right; width:86%; background-color:#E8EEF2; padding-top: 2%; padding-bottom: 1%; padding-left:2%">
+    <div style = "width:100%;height:100px;position:relative;">
+    <div class ="feedProfilePic" style="display:inline-block;float:left;"> <img :src="feed.profilePicture" style="border-radius:50px;max-width:100px">
     </div>
-    <div class ="feedText" style="font-family:"> Shyaan Khan is listening to _____ </div>
-    <div class ="feedButtons" style="padding-top: 1%; display:inline-block">
-      <img src="../static/images/comment.png" style="max-width:20px">
-      <div class = "feedText" style="font-size:15 !important; display:inline-block !important;">Comment</div>
+    <div v-if = "feed.feed_type == 'UPVOTE'">
+      <div class ="feedText" style="padding-left: 10%"> ${feed.user_name_active} upvoted the song: ${feed.title} </div>
+    </div>
+    <div v-if = "feed.feed_type == 'EVENT'">
+      <div class ="feedText" style="position:relative;padding-top:30px;padding-left: 10%font-family:Raleway;width:85%;"> ${feed.user_name_active} is hosting an event: ${feed.title} </div>
+    </div>
+    <div v-if = "feed.feed_type == 'UPLOAD'">
+      <div class ="feedText" style="position:relative;padding-top:30px;padding-left: 10%;font-family:Raleway;width:85%;"> ${feed.user_name_active} uploaded a new song: ${feed.song} </div>
+    </div>
+  </div>
+    <div class ="feedButtons" style="padding-top: 1%; display:block">
+      <div v-if = "!feed.user_liked" @change="likeFeed(feed.id)">
       <img src="../static/images/like.png" style="max-width:20px">
-      <div class = "feedText" style="font-size:15 !important; display:inline-block !important;">Like</div>
+      </div>
+      <div v-if = "feed.user_liked" @change="likeFeed(feed.id)">
+      <img src="../static/images/liked.png" style="max-width:20px">
+      </div>
+      <div class = "feedText" @click = "likeFeed(feed.id)" style="font-size:15 !important; display:inline-block !important;">Like</div>
 
 
-
+    </div>
     </div>
   </div>
 </div>
+<style>
+.isactive{
+  background-color:red;
+}
+
+.feedProfilePic {
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+    border: 2px solid range;
+    z-index:22;
+}
+</style>
+
+
+
 
 <script src="{{=URL('static', 'js/feed_index.js')}}"></script>
