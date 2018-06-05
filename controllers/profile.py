@@ -10,7 +10,25 @@ import os
 
 
 def index():
-    return dict()
+    sp_oauth = getAuth()
+    access_token = login(sp_oauth)
+    if access_token:
+        sp = spotipy.Spotify(access_token)
+        results = sp.current_user()
+        q = (db.spotify_user.username == results["id"])
+        spotify_user = db(q).select().first()
+        if spotify_user is None:
+            if hasattr(results, 'email'):
+                db.spotify_user.insert(
+                    username=results["id"], email=results["email"])
+            else:
+                db.spotify_user.insert(
+                    username=results["id"], email=None)
+        return dict(auth_url=None, results=results, access_token=access_token)
+    else:
+        auth_url = sp_oauth.get_authorize_url()
+        htmlLoginButton = "<a href='" + auth_url + "'>Login to Spotify</a>"
+        return dict(auth_url=auth_url, results=None, access_token=None)
 
 def login(sp_oauth):
     access_token = ""
@@ -36,6 +54,11 @@ def getAuth():
     sp_oauth = oauth2.SpotifyOAuth(
         SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET, SPOTIPY_REDIRECT_URI, scope=SCOPE, cache_path=CACHE)
     return sp_oauth
+
+
+def get_token_client():
+    access_token = login()
+    return response.json(dict(access_token=access_token))
 
 def discoverData():
     q = (db.spotify_user.username == request.vars.id)

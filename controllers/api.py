@@ -61,7 +61,7 @@ def index():
 
 def logout():
     os.remove(".spotipyoauthcache")
-    redirect(URL('disquejoy', 'api', 'index'))
+    redirect(URL('disquejoy', 'default', 'index'))
 
 
 def show_tracks(results):
