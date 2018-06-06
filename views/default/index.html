@@ -46,10 +46,10 @@ var get_token_access_url = "{{=URL('api', 'get_token_client', user_signature=Tru
                 <td class="greyRow">${track.title}</td>
                 <td class="greyRow">${track.popularity}</td>
                 <td class="greyRow" style="text-align:center;">
-                    <div v-if="notPlaying"><a @click="play_track(track.spotify_uri)" class="btn rounded red"><i
+                    <div v-if="!notPlaying && currentURI == track.spotify_uri"><a @click="play_track(track.spotify_uri)" class="btn rounded red"><i
+                        class="fa fa-pause"></i> </a></div>
+                    <div v-else><a @click="play_track(track.spotify_uri)" class="btn rounded red"><i
                             class="fa fa-play"></i> </a></div>
-                    <div v-if="!notPlaying"><a @click="play_track(track.spotify_uri)" class="btn rounded red"><i
-                            class="fa fa-pause"></i> </a></div>
                 </td>
                 <td class="greyRow" @click="increment(track.id)">
                     ${track.upvotes}

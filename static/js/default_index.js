@@ -84,13 +84,12 @@ var app = function (data, device_id, player) {
     }
 
     //var notPlaying = true;
-    var currentURI = "";
     self.play_track = function(uri) {
       if (self.vue.notPlaying) {
-        if(currentURI === uri){
+        self.vue.notPlaying = false;        
+        if(self.vue.currentURI === uri){
           player.resume().then(() => {
             console.log("Resume");
-            notPlaying = false;
           })
         } else {
           $.ajax({
@@ -103,8 +102,7 @@ var app = function (data, device_id, player) {
             type: "PUT",
             contentType: "application/json",
             success: function (result) {
-              currentURI = uri;
-              notPlaying = false;
+              self.vue.currentURI = uri;
             }
           });
         }
@@ -123,6 +121,7 @@ var app = function (data, device_id, player) {
         data: {
             musicAr: [],
             sortKey: 'Artist',
+            currentURI: "",            
             reverse: false,
             search: '',
             has_more: false,
