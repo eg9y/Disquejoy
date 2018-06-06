@@ -24,7 +24,7 @@ def index():
             else:
                 db.spotify_user.insert(
                     username=results["id"], email=None)
-        return dict(auth_url=None, results=results, access_token=access_token)
+        return dict(auth_url=None, results=results, access_token=access_token, spotify_user = spotify_user)
     else:
         auth_url = sp_oauth.get_authorize_url()
         htmlLoginButton = "<a href='" + auth_url + "'>Login to Spotify</a>"
@@ -44,6 +44,17 @@ def login(sp_oauth):
             access_token = token_info['access_token']
     return access_token
 
+def picture():
+    sp_oauth = getAuth()
+    access_token = login(sp_oauth)
+    if access_token:
+        sp = spotipy.Spotify(access_token)
+        results = sp.current_user()
+        q = (db.spotify_user.username == results["id"])
+        spotify_user = db(q).select().first()
+        return response.json(dict(spotify_user = spotify_user))
+    else:
+        return response.json(dict(spotify_user = None))
 
 def getAuth():
     SPOTIPY_CLIENT_ID = os.getenv("SPOTIPY_CLIENT_ID")

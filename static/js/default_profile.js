@@ -34,6 +34,14 @@ var app = function() {
       })
     }
 
+    function getProfile() {
+      $.post(profileURL, {}, function(data){
+        self.vue.tracksUserUploaded = data.tracksUserUploaded;
+        self.vue.image_url = data.spotify_user.image;
+          console.log(data.spotify_user);
+      })
+    }
+
     self.songsUserLikes = function() {
       $.post(givenLikes, {}, function(data){
             self.vue.countLikesOfUserUploaded = data.retrieveTotalLikesGiven;
@@ -65,7 +73,8 @@ var app = function() {
             ReceivedUserLikes: Array,
             totNumLikesReceived: 0,
             totNumSongsUploaded: 0,
-            totNumLikesGiven: 0
+            totNumLikesGiven: 0,
+            image_url: null
         },
         methods: {
           userTotalLikes: self.userTotalLikes,
@@ -75,6 +84,7 @@ var app = function() {
     self.userTotalLikes();
     self.songsUserLikes();
     self.songsLikesReceived();
+    getProfile();
     $("#parent").show();
     return self;
 };
