@@ -18,6 +18,23 @@ def index():
     else:
         return dict()
 
+def getComments():
+    rows = db(db.comments.id_comment_belongs_to == request.vars.id).select()
+    return response.json(dict(rows = rows))
+
+def add_comment():
+    sp_oauth = getauth()
+    access_token = login()
+    if access_token:
+        sp = spotipy.Spotify(access_token)
+        results = sp.current_user()
+        q = (db.spotify_user.username == results["id"])
+        spotify_user = db(q).select().first()
+        db.comments.insert(comment_type = request.vars.id, commentText = request.vars.commentText, id_comment_belongs_to = request.vars.id, pictureOfCommenter = spotify_user.image, nameOfCommenter = results['display_name'], idOfCommenter = spotify_user.username)
+        return response.json(dict(message = "ok", spotify_user = spotify_user))
+    else:
+        return response.json(dict(message = "nok"))
+
 def get_current_user_info():
     sp_oauth = getauth()
     access_token = login()

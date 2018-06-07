@@ -49,16 +49,18 @@ def get_feed_that_user_likes():
     return response.json(dict(selected = selected))
 
 def increaseLike():
-    q = ((db.feed_upvotes.id_of_feed == request.vars.id) & (db.feed_upvotes.user_id_of_upvoter == request.vars.userid))
+    q = ((db.feed_upvotes.id_of_feed == request.vars.id) & (db.feed_upvotes.upvoter == request.vars.username))
     selected = db(q).select().first()
     if selected is None:
-        db.feed_upvotes.insert(upvoter = request.vars.username, feed_type = request.vars.typefeed, user_id_of_upvoter = request.vars.userid, id_of_feed = request.vars.id)
-        q2 = ((db.feed_upvotes.id_of_feed == request.vars.id) & (db.feed_upvotes.user_id_of_upvoter == request.vars.userid))
+        row = db.feed_upvotes.insert(upvoter = request.vars.username, feed_type = request.vars.typefeed, user_id_of_upvoter = request.vars.userid, id_of_feed = request.vars.id)
+        q2 = ((db.feed_upvotes.id == row.id))
         selectedAgain = db(q2).select()
         return response.json(dict(selectedAgain = selectedAgain))
     else:
         db(q).delete()
-        return response.json(dict(selectedAgain = None))
+        q3 = ((db.feed_upvotes.user_id_of_upvoter == request.vars.userid))
+        selectedAgain = db(q3).select()
+        return response.json(dict(selectedAgain = "deleted"))
 
 def index():
     return dict();
@@ -66,3 +68,20 @@ def index():
 def retrieveFeed():
     feed = db().select(db.feed_info.ALL);
     return response.json(dict(feed=feed));
+
+def getComments():
+    rows = db(db.commentFeed.id_comment_belongs_to == request.vars.id).select()
+    return response.json(dict(rows = rows))
+
+def add_comment():
+    sp_oauth = getauth()
+    access_token = login()
+    if access_token:
+        sp = spotipy.Spotify(access_token)
+        results = sp.current_user()
+        q = (db.spotify_user.username == results["id"])
+        spotify_user = db(q).select().first()
+        db.commentFeed.insert(comment_type = request.vars.id, commentText = request.vars.commentText, id_comment_belongs_to = request.vars.id, pictureOfCommenter = spotify_user.image, nameOfCommenter = results['display_name'], idOfCommenter = spotify_user.username)
+        return response.json(dict(message = "ok", spotify_user = spotify_user))
+    else:
+        return response.json(dict(message = "nok"))

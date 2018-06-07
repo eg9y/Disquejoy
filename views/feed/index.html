@@ -7,7 +7,8 @@
   var likeURL = "{{=URL('feed', 'increaseLike')}}";
   var getUserInfoFromFeed = "{{=URL('feed', 'userInfo')}}";
   var getUserFeedLikes = "{{=URL('feed', 'get_feed_that_user_likes')}}";
-
+  var comments =  "{{=URL('feed', 'getComments')}}";
+  var add_comment =  "{{=URL('feed', 'add_comment')}}";
 </script>
 <style>
 @import url('https://fonts.googleapis.com/css?family=Varela+Round');
@@ -34,17 +35,29 @@
     </div>
   </div>
     <div class ="feedButtons" style="padding-top: 1%; display:block">
-      <div v-if = "!feed.user_liked" @change="likeFeed(feed.id)">
-      <img src="../static/images/like.png" style="max-width:20px">
+      <div v-if = "ids_of_feed_user_liked.includes(feed.id)">
+        <img src="../static/images/liked.png" style="max-width:20px"><div class = "feedText" @click = "likeFeed(feed.id)" style="font-size:15 !important; display:inline-block !important;">Like</div><img src="../static/images/comment.png" style="padding-left: 5px;max-width:20px;display:inline-block"><div class = "feedText" @click = "comment_memo_button(feed.id)" style="font-size:15 !important; display:inline-block !important;">Comment</div>
       </div>
-      <div v-if = "feed.user_liked" @change="likeFeed(feed.id)">
-      <img src="../static/images/liked.png" style="max-width:20px">
+      <div v-else >
+        <img src="../static/images/like.png" style="max-width:20px"><div class = "feedText" @click = "likeFeed(feed.id)" style="font-size:15 !important; display:inline-block !important;">Like</div><img src="../static/images/comment.png" style="padding-left: 5px;max-width:20px;display:inline-block"><div class = "feedText" @click = "comment_memo_button(feed.id)" style="font-size:15 !important; display:inline-block !important;">Comment</div>
       </div>
-      <div class = "feedText" @click = "likeFeed(feed.id)" style="font-size:15 !important; display:inline-block !important;">Like</div>
+
 
 
     </div>
     </div>
+
+
+    <div class="feedCell" v-if = "is_commenting && selected_feed_id == feed.id" style="overflow:auto;height:150px;border-radius: 18px;margin-top: -1%;margin-right: 3%;float:right; width:86%; background-color:#E8EEF2; padding-top: 1%; padding-bottom: 1%; padding-left:2%">
+      <div class = "listview" style = "height:90px;overflow-y:scroll;">
+        <div v-for = "row in comments" style = "border-radius: 48px 48px 48px 48px;border:1px solid grey;padding-top:7px;padding-bottom:7px;padding-left:7px;height:70px"><img :src = "row.pictureOfCommenter" width="50px" height = "50px" style = "border-radius:50%;padding-left:5px;display:inline-block;"><span style = "display:inline-block;color:black;">${row.commentText}</span>
+        </div>
+      </div>
+        <div style = "width:100%;bottom:0;"><input type = "text" v-model = "comment" placeholder="Add a comment!" style = "width:90%;border-radius:24px;"></input><button style = "width=10;" @click = "push_comment(feed.id)">Submit</button></div>
+    </div>
+
+
+
   </div>
 </div>
 <style>

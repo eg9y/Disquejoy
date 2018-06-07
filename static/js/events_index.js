@@ -52,7 +52,7 @@
               self.vue.eventsArr = self.vue.eventsArr.filter(e => e.id != memo_idx)
             }
             )
-          
+
         };
 
         function markEventsArr() {
@@ -100,6 +100,7 @@
        }
 
        self.select_event_to_display_members = function (memo_idx) {
+         self.vue.is_commenting = null;
         var index = 0;
         for(var i = 0;i<self.vue.eventsArr.length;i++) {
           if(self.vue.eventsArr[i].id == memo_idx) {
@@ -109,13 +110,82 @@
         }
 
         self.vue.is_viewing_members = !self.vue.is_viewing_members;
-        self.vue.selected_id_to_display_members = self.vue.eventsArr[index].id; 
+        self.vue.selected_id_to_display_members = self.vue.eventsArr[index].id;
 
         $.post(get_events_members, {id:memo_idx},function(data) {
           self.vue.rows_of_members = data.rows;
           console.log(self.vue.rows_of_members);
         })
       };
+
+      self.comment_memo_button = function (memo_idx) {
+       // The button to edit a memo has been pressed.
+       self.vue.is_viewing_members = null;
+       var index = 0;
+       for(var i = 0;i<self.vue.eventsArr.length;i++) {
+         if(self.vue.eventsArr[i].id == memo_idx) {
+           index = i;
+           break;
+         }
+       }
+
+       self.vue.is_commenting = !self.vue.is_commenting;
+       self.vue.selected_comment_id = self.vue.eventsArr[index].id;
+
+        $.post(get_comments, {id:memo_idx},function(data) {
+          self.vue.comments = data.rows;
+          console.log(data.rows);
+          for(var i = 0;i<self.vue.comments.length;i++) {
+            if(!self.vue.ids_of_comment.includes(self.vue.comments[i].id)){
+                self.vue.ids_of_comment.push(self.vue.comments[i].id);
+            }
+          }
+          console.log(self.vue.ids_of_comment);
+        })
+     };
+
+     self.push_comment = function(memo_idx) {
+       var index = 0;
+       for(var i = 0;i<self.vue.feedArr.length;i++) {
+         if(self.vue.feedArr[i].id == memo_idx) {
+           index = i;
+           break;
+         }
+       }
+
+       $.post(add_comment, {
+         typeComment:"EVENT",
+         id:memo_idx,
+         commentText: self.vue.comment,
+       },function(data) {
+         self.vue.comments.push({
+           comment_type:"EVENT",
+           commentText:self.vue.comment,
+           id_comment_belongs_to: memo_idx,
+           pictureOfCommenter: data.spotify_user["image"],
+           nameOfCommenter:self.vue.name_of_current_user,
+           idOfCommenter: data.spotify_user["username"]
+         })
+         self.vue.comment = "";
+       })
+
+     }
+
+     self.comment_memo = function (memo_idx) {
+       self.vue.comments.clear();
+      // The button to edit a memo has been pressed.
+      var index = 0;
+      for(var i = 0;i<self.vue.eventsArr.length;i++) {
+        if(self.vue.eventsArr[i].id == memo_idx) {
+          index = i;
+          break;
+        }
+      }
+      self.vue.is_commenting = !self.vue.is_commenting;
+      self.vue.selected_comment_id = self.vue.eventsArr[index].id;
+      self.vue.locationOfEvent = self.vue.eventsArr[index].Area;
+    };
+
 
       self.edit_memo_button = function (memo_idx) {
        // The button to edit a memo has been pressed.
@@ -171,7 +241,7 @@
     };
 
     self.add_member = function(id, name) {
-      console.log("entered!!" + id + " " +name); 
+      console.log("entered!!" + id + " " +name);
       $.post(add_member_url, {id:id, name:name}, function(data) {
         console.log(data);
         for(var i = 0;i<self.vue.eventsArr.length;i++) {
@@ -211,6 +281,11 @@
         form_edit_title: null,
         form_edit_memo: null,
         gif_edit_url:null,
+        is_commenting:false,
+        ids_of_comment: [],
+        comments:[],
+        comment:null,
+        selected_comment_id:-1,
         selected_id_to_display_members:-1,
         selected_id: -1  // Saves selected memo ID.
       },
@@ -222,7 +297,9 @@
         select_event_to_display_members:self.select_event_to_display_members,
         cancel_edit:self.cancel_edit,
         edit_memo_button:self.edit_memo_button,
-        edit_memo: self.edit_memo
+        edit_memo: self.edit_memo,
+        comment_memo_button:self.comment_memo_button,
+        push_comment:self.push_comment,
       }
     });
     get_current_user();
@@ -237,4 +314,3 @@
   // This will make everything accessible from the js console;
   // for instance, self.x above would be accessible as APP.x
   jQuery(function(){APP = app();});
-

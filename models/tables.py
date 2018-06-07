@@ -105,5 +105,22 @@ db.define_table('feed_upvotes',
                 Field('id_of_feed', 'text', default = None),
                 )
 
+db.define_table('comments',
+                Field('comment_type'),
+                Field('commentText'),
+                Field('id_comment_belongs_to'),
+                Field('pictureOfCommenter'),
+                Field('nameOfCommenter'),
+                Field('idOfCommenter')
+                )
+
+db.define_table('commentFeed',
+                Field('comment_type'),
+                Field('commentText'),
+                Field('id_comment_belongs_to'),
+                Field('pictureOfCommenter'),
+                Field('nameOfCommenter'),
+                Field('idOfCommenter')
+                )
 # after defining tables, uncomment below to enable auditing
 # auth.enable_record_versioning(db)
