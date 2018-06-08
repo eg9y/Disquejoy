@@ -44,7 +44,7 @@ def login(sp_oauth):
             access_token = token_info['access_token']
     return access_token
 
-def picture():
+def profileInfo():
     sp_oauth = getAuth()
     access_token = login(sp_oauth)
     if access_token:

@@ -30,10 +30,10 @@ var app = function() {
           self.vue.totNumLikesReceived += data.tracksUserUploaded[i].upvotes;
           self.vue.totNumSongsUploaded += 1;
         }
-        console.log(data.tracksUserUploaded);
+        console.log(self.vue.tracksUserUploaded);
       })
     }
-
+/*
     function getProfile() {
       $.post(profileURL, {}, function(data){
         self.vue.tracksUserUploaded = data.tracksUserUploaded;
@@ -41,7 +41,7 @@ var app = function() {
           console.log(data.spotify_user);
       })
     }
-
+*/
     self.songsUserLikes = function() {
       $.post(givenLikes, {}, function(data){
             self.vue.countLikesOfUserUploaded = data.retrieveTotalLikesGiven;
@@ -68,7 +68,7 @@ var app = function() {
         delimiters: ['${', '}'],
         unsafeDelimiters: ['!{', '}'],
         data: {
-            tracksUserUploaded: Array,
+            tracksUserUploaded: [],
             countLikesOfUserUploaded: Array,
             ReceivedUserLikes: Array,
             totNumLikesReceived: 0,
@@ -84,7 +84,7 @@ var app = function() {
     self.userTotalLikes();
     self.songsUserLikes();
     self.songsLikesReceived();
-    getProfile();
+    //getProfile();
     $("#parent").show();
     return self;
 };

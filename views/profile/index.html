@@ -7,23 +7,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>
 var totLikes = "{{=URL('profile', 'retrieveTotalLikes')}}";
-var songsUploaded = 0;
 var givenLikes = "{{=URL('profile', 'retrieveTotalLikesGiven')}}";
 var receivedLikes = "{{=URL('profile', 'retrieveTotalLikesReceived')}}";
 var discoverData = "{{=URL('profile', 'discoverData')}}";
-var profileURL = "{{=URL('profile', 'picture')}}";
+
 </script>
-
-  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway"/>
-
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway"/>
 <style>
-
 #parent {
     padding:10px;
     text-align:center;
     height:100%;
 }
-
 #prof {
 	background: white;
     width: 256px;
@@ -33,11 +28,9 @@ var profileURL = "{{=URL('profile', 'picture')}}";
     margin-right: 32%;
     margin-left: 44%;
 }
-
 #name {
 	margin-top:2%;
 }
-
 #buttonHeader {
 	/*margin-top: 6%;*/
     /*background-color:green;*/
@@ -50,7 +43,6 @@ var profileURL = "{{=URL('profile', 'picture')}}";
     right: 0;
     padding-left: 15%;
 }
-
 #totLikes {
     float:left;
     width:28.333%;
@@ -59,27 +51,18 @@ var profileURL = "{{=URL('profile', 'picture')}}";
     /*background: #ff0000;*/
     top:1;
 }
-
 #songsUploaded {
     margin:0 auto;
     width:28.333%;
-
     /*background: #00ff00;*/
 }
-
 #givenLikes {
     float:right;
     width:28.333%;
     height: 100%;
     /*background: #0000ff;*/
-
 }
-
 .child {height:auto;margin:auto}
-
-
-
-
 /* Style the tab */
 .tab {
     overflow: hidden;
@@ -87,8 +70,9 @@ var profileURL = "{{=URL('profile', 'picture')}}";
     background-color: #363E45;
     width: 86% !important;
     margin-left: 14.5%;
-}
+    height:100px;
 
+}
 /* Style the buttons inside the tab */
 .tab button {
     background-color: inherit;
@@ -104,18 +88,16 @@ var profileURL = "{{=URL('profile', 'picture')}}";
     text-align: center;
     margin: 0 0 0 0 !important;
 }
-
 /* Change background color of buttons on hover */
 .tab button:hover {
     background-color: #2FD566;
-
+    height:100px;
 }
-
 /* Create an active/current tablink class */
 .tab button.active {
     background-color: #26a69a;
+    height:100px;
 }
-
 /* Style the tab content */
 .tabcontent {
     display: none;
@@ -123,67 +105,48 @@ var profileURL = "{{=URL('profile', 'picture')}}";
     -webkit-animation: fadeEffect 1s;
     animation: fadeEffect 1s;
 }
-
 /* Fade in tabs */
 @-webkit-keyframes fadeEffect {
     from {opacity: 0;}
     to {opacity: 1;}
 }
-
 @keyframes fadeEffect {
     from {opacity: 0;}
     to {opacity: 1;}
 }
-
-
-
 </style>
 </head>
-<body>
+<body >
 
-<div id="parent" style = "overflow-y:scroll;height:800px;position:fixed;right:0;width:90%;">
+<div id="parent" style = "overflow-y:scroll;height:780px;position:fixed;right:0;width:90%;">
 
     <div id = "prof" class="child">
-      <img :src = "image_url" width= "256px" height="256px" style = "border-radius:50%;">
+      <img src = "{{=spotify_user['image']}}" width= "256px" height="256px" style = "border-radius:50%;">
+
     </div>
     <div class = "userInfo" style = "color:white;margin-left:6%;margin-top:2%;font-size:2.5em;font-family:Raleway;">
-      <div style = "display:block;">{{=results["display_name"]}}</div>
-      <div style = "display:block;">Followers:{{=results["followers"]["total"]}}</div>
+     <div style = "display:block;">{{=results["display_name"]}}</div>
+     <div style = "display:block;">Followers:{{=results["followers"]["total"]}}</div>
 
-    </div>
-    <div id = "name" class="child">Bar
-    </div>
-    <!--<button onclick="deleteP()">Delete</button>-->
-    <div id = "buttonHeader" class="child" style="display: none !important;">
-    	<div id = "totLikes" style="position: relative; margin-top: 3%; font-size: 75; font-weight: 550; color: white; display:inline-block;">
-          ${totNumLikesReceived} <div style="display:block; font-size: 1.2em;"> Received Likes </div>
-        </div>
-        <div id = "songsUploaded" style="position: relative; margin-top: 3%; font-size: 75; font-weight: 550; color: white;display:inline-block;">
-          ${totNumSongsUploaded} <div style="display:block; font-size: 1.2em;"> Songs Uploaded </div>
-        </div>
+   </div>
 
-      <div id = "givenLikes" style="position: relative; margin-top: 3%; font-size: 75; font-weight: 550; color: white;display:inline-block;">
-          ${totNumLikesGiven} <div style="display:block; font-size: 1.2em;"> Likes Given </div>
-        </div>
-
-    </div>
 
 <div class="tab" style = "border-radius:50px 50px 50px 50px;margin-left:10%;">
   <button class="tablinks" onclick="openCity(event, 'Received_Likes')">
-    <div style="display:block; font-size: 1.2em;"> ${totNumLikesReceived} <br> Received Likes </div>
+    <div style="display:block; font-size: 40;"> ${totNumLikesReceived} <br> Received Likes </div>
   </button>
   <button class="tablinks" onclick="openCity(event, 'Songs_Uploaded')">
-     <div style="display:block; font-size: 1.2em;">${totNumSongsUploaded} <br> Songs Uploaded </div>
+     <div style="display:block; font-size: 40;">${totNumSongsUploaded} <br> Songs Uploaded </div>
   </button>
   <button class="tablinks" onclick="openCity(event, 'Likes_Given')">
-     <div style="display:block; font-size: 1.2em;"> ${totNumLikesGiven} <br> Likes Given </div>
+     <div style="display:block; font-size: 40;"> ${totNumLikesGiven} <br> Likes Given </div>
   </button>
 </div>
 
-<div id="Received_Likes" class="tabcontent" style = "overflow-y: scroll;height:230px;">
+<div id="Received_Likes" class="tabcontent" style = "overflow-y: scroll;height:240px;">
   <div class = "likes" v-for = "data in ReceivedUserLikes">
-    <div style = "float:right;color:white;width:80%;border: 1px solid grey;border-radius:45px 45px 45px 45px;">
-      <div class = "text" style = "padding-left:3%;float:left;margin-top:4%;margin-bottom:4%;">
+    <div style = "float:right;color:white;width:92%;border: 1px solid grey;border-radius:45px 45px 45px 45px;">
+      <div class = "text" style = "float:left;margin-top:4%;margin-bottom:4%;">
           <!--<div v-if = "data.upvoterName is not None">
             <h4>Hello!</h4>
           </div>-->
@@ -193,20 +156,20 @@ var profileURL = "{{=URL('profile', 'picture')}}";
 </div>
 </div>
 
-<div id="Songs_Uploaded" class="tabcontent" style = "overflow-y: scroll;height:230px;">
+<div id="Songs_Uploaded" class="tabcontent" style = "overflow-y: scroll;height:240px;">
   <div v-for = "track in tracksUserUploaded">
-    <div style = "float:right;color:white;width:80%;border: 1px solid grey;border-radius:45px 45px 45px 45px;">
-      <div class = "text" style = "padding-left:3%;float:left;margin-top:4%;margin-bottom:4%;">
+    <div style = "float:right;color:white;width:92%;border: 1px solid grey;border-radius:45px 45px 45px 45px;">
+      <div class = "text" style = "float:left;margin-top:4%;margin-bottom:4%;">
         ${track.artist} - ${track.title}
     </div>
   </div>
 </div>
 </div>
 
-<div id="Likes_Given" class="tabcontent" style = "overflow-y: scroll;height:230px;">
+<div id="Likes_Given" class="tabcontent" style = "overflow-y: scroll;height:240px;">
     <div v-for = "data in countLikesOfUserUploaded">
-    <div style = "float:right;color:white;width:80%;border: 1px solid grey;border-radius:45px 45px 45px 45px;">
-      <div class = "text" style = "padding-left:3%;float:left;margin-top:4%;margin-bottom:4%;">
+    <div style = "float:right;color:white;width:92%;border: 1px solid grey;border-radius:45px 45px 45px 45px;">
+      <div class = "text" style = "float:left;margin-top:4%;margin-bottom:4%;">
         ${data.upvoterName} upvoted ${data.songName}
     </div>
   </div>
@@ -217,9 +180,7 @@ var profileURL = "{{=URL('profile', 'picture')}}";
   overflow:hidden;
   height:200px;
 }
-
 .likes {
-
   overflow:auto;
 }
 </style>
@@ -239,13 +200,13 @@ function openCity(evt, cityName) {
 }
 </script>
 
-<style>
-@media screen and (max-width: 800px){
-    .userInfo {
-      margin-left: 2%;
+    <!--
+<script>
+    function deleteP() {
+        $.post(deleteData, {}, function(data) { console.log(data)})
     }
-}
-</style>
+</script>
+-->
 
 <script src="{{=URL('static', 'js/default_profile.js')}}"></script>
 </body>
