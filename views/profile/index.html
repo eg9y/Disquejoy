@@ -13,6 +13,7 @@ var discoverData = "{{=URL('profile', 'discoverData')}}";
 
 </script>
 <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway"/>
+<link href="{{=URL('static','css/profile.css')}}" rel="stylesheet" type="text/css"/>
 <style>
 #parent {
     padding:10px;
@@ -120,61 +121,74 @@ var discoverData = "{{=URL('profile', 'discoverData')}}";
 
 <div id="parent" style = "overflow-y:scroll;height:780px;position:fixed;right:0;width:90%;">
 
-    <div id = "prof" class="child">
-      <img src = "{{=spotify_user['image']}}" width= "256px" height="256px" style = "border-radius:50%;">
+    <div class="child">
+      <img src = "{{=spotify_user['image']}}" width= "100px" height="100px" style = "border-radius:50%; align:center; margin-left:5.5%;">
 
     </div>
-    <div class = "userInfo" style = "color:white;margin-left:6%;margin-top:2%;font-size:2.5em;font-family:Raleway;">
-     <div style = "display:block;">{{=results["display_name"]}}</div>
-     <div style = "display:block;">Followers:{{=results["followers"]["total"]}}</div>
+    <div class = "userInfo" style = "font-family:Montserrat;font-size:18px;color:white;margin-left:6%;margin-top:1%; ">
+     <div style = "display:block;font-weight:bold;font-size:2.0em;">{{=results["display_name"]}}</div>
+     <div style = "display:block;margin-top:0.3%;margin-bottom:1.5%;font-size:1.0em;">{{=results["followers"]["total"]}} Followers</div>
 
    </div>
 
 
-<div class="tab" style = "border-radius:50px 50px 50px 50px;margin-left:10%;">
-  <button class="tablinks" onclick="openCity(event, 'Received_Likes')">
-    <div style="display:block; font-size: 40;"> ${totNumLikesReceived} <br> Received Likes </div>
-  </button>
-  <button class="tablinks" onclick="openCity(event, 'Songs_Uploaded')">
-     <div style="display:block; font-size: 40;">${totNumSongsUploaded} <br> Songs Uploaded </div>
-  </button>
-  <button class="tablinks" onclick="openCity(event, 'Likes_Given')">
-     <div style="display:block; font-size: 40;"> ${totNumLikesGiven} <br> Likes Given </div>
-  </button>
-</div>
+   <div class="compressible tabs" style="height:400px;">
+      <input type="radio" id="tab1" name="tab-control" checked>
+      <input type="radio" id="tab2" name="tab-control">
+      <input type="radio" id="tab3" name="tab-control">
+      <ul>
+        <li title="totLikes"><label for="tab1" role="button">
+        <br><span>${totNumLikesReceived} Likes Recieved</span></label></li>
+        <li title="songsUploaded"><label for="tab2" role="button">
+        <br><span>${totNumSongsUploaded} Songs Uploaded</span></label></li>
+        <li title="givenLikes"><label for="tab3" role="button">
+        <br><span>${totNumLikesGiven} Likes Given</span></label></li>
+      </ul>
 
-<div id="Received_Likes" class="tabcontent" style = "overflow-y: scroll;height:240px;">
-  <div class = "likes" v-for = "data in ReceivedUserLikes">
-    <div style = "float:right;color:white;width:92%;border: 1px solid grey;border-radius:45px 45px 45px 45px;">
-      <div class = "text" style = "float:left;margin-top:4%;margin-bottom:4%;">
-          <!--<div v-if = "data.upvoterName is not None">
-            <h4>Hello!</h4>
-          </div>-->
-        ${data.upvoterName} upvoted ${data.songName}
+    <div class="slider"><div class="indicator"></div></div>
+    <div class="content">
+      <section>
+        <h2>Likes Recieved</h2>
+        <div id="Received_Likes" style = "overflow-y: scroll;height:270px;">
+          <div class = "likes" v-for = "data in ReceivedUserLikes">
+            <div style = "float:left;color:black;width:100%;border: 1px solid grey;">
+              <div class = "text" style = "font-family:Montserrat;padding-left:3%;float:left;margin-top:2%;margin-bottom:2%;">
+                ${data.upvoterName} upvoted ${data.songName}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section>
+        <h2>Songs Uploaded</h2>
+        <div id="Songs_Uploaded" style = "overflow-y: scroll;height:230px;">
+          <div v-for = "track in tracksUserUploaded">
+            <div style = "float:left;color:black;width:100%;border: 1px solid grey;">
+              <div class = "text" style = "padding-left:3%;float:left;margin-top:2%;margin-bottom:2%;">
+                ${track.artist} - ${track.title}
+            </div>
+          </div>
+        </div>
+        </div>
+
+      </section>
+      <section>
+        <h2>Likes Given</h2>
+        <div id="Likes_Given" style = "overflow-y: scroll;height:270px;">
+            <div v-for = "data in countLikesOfUserUploaded">
+            <div style = "float:left;color:black;width:100%;border: 1px solid grey;">
+              <div class = "text" style = "padding-left:3%;float:left;margin-top:2%;margin-bottom:2%;">
+                ${data.upvoterName} upvoted ${data.songName}
+            </div>
+          </div>
+        </div>
+        </div>
+      </section>
     </div>
   </div>
 </div>
-</div>
 
-<div id="Songs_Uploaded" class="tabcontent" style = "overflow-y: scroll;height:240px;">
-  <div v-for = "track in tracksUserUploaded">
-    <div style = "float:right;color:white;width:92%;border: 1px solid grey;border-radius:45px 45px 45px 45px;">
-      <div class = "text" style = "float:left;margin-top:4%;margin-bottom:4%;">
-        ${track.artist} - ${track.title}
-    </div>
-  </div>
-</div>
-</div>
 
-<div id="Likes_Given" class="tabcontent" style = "overflow-y: scroll;height:240px;">
-    <div v-for = "data in countLikesOfUserUploaded">
-    <div style = "float:right;color:white;width:92%;border: 1px solid grey;border-radius:45px 45px 45px 45px;">
-      <div class = "text" style = "float:left;margin-top:4%;margin-bottom:4%;">
-        ${data.upvoterName} upvoted ${data.songName}
-    </div>
-  </div>
-</div>
-</div>
 <style>
 #Received_Likes {
   overflow:hidden;
