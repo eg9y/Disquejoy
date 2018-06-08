@@ -8,3 +8,8 @@
 [v-cloak] {
   display: none;
 }
+
+h1{
+  padding: 30px;
+  color: white !important;
+}
