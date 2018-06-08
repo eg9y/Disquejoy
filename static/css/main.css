@@ -13,20 +13,18 @@
     width: 15%;
     position: fixed;
     top: 0;
-    background-color: #2FD566;
+    background: linear-gradient(to bottom right, rgb(141, 227, 170), rgb(51, 226, 110));
 }
 
 
 .sidenav a {
     align-self: center;
     display: block;
-    background: #38C765;
+    background: linear-gradient(to bottom right, rgb(170, 248, 197), rgb(204, 250, 219));
     border-radius: 10px;
     text-align: center;
     width: 75%;
     margin-top:1% !important;
-
-
 }
 
 .sidenav a:hover{
