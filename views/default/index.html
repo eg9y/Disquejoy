@@ -29,32 +29,29 @@ var get_token_access_url = "{{=URL('api', 'get_token_client', user_signature=Tru
     </div>
     <table id="songs" v-cloak class="table table-hover" box="frame">
         <thead>
-        <tr id="header" bgcolor="red">
-            <th v-for="col in columns" v-on:click="sortTable(col)">
+        <tr style = "background:none !important;">
+            <th style = "visibility:hidden;">Play</th>
+            <th v-for="col in columns" v-on:click="sortTable(col)" style = "color:white;border-bottom:3px solid white;background:none !important;">
                 ${col}
             </th>
         </tr>
         </thead>
         <div v-if="tracks is not None">
+          <tbody>
             <tr v-for="(track, i) in musicAr">
+
                 <td class="greyRow">
-                    <img :src="track.image" alt="" style="max-width:100px;max-height:100px">
-                </td>
-                <td class="greyRow">
-                    ${track.artist}
+                  <div v-if="!notPlaying && currentURI == track.spotify_uri"><a @click="play_track(track.spotify_uri)" ><img src = "../static/images/Puase.png" width="45px" height="45px"> </a></div>
+                  <div v-else><a @click="play_track(track.spotify_uri)"><img src = "../static/images/Play.png" width="45px" height="45px"> </a></div>
+                  <!--  ${track.artist} -->
                 </td>
                 <td class="greyRow">${track.title}</td>
-                <td class="greyRow">${track.popularity}</td>
-                <td class="greyRow" style="text-align:center;">
-                    <div v-if="!notPlaying && currentURI == track.spotify_uri"><a @click="play_track(track.spotify_uri)" class="btn rounded red"><i
-                        class="fa fa-pause"></i> </a></div>
-                    <div v-else><a @click="play_track(track.spotify_uri)" class="btn rounded red"><i
-                            class="fa fa-play"></i> </a></div>
-                </td>
+                <td class="greyRow">${track.artist}</td>
                 <td class="greyRow" @click="increment(track.id)">
                     ${track.upvotes}
                 </td>
                 <td>
+                  ${track.rating}
                 </td>
                 <td id="trash">
                     <a class="btn rounded red" @click="delete_track(track.id)">
@@ -62,6 +59,7 @@ var get_token_access_url = "{{=URL('api', 'get_token_client', user_signature=Tru
                     </a>
                 </td>
             </tr>
+          </tbody>
         </div>
 
     </table>

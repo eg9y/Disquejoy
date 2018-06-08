@@ -86,7 +86,7 @@ var app = function (data, device_id, player) {
     //var notPlaying = true;
     self.play_track = function(uri) {
       if (self.vue.notPlaying) {
-        self.vue.notPlaying = false;        
+        self.vue.notPlaying = false;
         if(self.vue.currentURI === uri){
           player.resume().then(() => {
             console.log("Resume");
@@ -121,11 +121,11 @@ var app = function (data, device_id, player) {
         data: {
             musicAr: [],
             sortKey: 'Artist',
-            currentURI: "",            
+            currentURI: "",
             reverse: false,
             search: '',
             has_more: false,
-            columns: ['Album','Artist', 'Song', 'Rating', 'Play/Pause', 'Upvotes', 'Play Count','Delete'],
+            columns: ['Title','Artist', 'Upvotes', 'Rating','Delete'],
             notPlaying:true
         },
         methods: {

@@ -4,7 +4,7 @@
   float:right;
   margin-top: 95px;
   margin-right: 10px;;
-  border-collapse: separate !important;
+
   align-content: right;
   width:82%;
 
@@ -23,19 +23,23 @@
 
 #header1 {
   border-left: 1px solid #000;
-  border-top-left-radius: 5px;
+
 }
 
 #songs td, #songs th {
-    background-color: #363E45;
+  /*  background-color: #363E45;
     font-size: 17pt;
     padding: 8px;
     color:white;
-    text-align: right;
+    text-align: right;*/
 }
 
 #songs tr {
-  color: #0000;
+
+}
+
+.greyRow {
+  color:white;
 }
 
 h1 {
@@ -51,22 +55,22 @@ h1 {
 
 }
 #songs th {
-    font-family: 'Varela Round', sans-serif;
+  /*  font-family: 'Varela Round', sans-serif;
     padding-top: 35px;
     padding-bottom: 5px;
     text-align: right;
     background-color: #2A3136;
     border:  2px solid  #00E4AC;
-    color: white;
+    color: white; */
 }
 
 .greyRow {
-  color: #0000;
+  color: white;
 }
-
+/*
 thead tr:first-child th:first-child {
   border: 2px solid  #00E4AC;
-  border-top-left-radius: 25px;
+
 
 }
 
@@ -76,10 +80,10 @@ thead tr:first-child th:first-child {
 
 thead tr:last-child th:last-child {
   border: 2px solid  #00E4AC;
-  border-top-right-radius: 25px;
+
 
 }
-
+*/
 /*https://bethsoderberg.com/blog/making-responsive-rectangles-and-squares-with-css/*/
 .flex-rectangle {
     width: 55%;
@@ -109,6 +113,10 @@ thead tr:last-child th:last-child {
 }
 
 /*end*/
+
+#songs > table > tbody > tr > td:first-child {
+   padding:0 !important;
+}
 
 #header {
   background-color: red;
