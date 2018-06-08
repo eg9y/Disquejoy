@@ -146,8 +146,8 @@
 
      self.push_comment = function(memo_idx) {
        var index = 0;
-       for(var i = 0;i<self.vue.feedArr.length;i++) {
-         if(self.vue.feedArr[i].id == memo_idx) {
+       for(var i = 0;i<self.vue.eventsArr.length;i++) {
+         if(self.vue.eventsArr[i].id == memo_idx) {
            index = i;
            break;
          }

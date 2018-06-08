@@ -25,13 +25,13 @@
     <div class ="feedProfilePic" style="display:inline-block;float:left;"> <img :src="feed.profilePicture" style="border-radius:50px;max-width:100px">
     </div>
     <div v-if = "feed.feed_type == 'UPVOTE'">
-      <div class ="feedText" style="padding-left: 10%"> ${feed.user_name_active} upvoted the song: ${feed.title} </div>
+      <div class ="feedText" style="position:relative;padding-top:30px;padding-left: 10%font-family:'Varela Round', sans-serif;width:85%;"> ${feed.user_name_active} upvoted the song: ${feed.title} </div>
     </div>
     <div v-if = "feed.feed_type == 'EVENT'">
-      <div class ="feedText" style="position:relative;padding-top:30px;padding-left: 10%font-family:Raleway;width:85%;"> ${feed.user_name_active} is hosting an event: ${feed.title} </div>
+      <div class ="feedText" style="position:relative;padding-top:30px;padding-left: 10%font-family:'Varela Round', sans-serif;width:85%;"> ${feed.user_name_active} is hosting an event: ${feed.title} </div>
     </div>
     <div v-if = "feed.feed_type == 'UPLOAD'">
-      <div class ="feedText" style="position:relative;padding-top:30px;padding-left: 10%;font-family:Raleway;width:85%;"> ${feed.user_name_active} uploaded a new song: ${feed.song} </div>
+      <div class ="feedText" style="position:relative;padding-top:30px;padding-left: 10%;font-family:'Varela Round', sans-serif;width:85%;"> ${feed.user_name_active} uploaded a new song: ${feed.song} </div>
     </div>
   </div>
     <div class ="feedButtons" style="padding-top: 1%; display:block">
@@ -50,13 +50,13 @@
         </a>
       </div>
       <div v-else >
-        <a class="btn rounded green" @click = "likeFeed(feed.id)">     
-        <i class="fa fa-heart"></i>             
+        <a class="btn rounded green" @click = "likeFeed(feed.id)">
+        <i class="fa fa-heart"></i>
         <div class = "feedText" style="font-size:15 !important; display:inline-block !important;margin-right:20px">
           Like
         </div>
         </a>
-        <a class="btn rounded green" @click = "comment_memo_button(feed.id)">      
+        <a class="btn rounded green" @click = "comment_memo_button(feed.id)">
           <i class="fa fa-comment"></i>
           <div class = "feedText"  style="font-size:15 !important; display:inline-block !important;">
             Comment
