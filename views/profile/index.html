@@ -149,9 +149,9 @@ var discoverData = "{{=URL('profile', 'discoverData')}}";
     <div class="content">
       <section>
         <h2>Likes Recieved</h2>
-        <div id="Received_Likes" style = "overflow-y: scroll;height:270px;">
+        <div id="Received_Likes" style = "overflow-y: scroll;height:230px;">
           <div class = "likes" v-for = "data in ReceivedUserLikes">
-            <div style = "float:left;color:black;width:100%;border: 1px solid grey;">
+            <div style = "float:left;color:black;width:100%;border-top: 1px solid grey;">
               <div class = "text" style = "font-family:Montserrat;padding-left:3%;float:left;margin-top:2%;margin-bottom:2%;">
                 ${data.upvoterName} upvoted ${data.songName}
               </div>
@@ -163,7 +163,7 @@ var discoverData = "{{=URL('profile', 'discoverData')}}";
         <h2>Songs Uploaded</h2>
         <div id="Songs_Uploaded" style = "overflow-y: scroll;height:230px;">
           <div v-for = "track in tracksUserUploaded">
-            <div style = "float:left;color:black;width:100%;border: 1px solid grey;">
+            <div style = "float:left;color:black;width:100%;border-top: 1px solid grey;">
               <div class = "text" style = "padding-left:3%;float:left;margin-top:2%;margin-bottom:2%;">
                 ${track.artist} - ${track.title}
             </div>
@@ -174,9 +174,9 @@ var discoverData = "{{=URL('profile', 'discoverData')}}";
       </section>
       <section>
         <h2>Likes Given</h2>
-        <div id="Likes_Given" style = "overflow-y: scroll;height:270px;">
+        <div id="Likes_Given" style = "overflow-y: scroll;height:230px;">
             <div v-for = "data in countLikesOfUserUploaded">
-            <div style = "float:left;color:black;width:100%;border: 1px solid grey;">
+            <div style = "float:left;color:black;width:100%;border-top: 1px solid grey;">
               <div class = "text" style = "padding-left:3%;float:left;margin-top:2%;margin-bottom:2%;">
                 ${data.upvoterName} upvoted ${data.songName}
             </div>

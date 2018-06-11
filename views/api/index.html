@@ -7,22 +7,22 @@
 </script> {{end}}
 
 
-  <div class="">
-    <div class="inner">
-        <div class="">
-            <div>
-                {{if results is not None:}}
-                <h2 style="color: #ffffff;">You are logged in as {{=results["display_name"]}}</h2>
-                <a class="btn rounded" href='{{=URL("disquejoy","api","logout")}}' style="background-color: #00E4AC; color: #000000;">
-                    <h5>Log out</h5>
-                </a>
-                {{else:}}
-                <h5> You are not logged in!</h5>
-                <a href="{{=auth_url}}">Login to Spotify</a>        
-                {{pass}}
-                <!-- access token: {{=access_token}} -->
-                <!-- Your code goes here.  Remember to call $("#vue-div").show() once you get the data for the first time. -->
-            </div>
+<div id="title">Settings</div>
+  <div class="inner">
+        <div class="feedCell" style="border-radius: 18px; margin-top: 3%;margin-right: 5%;float:right; width:74%; background-color:#E8EEF2; padding-top: 2%; padding-bottom: 1%; padding-left:2%">
+            {{if results is not None:}}
+            <div id="xx1" style="color: black;">You are logged in as {{=results["display_name"]}}</div>
+              <a class="btn rounded" href='{{=URL("disquejoy","api","logout")}}' style="font-family: Montserrat; font-weight:600;margin-left: 44%; margin-top: 2%; background-color: #60E18B; color: #000000;">
+                Log out
+              </a>
+            {{else:}}
+            <div id="xx1" style="color: black;"> You are not logged in to Spotify!</div>
+            <a class="btn rounded" href='{{=auth_url}}' style="font-family: Montserrat; font-weight:600;margin-left: 44%; margin-top: 2%; background-color: #60E18B; color: #000000;">
+              Login
+            </a>
+            {{pass}}
+            <!-- access token: {{=access_token}} -->
+            <!-- Your code goes here.  Remember to call $("#vue-div").show() once you get the data for the first time. -->
         </div>
     </div>
   </div>

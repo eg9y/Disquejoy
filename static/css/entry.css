@@ -1,3 +1,5 @@
+@import "https://fonts.googleapis.com/css?family=Montserrat:400,700|Raleway:300,400";
+
 .outer {
   display: table;
   position: absolute;
@@ -11,12 +13,24 @@
 }
 
 .inner {
-  margin: 0 auto;
-  width: 400px;
+  width: 75%;
+  height: 50%;
+  margin-left: 17%;
   /*whatever width you want*/
 }
 
 #xx1{
 	text-align: center;
-	font-family: Georgia, Times, "Times New Roman", serif;
+	font-family: Montserrat;
+  font-size: 18;
+
+}
+
+#title {
+  font-weight: bold;
+  font-family: Montserrat;
+  color: white;
+  font-size: 55px;
+  margin-top:5px;
+  margin-left: 20%;
 }
