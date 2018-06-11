@@ -166,6 +166,7 @@
            nameOfCommenter:self.vue.name_of_current_user,
            idOfCommenter: data.spotify_user["username"]
          })
+         self.vue.eventsArr[i].numberOfCommentsInFeed = parseInt(self.vue.eventsArr[i].numberOfCommentsInFeed) + 1;
          self.vue.comment = "";
        })
 

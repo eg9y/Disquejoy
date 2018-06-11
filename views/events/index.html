@@ -172,14 +172,6 @@
   background-color: #3e8e41;
 }
 </style>
-
-<script>
-
-  var deleteP = function() {
-    $.post(del, {}, function(data){ console.log(data)})
-  }
-
-</script>
 <body>
 <div id="title">Events</div>
  <div v-cloak id = "container" class = "compressible">
@@ -203,7 +195,7 @@
       <a class="btn rounded buttonInfo" style="margin-left:2px;" @click = "comment_memo_button(event.id)">
         <i class="fa fa-comment" style="font-size: 15;"></i>
         <div class = "feedText"  style="padding: 3px 2px; line-height: 1px; font-size:13px; font-family: Montserrat; display:inline-block !important; margin-right:1px;">
-          Comment
+          Comment(${event.numberOfCommentsInFeed})
         </div>
       </a>
 

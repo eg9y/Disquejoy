@@ -53,9 +53,11 @@ var app = function () {
       console.log(data);
       if(data.selectedAgain == "deleted") {
         self.vue.ids_of_feed_user_liked =  self.vue.ids_of_feed_user_liked.filter(e => e != self.vue.feedArr[i].id);
+        self.vue.feedArr[i].numberOfLikesInFeed = parseInt(self.vue.feedArr[i].numberOfLikesInFeed) - 1;
       }
       else {
         self.vue.ids_of_feed_user_liked.push(parseInt(data.selectedAgain[0].id_of_feed));
+        self.vue.feedArr[i].numberOfLikesInFeed = parseInt(self.vue.feedArr[i].numberOfLikesInFeed) + 1;
       }
       console.log(self.vue.ids_of_feed_user_liked);
       self.vue.liked = self.vue.ids_of_feed_user_liked.includes(self.vue.feedArr[i].id);
@@ -124,6 +126,7 @@ var app = function () {
         nameOfCommenter:self.vue.user_name_of_logged_in_user,
         idOfCommenter: data.spotify_user["username"]
       })
+      self.vue.feedArr[i].numberOfCommentsInFeed = parseInt(self.vue.feedArr[i].numberOfCommentsInFeed) + 1;
       self.vue.comment = "";
     })
 

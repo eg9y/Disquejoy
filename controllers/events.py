@@ -59,6 +59,7 @@ def get_events():
             events = events
         ))
     for i, r in enumerate(eventsDB):
+        numberOfComments = db(db.comments.id_comment_belongs_to == r.id).count()
         if i < end_idx - start_idx:
             t = dict(
                 id = r.id,
@@ -68,7 +69,8 @@ def get_events():
                 organizer_name=r.organizer_name,
                 datetime = r.datetime,
                 Area=r.Area,
-                description=r.description
+                description=r.description,
+                numberOfCommentsInFeed = numberOfComments
             )
             events.append(t)
         else:

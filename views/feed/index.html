@@ -47,13 +47,13 @@
         <a class="btn rounded buttonInfo" @click = "likeFeed(feed.id)">
           <i class="fa fa-heart" style="color:red;"></i>
           <div class = "feedText"  style="padding: 3px 2px; line-height: 1px; font-size:13px; font-family: Montserrat; display:inline-block !important; margin-right:1px;">
-            Like
+            Like (${feed.numberOfLikesInFeed})
           </div>
         </a>
         <a class="btn rounded buttonInfo" @click = "comment_memo_button(feed.id)">
           <i class="fa fa-comment"></i>
           <div class = "feedText" style="padding: 3px 2px; line-height: 1px; font-size:13px; font-family: Montserrat; display:inline-block !important; margin-right:1px;">
-            Comment
+            Comment (${feed.numberOfCommentsInFeed})
           </div>
         </a>
       </div>
@@ -61,13 +61,13 @@
         <a class="btn rounded buttonInfo " @click = "likeFeed(feed.id)">
         <i class="fa fa-heart"></i>
         <div class = "feedText" style="padding: 3px 2px; line-height: 1px; font-size:13px; font-family: Montserrat; display:inline-block !important; margin-right:1px;">
-          Like
+          Like (${feed.numberOfLikesInFeed})
         </div>
         </a>
         <a class="btn rounded buttonInfo" @click = "comment_memo_button(feed.id)">
           <i class="fa fa-comment"></i>
           <div class = "feedText"  style="padding: 3px 2px; line-height: 1px; font-size:13px; font-family: Montserrat; display:inline-block !important; margin-right:1px;">
-            Comment
+            Comment (${feed.numberOfCommentsInFeed})
           </div>
         </a>
       </div>
