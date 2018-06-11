@@ -71,27 +71,19 @@
           </div>
         </a>
       </div>
-
-
-
     </div>
     </div>
-
-
-    <div class="feedCell" v-if = "is_commenting && selected_feed_id == feed.id" style="overflow:auto;height:100px;border-radius: 0px 0px 18px 18px ;margin-right: 5%;float:right; width:74%; background-color:#E8EEF2; margin-top: -2%;">
-      <div class = "listview" style = "height:90px;overflow-y:scroll;">
-        <div v-for = "row in comments" style = "position:relative;border-radius: 48px 48px 48px 48px;border:1px solid grey;padding-top:4px;padding-bottom:7px;padding-left:7px;height:40px"><img :src = "row.pictureOfCommenter" width="auto" height = "35px" style = "border-radius:50%;padding-left:5px;display:inline-block;">
-          <div style= "position:absolute;margin-top:12px;margin-left:12px;display:inline-block;color:black;">
+    <div class="feedCell" v-if = "is_commenting && selected_feed_id == feed.id" style="height:135px;border-radius: 0px 0px 18px 18px ;margin-right: 5%;float:right; width:74%; background-color:#E8EEF2; margin-top: -2%;">
+      <div class = "listview" style = "height:100px;overflow-y:scroll;">
+        <div v-for = "row in comments" style = "position:relative;border-top:1px solid grey;padding-top:4px;padding-bottom:7px;padding-left:7px;height:40px"><img :src = "row.pictureOfCommenter" width="auto" height = "35px" style = "border-radius:50%;padding-left:5px;display:inline-block;margin-top:-2px;">
+          <div style= "position:absolute;margin-top:6px;margin-left:10px;display:inline-block;color:black;">
             <span>${row.nameOfCommenter}:</span>
             <span>${row.commentText}</span>
           </div>
       </div>
       </div>
-        <div style = "width:100%;bottom:10px;"><input type = "text" v-model = "comment" placeholder="Add a comment!" style = "width:90%;border-radius:24px;"></input><button style = "width=10;" @click = "push_comment(feed.id)">Submit</button></div>
+        <div style = "float:right;width:95%;bottom:0;"><input type = "text" v-model = "comment" placeholder="Add a comment!" style = "width:90%;border-radius:24px 0px 0px 24px;"></input><button style = "width=10;" @click = "push_comment(feed.id)">Submit</button></div>
     </div>
-
-
-
   </div>
 </div>
 <style>

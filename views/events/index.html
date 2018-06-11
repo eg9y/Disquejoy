@@ -24,6 +24,16 @@
 
 <style>
 @import url('https://fonts.googleapis.com/css?family=Varela+Round');
+@import "https://fonts.googleapis.com/css?family=Montserrat:400,700|Raleway:300,400";
+
+#title {
+  font-weight: bold;
+  font-family: Montserrat;
+  color: white;
+  font-size: 55px;
+  margin-top:5px;
+  margin-left: 20%;
+}
 
 .events {
   width:70%;
@@ -160,10 +170,11 @@
 
 </script>
 <body>
+<div id="title">Events</div>
  <div v-cloak id = "container" class = "compressible">
-  <div class="events" v-if="eventsArr.length == 0">
-    <h1>There are no events! Add one by clicking the link at the bottom right</h1>
-  </div>
+   <div v-if="eventsArr.length == 0">
+     <div style = "font-family:Montserrat;color:white;margin-left:250px;margin-top:50px;font-size:20px;">There are no events! Add one by clicking the link at the bottom right</div>
+   </div>
   <div v-cloak v-for = "event in eventsArr">
     <div class = "events compressible" style = "">
       <div class = "gifpic"><img :src="event.GIF" alt="" style="width:155px;height:155px"></div>
