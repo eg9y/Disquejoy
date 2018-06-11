@@ -25,48 +25,56 @@ var get_token_access_url = "{{=URL('api', 'get_token_client', user_signature=Tru
 </head>
 <div class="main_content">
     <div id="title">Songs</div>
-    <table id="songs" v-cloak class="table table-hover" box="frame">
+    <h1 v-if="musicAr.length>0">There are currently no songs!</h1>
+    <table v-if="musicAr.length!=0" id="songs" v-cloak class="table table-hover" box="frame">
         <thead>
-        <tr style = "background:none !important;width: 50px;">
-            <th style = "visibility:hidden;border-bottom:3px solid white;">Play</th>
-            <th v-for="col in columns" v-on:click="sortTable(col)" style = "color:white;border-bottom:3px solid white;background:none !important; width: 20px;">
-                ${col}
-            </th>
-        </tr>
+            <tr style="background:none !important;width: 50px;">
+                <th style="visibility:hidden;border-bottom:3px solid white;">Play</th>
+                <th v-for="col in columns" v-on:click="sortTable(col)" style="color:white;border-bottom:3px solid white;background:none !important; width: 20px;">
+                    ${col}
+                </th>
+            </tr>
         </thead>
         <div v-if="tracks is not None">
-          <tbody>
-            <tr class = "trackRow" v-for="(track, i) in musicAr">
-
-                <td class="trackRow">
-                  <div v-if="!notPlaying && currentURI == track.spotify_uri"><a @click="play_track(track.spotify_uri)" ><img src = "../static/images/Pause.png" id="play_button" width="45px" height="45px"> </a></div>
-                  <div v-else><a @click="play_track(track.spotify_uri)"><img src = "../static/images/Play.png" id="play_button" width="40px" height="auto"> </a></div>
-                  <!--  ${track.artist} -->
-                </td>
-                <td class="trackRow">${track.title}</td>
-                <td class="trackRow">${track.artist}</td>
-                <td class="trackRow" @click="increment(track.id)">
-                    ${track.upvotes}
-                </td>
-                <td>
-                  ${track.rating}
-                </td>
-                <td id="trash">
-                    <a class="btn rounded red" @click="delete_track(track.id)">
-                        <i class="fa fa-trash fa-lg"></i>
-                    </a>
-                </td>
-            </tr>
-          </tbody>
+            <tbody>
+                <tr class="trackRow" v-for="(track, i) in musicAr">
+    
+                    <td class="trackRow">
+                        <div v-if="!notPlaying && currentURI == track.spotify_uri">
+                            <a @click="play_track(track.spotify_uri)">
+                                <img src="../static/images/Pause.png" id="play_button" width="45px" height="45px"> </a>
+                        </div>
+                        <div v-else>
+                            <a @click="play_track(track.spotify_uri)">
+                                <img src="../static/images/Play.png" id="play_button" width="40px" height="auto"> </a>
+                        </div>
+                        <!--  ${track.artist} -->
+                    </td>
+                    <td class="trackRow">${track.title}</td>
+                    <td class="trackRow">${track.artist}</td>
+                    <td class="trackRow" @click="increment(track.id)">
+                        ${track.upvotes}
+                    </td>
+                    <td>
+                        ${track.rating}
+                    </td>
+                    <td id="trash">
+                        <a class="btn rounded red" @click="delete_track(track.id)">
+                            <i class="fa fa-trash fa-lg"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
         </div>
-
+    
     </table>
     <div id="buttonContainer" style="width:100%;text-align:center;display:inline-block;">
-
+    
         <a href="#" class="paginate" id="previous">Previous</a> |
         <a href="#" class="paginate" id="next">Next</a>
         <a href='{{=URL("disquejoy","api","upload")}}'>
-            <button class="buttonAdd w3-button w3-xlarge w3-circle w3-teal" style="right: 30;margin-left: auto;bottom: 30;z-index: 100;position: fixed;width: 50px;height: 50px;background: #26a69a;-moz-border-radius: 25px;-webkit-border-radius: 25px;border-radius: 50px;"><i class = "fa fa-plus fa-lg"></i>
+            <button class="buttonAdd w3-button w3-xlarge w3-circle w3-teal" style="right: 30;margin-left: auto;bottom: 30;z-index: 100;position: fixed;width: 50px;height: 50px;background: #26a69a;-moz-border-radius: 25px;-webkit-border-radius: 25px;border-radius: 50px;">
+                <i class="fa fa-plus fa-lg"></i>
             </button>
         </a>
     </div>

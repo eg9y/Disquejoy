@@ -26,9 +26,7 @@ def index():
                     username=results["id"], email=None)
         return dict(auth_url=None, results=results, access_token=access_token, spotify_user = spotify_user)
     else:
-        auth_url = sp_oauth.get_authorize_url()
-        htmlLoginButton = "<a href='" + auth_url + "'>Login to Spotify</a>"
-        return dict(auth_url=auth_url, results=None, access_token=None)
+        redirect(URL('api', 'index', vars=dict(msg='You must login to view your profiles!')))
 
 def login(sp_oauth):
     access_token = ""

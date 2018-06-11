@@ -57,8 +57,10 @@ def index():
                     username=results["id"], email=None, image = "http://www.psi.toronto.edu/images/people/profile-default.jpg")
         return dict(auth_url=None, results=results, access_token=access_token)
     else:
+        msg = request.vars.msg
         auth_url = sp_oauth.get_authorize_url()
         htmlLoginButton = "<a href='" + auth_url + "'>Login to Spotify</a>"
+        response.flash=msg
         return dict(auth_url=auth_url, results=None, access_token=None)
 
 
