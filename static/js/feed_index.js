@@ -77,6 +77,7 @@ var app = function () {
 
   self.comment_memo_button = function (memo_idx) {
     // The button to edit a memo has been pressed.
+    console.log(memo_idx);
     var index = 0;
     for(var i = 0;i<self.vue.feedArr.length;i++) {
       if(self.vue.feedArr[i].id == memo_idx) {

@@ -66,7 +66,26 @@ def index():
     return dict();
 
 def retrieveFeed():
-    feed = db().select(db.feed_info.ALL);
+    feed = []
+    feedDB = db().select(db.feed_info.ALL);
+    for i, r in enumerate(feedDB):
+        numberOfComments = db(db.commentFeed.id_comment_belongs_to == r.id).count()
+        numberOfLikes = db(db.feed_upvotes.id_of_feed == r.id).count()
+        t = dict(
+            id = r.id,
+            feed_type = r.feed_type,
+            user_id_active = r.user_id_active,
+            user_name_active = r.user_name_active,
+            user_id_passive = r.user_id_passive,
+            title = r.title,
+            user_name_passive = r.user_name_passive,
+            song = r.song,
+            song_picture = r.song_picture,
+            profilePicture = r.profilePicture,
+            numberOfCommentsInFeed = numberOfComments,
+            numberOfLikesInFeed = numberOfLikes
+        )
+        feed.append(t)
     return response.json(dict(feed=feed));
 
 def getComments():
