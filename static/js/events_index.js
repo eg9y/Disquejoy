@@ -26,7 +26,14 @@
 
     self.delete_member = function(id, user, idofelem) {
       $.post(deleteMember, {id:id, user:user}, function() {
+        for(var i = 0;i<self.vue.eventsArr.length;i++) {
+          if(parseInt(self.vue.eventsArr[i].id) == id) {
+            break;
+          }
+        }
         self.vue.rows_of_members = self.vue.rows_of_members.filter(e => (e.id != idofelem));
+        self.vue.eventsArr[i].numberOfMembers = self.vue.eventsArr[i].numberOfMembers - 1;
+
       })};
 
       self.get_memos = function () {
@@ -250,6 +257,7 @@
             break;
           }
         }
+        self.vue.eventsArr[i].numberOfMembers = self.vue.eventsArr[i].numberOfMembers + 1;
         self.vue.eventsArr[i].is_member_not_organizer = !self.vue.eventsArr[i].is_member_not_organizer;
         console.log(self.vue.eventsArr);
       })

@@ -188,14 +188,14 @@
       <a class="btn rounded buttonInfo" style="margin-left:10px;" @click = "select_event_to_display_members(event.id)">
         <i class="fa fa-users" style="font-size: 15;"></i>
         <div class = "feedText"  style="padding: 3px 2px; line-height: 1px; font-size:13px; font-family: Montserrat; display:inline-block !important; margin-right:1px;">
-          Members
+          Members(${event.numberOfMembers})
         </div>
       </a>
 
       <a class="btn rounded buttonInfo" style="margin-left:2px;" @click = "comment_memo_button(event.id)">
         <i class="fa fa-comment" style="font-size: 15;"></i>
         <div class = "feedText"  style="padding: 3px 2px; line-height: 1px; font-size:13px; font-family: Montserrat; display:inline-block !important; margin-right:1px;">
-          Comment(${event.numberOfCommentsInFeed})
+          Comment(${event.numberOfComments})
         </div>
       </a>
 
@@ -272,7 +272,7 @@
   </div>
     <div v-if = "is_viewing_members && selected_id_to_display_members == event.id" style = "display:block;width:70%;margin-right:7%;padding-top:1%;padding-left:1%;padding-right:1%;margin-top:2px;margin-left:22%;height:100px;overflow-y:scroll;background-color:#363E45;border-radius:12px;">
       <div v-if = "id_of_current_user == event.organizer_id" >
-        <div v-for = "row in rows_of_members" style = "position:relative;border-radius: 48px 48px 48px 48px;border:1px solid grey;padding-top:7px;padding-bottom:7px;padding-left:7px;height:70px"><img :src = "row.profilePicture" width="50px" height = "auto" style = "border-radius:50%;padding-left:5px;display:inline-block;margin-top: 4px"><div style = "position:absolute;margin-top:16px;padding-left:3px;color:white;display:inline-block;">${row.member_name}</div><button v-if = "id_of_current_user != row.member_id" type="button" class="btn btn-danger" style = "float:right;margin-bottom:3px;" @click = "delete_member(row.id_of_event, row.member_id, row.id)">Delete</button>
+        <div v-for = "row in rows_of_members" style = "position:relative;border-radius: 48px 48px 48px 48px;border:1px solid grey;padding-top:7px;padding-bottom:7px;padding-left:7px;height:70px"><img :src = "row.profilePicture" width="50px" height = "auto" style = "border-radius:50%;padding-left:5px;display:inline-block;margin-top: 4px"><div style = "position:absolute;margin-top:16px;padding-left:3px;color:white;display:inline-block;">${row.member_name}</div><button v-if = "id_of_current_user != row.member_id" type="button" class="btn btn-danger" style = "float:right;margin-bottom:3px;margin-top: 12px;" @click = "delete_member(row.id_of_event, row.member_id, row.id)">Delete</button>
         <button v-if = "id_of_current_user == row.member_id" type="button" disabled class="btn btn-danger" style = "float:right;margin-top:15px;">Admin</button></div>
       </div>
       <div v-if = "id_of_current_user != event.organizer_id">
