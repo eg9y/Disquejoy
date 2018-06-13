@@ -28,19 +28,21 @@ def index():
     else:
         redirect(URL('api', 'index', vars=dict(msg='You must login to view your profiles!')))
 
-def login(sp_oauth):
-    access_token = ""
-    token_info = sp_oauth.get_cached_token()
 
-    access_token = None
-    if token_info:
-        access_token = token_info['access_token']
+def login():
+    sp_oauth = getauth()
+    access_token = ""
+    if session.userinfo:
+        print "IM IN BITCH"
+        print session
+        access_token = session.userinfo
     else:
         code = request.vars.code
         if code:
-            token_info = sp_oauth.get_access_token(code)
-            access_token = token_info['access_token']
+            access_token = sp_oauth.get_access_token(code)['access_token']
+            session.userinfo = access_token
     return access_token
+
 
 def profileInfo():
     sp_oauth = getAuth()

@@ -57,20 +57,21 @@ def getAuth():
         SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET, SPOTIPY_REDIRECT_URI, scope=SCOPE, cache_path=CACHE)
     return sp_oauth
 
-def login():
-    sp_oauth = getAuth()
-    access_token = ""
-    token_info = sp_oauth.get_cached_token()
 
-    access_token = None
-    if token_info:
-        access_token = token_info['access_token']
+def login():
+    sp_oauth = getauth()
+    access_token = ""
+    if session.userinfo:
+        print "IM IN BITCH"
+        print session
+        access_token = session.userinfo
     else:
         code = request.vars.code
         if code:
-            token_info = sp_oauth.get_access_token(code)
-            access_token = token_info['access_token']
+            access_token = sp_oauth.get_access_token(code)['access_token']
+            session.userinfo = access_token
     return access_token
+
 
 def updateUpvote():
     row = db(db.track.id == request.vars.id).select().first()
