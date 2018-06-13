@@ -25,7 +25,7 @@ var get_token_access_url = "{{=URL('api', 'get_token_client', user_signature=Tru
 </head>
 <div class="main_content">
     <div id="title">Songs</div>
-    <h1 v-if="musicAr.length>0">There are currently no songs!</h1>
+    <div v-if="musicAr.length==0">There are currently no songs!</div>
     <table v-if="musicAr.length!=0" id="songs" v-cloak class="table table-hover" box="frame">
         <thead>
             <tr style="background:none !important;width: 50px;">
