@@ -9,4 +9,5 @@ uploads/*
 .sass-cache/*
 
 /controllers/.env
+/controllers/2.env
 

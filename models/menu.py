@@ -49,7 +49,7 @@ def _():
     # useful links to internal and external resources
     # ------------------------------------------------------------------------------------------------------------------
     response.menu += [
-        (T('Tracks'), False, 'http://127.0.0.1:3000/disquejoy/api', [])
+        (T('Tracks'), False, 'http://127.0.0.1:3000/Disquejoy/api', [])
     ]
 
 

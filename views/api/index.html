@@ -15,7 +15,7 @@
       <div class="feedCell" style="border-radius: 18px; margin-top: 3%;margin-right: 5%;float:right; width:74%; background-color:#E8EEF2; padding-top: 2%; padding-bottom: 1%; padding-left:2%">
           {{if results is not None:}}
           <div id="xx1" style="color: black;">You are logged in as {{=results["display_name"]}}</div>
-            <a class="btn rounded" href='{{=URL("disquejoy","api","logout")}}' style="font-family: Montserrat; font-weight:600;margin-left: 44%; margin-top: 2%; background-color: #60E18B; color: #000000;">
+            <a class="btn rounded" href='{{=URL("Disquejoy","api","logout")}}' style="font-family: Montserrat; font-weight:600;margin-left: 44%; margin-top: 2%; background-color: #60E18B; color: #000000;">
               Log out
             </a>
           {{else:}}

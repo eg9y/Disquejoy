@@ -18,20 +18,40 @@ def getauth():
         SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET, SPOTIPY_REDIRECT_URI, scope=SCOPE, cache_path=CACHE)
     return sp_oauth
 
+
 def login():
     sp_oauth = getauth()
     access_token = ""
-    token_info = sp_oauth.get_cached_token()
-
-    access_token = None
-    if token_info:
-        access_token = token_info['access_token']
+    if session.userinfo:
+        print "IM IN BITCH"
+        print session
+        access_token = session.userinfo
     else:
         code = request.vars.code
         if code:
-            token_info = sp_oauth.get_access_token(code)
-            access_token = token_info['access_token']
+            access_token = sp_oauth.get_access_token(code)['access_token']
+            session.userinfo = access_token
     return access_token
+
+
+def get_token_client():
+    access_token = login()
+    return response.json(dict(access_token=access_token))
+
+# def login():
+#     sp_oauth = getauth()
+#     access_token = ""
+#     token_info = sp_oauth.get_cached_token()
+
+#     access_token = None
+#     if token_info:
+#         access_token = token_info['access_token']
+#     else:
+#         code = request.vars.code
+#         if code:
+#             token_info = sp_oauth.get_access_token(code)
+#             access_token = token_info['access_token']
+#     return access_token
 
 def get_token_client():
     access_token = login()
@@ -65,8 +85,11 @@ def index():
 
 
 def logout():
-    os.remove(".spotipyoauthcache")
-    redirect(URL('disquejoy', 'default', 'index'))
+    if os.path.isfile(".spotipyoauthcache"):
+        os.remove(".spotipyoauthcache")
+    print 'remove session'
+    session.renew(clear_session=True)
+    redirect(URL('Disquejoy', 'default', 'index'))
 
 
 def show_tracks(results):
